@@ -3,7 +3,10 @@ import Heading from "@/Components/Headings/Heading";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 import Image from "next/image";
-
+import SeizeTheMoment from "@/app/Public/SeizeMoment.jpeg";
+import GoForAGoodTime from "@/app/Public/GoodTime.jpeg";
+import Luxor from "@/app/Public/Luxor.jpg";
+import Cairo from "@/app/Public/Cairo.jpg";
 export default function Home() {
   return (
     <>
@@ -21,11 +24,66 @@ export default function Home() {
       </section>
       {/* offers section */}
       <section className="py-8 sm:py-16">
-        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
           <Heading
             title="Offers"
             description="Promotions, deals and special offers for you"
           />
+        </div>
+        <div class="flex space-x-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          {/* Left card */}
+          <div
+            class="bg-white shadow-lg rounded-lg overflow-hidden w-1/2"
+            style={{
+              backgroundImage: `url(${SeizeTheMoment.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div class="p-6">
+              <h2 class="text-xl text-white font-bold mb-2">
+                Seize the moment
+              </h2>
+              <p class="text-white mb-4 text-sm">
+                Save 15% or more when you book and stay before 1 October <br />{" "}
+                2024
+              </p>
+              <button
+                href="#"
+                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-semibold"
+              >
+                Find Getaway Deals
+              </button>
+            </div>
+          </div>
+
+          {/* Right card */}
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden w-1/2 flex justify-between">
+            <div class="p-6 ">
+              <h2 class="text-xl font-bold mb-2">
+                Go for a good time, not a long time
+              </h2>
+              <p class="text-gray-700 mb-4 text-sm">
+                Finish your year with a mini break. Save 15% or more when you
+                book and stay by 7 January 2025.
+              </p>
+              <button
+                href="#"
+                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-semibold"
+              >
+                Find Late Escape Deals
+              </button>
+            </div>
+            <div className="flex justify-center items-center pe-5">
+              <Image
+                src={GoForAGoodTime}
+                alt="Go for a good time"
+                className="rounded-lg"
+                width={250}
+                height={250}
+              />
+            </div>
+          </div>
         </div>
       </section>
       {/* destinations section */}
@@ -35,6 +93,48 @@ export default function Home() {
             title="Trending destinations"
             description="Travellers searching for Egypt also booked these"
           />
+        </div>
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          {/* <!-- Luxor Card --> */}
+          <div
+            class="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
+            style={{
+              backgroundImage: `url(${Luxor.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div class="absolute top-0 left-0 text-white p-3 text-2xl z-10">
+              <h3 class="font-bold text-stroke">Luxor</h3>
+            </div>
+          </div>
+          {/* <!-- Cairo Card --> */}
+          <div
+            class="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
+            style={{
+              backgroundImage: `url(${Cairo.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div class="absolute top-0 left-0 text-white p-3 text-2xl z-10">
+              <h3 class="font-bold text-stroke">Cairo</h3>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          <div
+            class="bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card"
+            style={{
+              backgroundImage: `url(${Luxor.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div class="absolute top-0 left-0 text-white p-3 text-2xl z-10">
+              <h3 class="font-bold text-stroke">Luxor</h3>
+            </div>
+          </div>
         </div>
       </section>
       {/* explore section */}
