@@ -6,117 +6,19 @@ import KayakLogo from "@/app/Public/KayakLogo.svg";
 import OpenLogo from "@/app/Public/OpenLogo.svg";
 import BookingLogo from "@/app/Public/BookingLogo.svg";
 import React from "react";
+import {
+  supportLinks,
+  discoverLinks,
+  termsLinks,
+  partnerLinks,
+  aboutLinks,
+} from "@/Static/footer";
 
-const footerLinks = [
-  "Countries",
-  "Regions",
-  "Cities",
-  "Districts",
-  "Airports",
-  "Hotels",
-  "Places of interest",
-  "Vacation Homes",
-  "Apartments",
-  "Resorts",
-  "Villas",
-  "Hostels",
-  "B&Bs",
-  "Guest Houses",
-  "Unique places to stay",
-  "All destinations",
-];
-const additionalLinks = [
-  "All flight destinations",
-  "All car rental locations",
-  "All vacation destinations",
-  "Discover",
-  "Reviews",
-  "Discover monthly stays",
-];
-const supportLinks = [
-  "Coronavirus (COVID-19)",
-  "FAQs",
-  "Manage your trips",
-  "Contact Customer Service",
-  "Safety Resource Center",
-];
-const discoverLinks = [
-  "Genius loyalty program",
-  "Seasonal and holiday deals",
-  "Travel articles",
-  "Booking.com for Business",
-  "Traveller Review Awards",
-  "Car rental",
-  "Flight finder",
-  "Restaurant reservations",
-  "Booking.com for Travel Agents",
-];
-const termsLinks = [
-  "Privacy & cookies",
-  "Terms & conditions",
-  "Partner dispute",
-  "Modern Slavery Statement",
-  "Human Rights Statement",
-];
-const partnerLinks = [
-  "Extranet login",
-  "Partner help",
-  "List your property",
-  "Become an affiliate",
-];
-const aboutLinks = [
-  "About Booking.com",
-  "How We Work",
-  "Sustainability",
-  "Press center",
-  "Careers",
-  "Investor relations",
-  "Corporate contact",
-];
 function Footer() {
   return (
     <>
-      {/* Mobile version */}
-      <div className=" pt-8 pb-4 text-xs flex flex-col items-start justify-center mx-4 sm:mx-8 md:hidden px-4">
-        {[
-          footerLinks.slice(0, footerLinks.length / 4),
-          footerLinks.slice(footerLinks.length / 4, footerLinks.length / 2),
-          footerLinks.slice(
-            footerLinks.length / 2,
-            (3 * footerLinks.length) / 4
-          ),
-          [
-            ...footerLinks.slice((3 * footerLinks.length) / 4),
-            ...additionalLinks,
-          ],
-        ].map((linkGroup, groupIndex) => (
-          <p key={groupIndex} className="mb-2">
-            {linkGroup.map((link, index) => (
-              <React.Fragment key={index}>
-                <span className="text-gray-600 hover:underline">{link}</span>
-                {index < linkGroup.length - 1 && <span> &middot; </span>}
-              </React.Fragment>
-            ))}
-          </p>
-        ))}
-      </div>
-
-      {/* Desktop version */}
-      <div className="hidden md:block  pt-8 pb-4 text-xs mx-16 lg:mx-48 px-4">
-        <p className="mb-2">
-          {[...footerLinks, ...additionalLinks].map((link, index) => (
-            <React.Fragment key={index}>
-              <span className="text-gray-600 hover:underline">{link}</span>
-              {index < footerLinks.length + additionalLinks.length - 1 && (
-                <span> &middot; </span>
-              )}
-            </React.Fragment>
-          ))}
-        </p>
-      </div>
-
       <footer className="bg-gray-100 pt-8 pb-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           {/* Mobile accordion layout */}
           <div className="grid grid-cols-1 gap-8 md:hidden">
             {[
