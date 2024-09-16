@@ -94,3 +94,12 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #1a4fa0;
 }
+
+input::placeholder {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+input:focus::placeholder {
+  color: #737373;
+}

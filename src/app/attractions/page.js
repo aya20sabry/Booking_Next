@@ -11,6 +11,7 @@ import { features } from "@/Static/icons";
 import { useState } from "react";
 import AttractionCard from "@/Components/Cards/AttractionCard";
 import { regions } from "@/Static/Arrays";
+import AttractionSearch from "@/Components/searchBar/AttractionSearch";
 function Attractions() {
   const [activeRegion, setActiveRegion] = useState("Europe");
   return (
@@ -21,6 +22,9 @@ function Attractions() {
         title="Attractions, activities, and experiences"
         description="Discover new attractions and experiences to match your interests and travel style"
       />
+      <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
+        <AttractionSearch />
+      </div>
       <section className="py-8 sm:py-20">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading title="Nearby destinations" />

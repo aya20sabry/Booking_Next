@@ -12,7 +12,6 @@ import Hotels from "@/app/Public/Browse/Hotels.jpeg";
 import Apartments from "@/app/Public/Browse/Apartments.jpeg";
 import Villas from "@/app/Public/Browse/Villas.jpeg";
 import Resorts from "@/app/Public/Browse/Resorts.jpeg";
-import Guesthouses from "@/app/Public/Browse/Guesthouses.jpeg";
 import Hostels from "@/app/Public/Browse/Hostels.jpeg";
 import Motels from "@/app/Public/Browse/Motels.jpeg";
 import BnBs from "@/app/Public/Browse/BnBs.jpeg";

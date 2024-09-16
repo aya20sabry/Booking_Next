@@ -1,7 +1,7 @@
 function Main({ title, description }) {
   return (
     <>
-      <section className="mainColor py-4 sm:py-10">
+      <section className="mainColor   py-16">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white BodyFont">
             {title}

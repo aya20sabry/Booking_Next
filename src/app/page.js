@@ -28,6 +28,7 @@ import { BrowseImagesMap } from "@/Static/images";
 import EndLinks from "@/Components/Footer/endLinks";
 import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
+import SearchBar from "@/Components/searchBar/searchBar";
 
 export default function Home() {
   return (
@@ -38,6 +39,9 @@ export default function Home() {
         title="Find your next stay"
         description="Search deals on hotels, homes, and much more..."
       />
+      <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
+        <SearchBar />
+      </div>
       {/* offers section */}
       <section className="py-8 sm:py-20">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
