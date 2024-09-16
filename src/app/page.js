@@ -333,7 +333,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
               <div className="absolute bottom-0 left-0 right-0 p-5 text-white z-10">
                 <h3 className="font-bold text-lg">
-                  New Year's Eve in New York City
+                  {"New Year's Eve in New York City"}
                 </h3>
                 <p className="text-sm mt-2">
                   Ring in the new year with iconic moments and unforgettable
@@ -381,8 +381,9 @@ export default function Home() {
                     7 best places in Asia to celebrate Christmas
                   </h3>
                   <p className="text-gray-600 text-sm mt-2">
-                    Discover the shimmering lights and festive sights of Asia's
-                    holiday season.
+                    {
+                      " Discover the shimmering lights and festive sights of Asia's holiday season."
+                    }
                   </p>
                 </div>
               </div>

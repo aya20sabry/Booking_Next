@@ -85,7 +85,7 @@ function Attractions() {
       <section className="pt-2 pb-4    px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
         <div className="border border-gray-200 p-4 mt-4 rounded-lg">
           <h3 className="text-sm font-semibold text-gray-800 mb-2">
-            Tell us how we're doing and where we can improve
+            {"Tell us how we are doing and where we can improve"}
           </h3>
           <a
             href="#"
