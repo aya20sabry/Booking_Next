@@ -55,7 +55,6 @@ export const BrowseImagesMap = {
   Apartments: Apartments,
   Villas: Villas,
   Resorts: Resorts,
-  "Guest Houses": Guesthouses,
   Hostels: Hostels,
   Motels: Motels,
   "B&Bs": BnBs,
