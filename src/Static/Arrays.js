@@ -72,11 +72,7 @@ export const PropertyType = [
     date: "15 Oct-22 Oct, 2 adults",
     description: "16 available",
   },
-  {
-    name: "Guest Houses",
-    date: "15 Oct-22 Oct, 2 adults",
-    description: "17 available",
-  },
+  
   {
     name: "Hostels",
     date: "15 Oct-22 Oct, 2 adults",
