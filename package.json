@@ -10,7 +10,6 @@
     "build:css": "tailwindcss build src/app/globals.css -o public/styles.css"
   },
   "dependencies": {
-    "flowbite-react": "^0.10.1",
     "framer-motion": "^11.5.4",
     "next": "14.2.9",
     "react": "^18",

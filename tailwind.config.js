@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const flowbite = require("flowbite-react/tailwind");
 
 module.exports = {
   darkMode: "class",
@@ -9,7 +8,6 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
-    flowbite.content(),
   ],
   theme: {
     extend: {
@@ -19,5 +17,5 @@ module.exports = {
       },
     },
   },
-  plugins: [flowbite.plugin()],
+  plugins: [],
 };

@@ -1,18 +1,28 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { IoBedOutline } from "react-icons/io5";
-import { LuCalendarDays } from "react-icons/lu";
-import { LuUser2 } from "react-icons/lu";
+import { IoLocationOutline } from "react-icons/io5";
+import Datepicker from "react-tailwindcss-datepicker";
 
 const SearchBar = () => {
   const [destination, setDestination] = useState("");
-  const [dateRange, setDateRange] = useState("Select your dates");
-  const [guestInfo, setGuestInfo] = useState("2 adults · 0 children · 1 room");
+  const [allSuggestions] = useState([
+    "Hurghada,EG",
+    "Cairo, EG",
+    "Alexandria, EG",
+    "Giza, EG",
+    "Dahab, EG",
+  ]);
+  const [filteredSuggestions, setFilteredSuggestions] =
+    useState(allSuggestions);
   const [openSection, setOpenSection] = useState(null);
+  const [value, setValue] = useState({
+    startDate: null,
+    endDate: null,
+  });
 
   const destinationRef = useRef(null);
   const calendarRef = useRef(null);
-  const guestInfoRef = useRef(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -21,8 +31,7 @@ const SearchBar = () => {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target) &&
         !destinationRef.current.contains(event.target) &&
-        !calendarRef.current.contains(event.target) &&
-        !guestInfoRef.current.contains(event.target)
+        !calendarRef.current.contains(event.target)
       ) {
         setOpenSection(null);
       }
@@ -39,23 +48,46 @@ const SearchBar = () => {
       const activeRef = {
         destination: destinationRef,
         calendar: calendarRef,
-        guests: guestInfoRef,
       }[openSection];
 
       if (activeRef.current) {
         const rect = activeRef.current.getBoundingClientRect();
         dropdownRef.current.style.width = `${rect.width}px`;
         dropdownRef.current.style.left = `${rect.left}px`;
+        dropdownRef.current.style.top = `${rect.bottom + window.scrollY}px`;
       }
     }
   }, [openSection]);
 
   const handleSearch = () => {
-    console.log("Searching for:", { destination, dateRange, guestInfo });
+    console.log("Searching for:", { destination, dateRange: value });
   };
 
   const handleSectionClick = (section) => {
     setOpenSection(section === openSection ? null : section);
+  };
+
+  const handleDestinationChange = (e) => {
+    const inputValue = e.target.value;
+    setDestination(inputValue);
+
+    if (inputValue.trim() === "") {
+      setFilteredSuggestions(allSuggestions);
+    } else {
+      const filtered = allSuggestions.filter((suggestion) =>
+        suggestion.toLowerCase().includes(inputValue.toLowerCase())
+      );
+      setFilteredSuggestions(filtered);
+    }
+
+    if (openSection !== "destination") {
+      setOpenSection("destination");
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setDestination(suggestion);
+    setOpenSection(null);
   };
 
   return (
@@ -63,42 +95,59 @@ const SearchBar = () => {
       <div className="flex flex-col sm:flex-row">
         <div
           ref={destinationRef}
-          className="flex-grow flex items-center px-4 py-2 border-4 rounded-lg border-yellow-400 bg-white cursor-pointer lg:-me-4"
+          className="flex-grow flex items-center px-4 py-2 border-4 rounded-lg border-yellow-300 bg-white cursor-pointer lg:-me-4 relative"
           onClick={() => handleSectionClick("destination")}
         >
           <IoBedOutline className="h-8 w-8 text-gray-600 mr-2" />
           <input
             type="text"
             placeholder="Where are you going?"
-            className="w-full outline-none text-gray-700 text-sm"
+            className="w-full outline-none text-gray-700 text-sm border-none"
             value={destination}
-            onChange={(e) => setDestination(e.target.value)}
+            onChange={handleDestinationChange}
+            onFocus={() => setOpenSection("destination")}
           />
         </div>
         <div
           ref={calendarRef}
-          className="flex-grow flex items-center px-4 py-2 border-4 rounded-lg border-yellow-400 bg-white cursor-pointer lg:-me-4"
+          className="flex-grow relative"
           onClick={() => handleSectionClick("calendar")}
         >
-          <LuCalendarDays className="h-6 w-6 text-gray-600 mr-2" />
-          <span className="text-black font-semibold text-sm">{dateRange}</span>
+          <Datepicker
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
+            placeholder="Select your dates"
+            popoverDirection="down"
+            showShortcuts={false}
+            inputClassName="w-full h-16 px-4 py-2 border-4 rounded-lg border-yellow-300 bg-white cursor-pointer text-sm font-semibold text-gray-700 outline-none ps-10"
+            toggleClassName="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
+          />
         </div>
         <button
-          className="bg-blue-600 text-white px-8 py-3 text-xl font-semibold border-4 rounded-lg border-yellow-400 hover:bg-blue-700 transition-colors"
+          className="bg-blue-600 text-white px-8 py-3 text-xl font-semibold border-4 rounded-lg border-yellow-300 hover:bg-blue-700 transition-colors lg:-ml-4"
           onClick={handleSearch}
         >
           Search
         </button>
       </div>
 
-      {openSection && (
+      {openSection === "destination" && (
         <div
           ref={dropdownRef}
-          className="p-4 bg-white shadow-lg z-10 border border-gray-200 rounded-lg absolute "
+          className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1"
         >
-          {openSection === "destination" && <p>Destination search options</p>}
-          {openSection === "calendar" && <p>Calendar options</p>}
-          {openSection === "guests" && <p>Guest selection options</p>}
+          <ul className="py-2">
+            {filteredSuggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                className="px-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                <IoLocationOutline className="inline-block text-black mr-2 text-3xl" />
+                {suggestion}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

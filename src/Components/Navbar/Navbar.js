@@ -12,10 +12,10 @@ function Navbar() {
           </Link>
 
           <div className="flex space-x-4">
-            <button className="mainColor hoverEffect  px-3 py-2 rounded">
+            <button className="mainColor navHover  px-3 py-2 rounded">
               EGP
             </button>
-            <button className="mainColor hoverEffect px-3 py-2 rounded">
+            <button className="mainColor navHover px-3 py-2 rounded">
               <Image
                 src={ENFlag}
                 className="rounded-full"
@@ -24,12 +24,12 @@ function Navbar() {
                 height={24}
               />
             </button>
-            <button className="mainColor hoverEffect px-3 py-2 rounded">
+            <button className="mainColor navHover px-3 py-2 rounded">
               {" "}
               <span className="infolink  "></span>
             </button>
 
-            <button className="mainColor hoverEffect px-3 py-2 rounded">
+            <button className="mainColor navHover px-3 py-2 rounded">
               List your property
             </button>
             <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
