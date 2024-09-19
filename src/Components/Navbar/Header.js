@@ -17,7 +17,7 @@ function Header() {
   };
 
   return (
-    <header className="mainColor text-white py-2 sm:py-4">
+    <header className="mainColor text-white pt-2 sm:pt-4 pb-2 sm:pb-8">
       <div className="flex flex-wrap justify-center sm:justify-start space-x-2 sm:space-x-4 px-2 sm:px-5 lg:mx-44 gri">
         <Link href="/">
           <button className={getButtonClass("/")}>
