@@ -1,4 +1,6 @@
 "use client";
+import GuestReviews from "@/Components/HotelPage/GuestReviews";
+import TravelersAsking from "@/Components/HotelPage/TravelersAsking";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 import SearchBar from "@/Components/searchBar/AttractionSearch";
@@ -20,7 +22,7 @@ function Hotel() {
       <div className="bg-gradient-to-b from-[#003B95] to-[#003B95] bg-no-repeat bg-[length:100%_50%]">
         <SearchBar />
       </div>
-      <div className=" mx-auto  py-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+      <section className=" mx-auto  py-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
         <div className="flex w-full overflow-x-auto pb-4 mb-6">
           {InfoTabs.map((Tab) => (
             <button
@@ -36,7 +38,14 @@ function Hotel() {
             </button>
           ))}
         </div>
-      </div>
+      </section>
+
+      <section className="container mx-auto  py-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        <GuestReviews />
+      </section>
+      <section className="container mx-auto  py-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        <TravelersAsking />
+      </section>
     </>
   );
 }
