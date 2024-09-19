@@ -15,7 +15,7 @@ function Cars() {
       />
 
       <SmFooter />
-      <p>h</p>
+     
     </>
   );
 }
