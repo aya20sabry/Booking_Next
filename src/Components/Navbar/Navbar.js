@@ -22,7 +22,7 @@ function Navbar() {
           {/* Desktop menu */}
           <div className="hidden md:flex space-x-4">
             <button className="mainColor navHover  px-3 py-2 rounded">
-              EGP
+              EG
             </button>
             <button className="mainColor navHover px-3 py-2 rounded">
               <Image
