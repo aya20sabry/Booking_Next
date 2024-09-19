@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
@@ -72,9 +73,11 @@ const HotelSearch = ({
             </div>
           </div>
           <div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">
-              Show prices
-            </button>
+            <Link href="/hotel">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">
+                Show prices
+              </button>
+            </Link>
           </div>
         </div>
       </div>
