@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import ENFlag from "@/app/Public/ENFlag.png";
-
+import { GiHamburgerMenu } from "react-icons/gi";
+import { FaRegUserCircle } from "react-icons/fa";
 function Navbar() {
   return (
     <>
