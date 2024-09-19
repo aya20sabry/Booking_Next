@@ -72,7 +72,7 @@ export const PropertyType = [
     date: "15 Oct-22 Oct, 2 adults",
     description: "16 available",
   },
-  
+
   {
     name: "Hostels",
     date: "15 Oct-22 Oct, 2 adults",
@@ -146,4 +146,47 @@ export const locations = [
   { name: "Tenerife", propertyCount: 9735 },
   { name: "Cornwall", propertyCount: 5459 },
   { name: "Ras Al Khaimah", propertyCount: 117 },
+];
+
+export const reviews = [
+  {
+    name: "محمد",
+    country: "Egypt",
+    content:
+      "Everyone is friendly and helpful especially the reception and Professor Mahmoud is very helpful",
+    translated: true,
+  },
+  {
+    name: "السحيلي",
+    country: "Egypt",
+    content:
+      "The place is very comfortable, the treatment is very good especially the reception and Mr. Mahmoud",
+    translated: true,
+  },
+  {
+    name: "Mahamat",
+    country: "Chad",
+    content: "I  really liked it, it's waooooooo. Very welcoming",
+    translated: true,
+  },
+];
+export const categories = [
+  { name: "Staff", score: 8.5 },
+  { name: "Facilities", score: 7.9 },
+  { name: "Cleanliness", score: 8.7 },
+  { name: "Comfort", score: 8.3 },
+  { name: "Value for money", score: 8.5 },
+  { name: "Location", score: 8.5 },
+];
+export const questions = [
+  "Do they serve breakfast?",
+  "Is there a restaurant?",
+  "Is the swimming pool open?",
+  "What restaurants and attractions options are nearby?",
+  "Is there a spa?",
+  "Can I bring my pet?",
+  "Can I park there?",
+  "How and when do I pay?",
+  "Are there rooms with a balcony?",
+  "Are there rooms with an ocean view?",
 ];
