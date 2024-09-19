@@ -43,7 +43,7 @@ export default function Home() {
         <SearchBar />
       </div>
       {/* offers section */}
-      <section className="py-8 sm:py-20">
+      <section className="py-8 sm:py-20 hidden lg:block">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
           <Heading
             title="Offers"
