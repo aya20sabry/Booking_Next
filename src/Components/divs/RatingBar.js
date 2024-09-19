@@ -1,4 +1,4 @@
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "@/Components/ui/progress";
 
 const RatingBar = ({ category, score }) => (
   <div className="mb-4 w-full">
