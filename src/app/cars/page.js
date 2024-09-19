@@ -8,12 +8,14 @@ function Cars() {
     <>
       <Navbar />
       <Header />
+
       <Main
         title="Car rentals for any kind of trip"
         description="Great cars at great prices from the biggest rental companies"
       />
 
       <SmFooter />
+      <p>h</p>
     </>
   );
 }
