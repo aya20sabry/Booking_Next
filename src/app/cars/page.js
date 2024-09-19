@@ -12,7 +12,8 @@ function Cars() {
         title="Car rentals for any kind of trip"
         description="Great cars at great prices from the biggest rental companies"
       />
-<p>aya</p>
+{/* <p>aya</p> */}
+
       <SmFooter />
     </>
   );
