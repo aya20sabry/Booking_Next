@@ -36,7 +36,7 @@ export default function Home() {
       <Navbar />
       <Header />
       <Main
-        title="Find your next stay"
+        title="Find your next stay "
         description="Search deals on hotels, homes, and much more..."
       />
       <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
