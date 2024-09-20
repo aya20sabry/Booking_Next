@@ -389,8 +389,9 @@ export default function List() {
                     'BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
                 }}
               >
-                “Booking.com is the most straightforward platform to work with.
-                Everything is clear, and it's easy.”
+                {
+                  "  “Booking.com is the most straightforward platform to work with. Everything is clear, and it's easy.”"
+                }
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 mr-4">
