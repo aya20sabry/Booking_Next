@@ -1,5 +1,5 @@
-// src/app/components/Navbar.js
-export default function Navbar() {
+
+export default function List() {
   return (
     <div>
       <header className="bg-blue-900 text-white p-4">
