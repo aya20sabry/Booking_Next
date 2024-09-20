@@ -37,10 +37,11 @@ function Navbar() {
               {" "}
               <span className="infolink  "></span>
             </button>
-
-            <button className="mainColor navHover px-3 py-2 rounded">
-              List your property
-            </button>
+            <Link href="/list">
+              <button className="mainColor navHover px-3 py-2 rounded">
+                List your property
+              </button>
+            </Link>
             <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
               Register
             </button>
