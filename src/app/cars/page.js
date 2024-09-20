@@ -1,27 +1,25 @@
 "use client";
-
 import { useState } from "react";
-
 import * as React from "react";
 import Image from "next/image";
 import "./page.css";
 import giza from "@/Public/car/giza.jpg";
-import giza8 from "@/public/car/giza8.jpg";
-import hurghada from "@/public/car/hurghada.jpg";
-import alex from "@/public/car/alex.jpg";
-import phot33 from "@/public/car/phot33.png";
-import phot333 from "@/public/car/phot333.png";
-import phot3333 from "@/public/car/phot3333.png";
-import phot1 from "@/public/car/phot1.png";
-import phot2 from "@/public/car/phot2.png";
-import phot3 from "@/public/car/phot3.png";
-import phot4 from "@/public/car/phot4.png";
-import phot5 from "@/public/car/phot5.png";
-import phot6 from "@/public/car/phot6.png";
-import phot7 from "@/public/car/phot7.png";
-import phot8 from "@/public/car/phot8.png";
-import phot9 from "@/public/car/phot9.png";
-import GeniusGenericGiftBox from "@/public/car/GeniusGenericGiftBox.png";
+import giza8 from "@/Public/car/giza8.jpg";
+import hurghada from "@/Public/car/hurghada.jpg";
+import alex from "@/Public/car/alex.jpg";
+import phot33 from "@/Public/car/phot33.png";
+import phot333 from "@/Public/car/phot333.png";
+import phot3333 from "@/Public/car/phot3333.png";
+import phot1 from "@/Public/car/phot1.png";
+import phot2 from "@/Public/car/phot2.png";
+import phot3 from "@/Public/car/phot3.png";
+import phot4 from "@/Public/car/phot4.png";
+import phot5 from "@/Public/car/phot5.png";
+import phot6 from "@/Public/car/phot6.png";
+import phot7 from "@/Public/car/phot7.png";
+import phot8 from "@/Public/car/phot8.png";
+import phot9 from "@/Public/car/phot9.png";
+import GeniusGenericGiftBox from "@/Public/car/GeniusGenericGiftBox.png";
 
 import {
   Accordion,
