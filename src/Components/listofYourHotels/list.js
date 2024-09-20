@@ -1,8 +1,57 @@
-// components/AdditionalSection.js
-import React from 'react';
-
-const List = () => {
+// src/app/components/Navbar.js
+export default function Navbar() {
   return (
+    <div>
+      <header className="bg-blue-900 text-white p-4">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* Left side - Booking.com Logo */}
+        <h1 className="text-2xl font-bold">Booking.com</h1>
+
+        {/* Right side - Partner info, Sign in, Help, Flag */}
+        <div className="flex items-center space-x-4">
+          {/* US Flag */}
+          <div className="w-6 h-6 rounded-full overflow-hidden">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" 
+              alt="US flag"
+            />
+          </div>
+
+          {/* Already a partner text */}
+          <span className="text-sm">Already a partner?</span>
+
+          {/* Sign in button */}
+          <button className="border border-white py-1 px-3 rounded text-sm hover:bg-white hover:text-blue-900 transition-colors">
+            Sign in
+          </button>
+
+          {/* Help button */}
+          <button className="bg-blue-500 text-white py-1 px-3 rounded text-sm hover:bg-blue-600 transition-colors">
+            Help
+          </button>
+        </div>
+      </div>
+    </header>
+    <div className="text-left text-white max-w-md">
+      <h1 className="text-4xl font-bold">
+        List <span className="text-blue-500">anything</span> on Booking.com
+      </h1>
+      <p className="mt-4 text-lg text-gray-300">
+        Whether hosting is your side passion or full-time job, list your home today and quickly start earning more income.
+      </p>
+    </div>
+    <div className="bg-white text-black p-6 rounded-lg shadow-lg w-80">
+      <h2 className="text-lg font-semibold mb-4">Register for free</h2>
+      <ul className="list-disc list-inside text-sm text-gray-700 mb-4">
+        <li>45% of hosts get their first booking within a week</li>
+        <li>Choose between instant bookings and booking requests</li>
+        <li>We handle payments for you</li>
+      </ul>
+      <button className="bg-blue-600 text-white py-2 px-4 rounded-lg w-full">Get started now</button>
+      <p className="mt-4 text-sm ">
+        Already started registration? <a href="#" className="underline"><br></br>Continue your registration</a>
+      </p>
+    </div>
     <div className="w-full">
       {/* Top Navigation Links */}
       <div className="flex space-x-8 bg-gray-100 py-4 px-8">
@@ -100,54 +149,40 @@ const List = () => {
           </div>
         </div>
       </div>
-      <div className="bg-green-500 text-white py-2 px-4 rounded-lg">
-        Join 29,279,209 other listings already on Booking.com
-      </div>
-      <section className="w-full bg-white text-black py-8">
-      <div className="px-4 max-w-6xl mx-auto">
-        {/* Heading */}
-        <h2 className="text-3xl font-bold mb-6">
-          Your questions answered
-        </h2>
+    </div>
+    <section className="py-12 bg-gray-100"> {/* Background color updated to gray */}
+      <div className="container mx-auto text-center">
+        <h2 className="text-3xl font-bold mb-8 text-black">Stand out from the start</h2>
+        <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
+          
+          {/* Import your reviews */}
+          <div className="flex flex-col items-center">
+            <Image src="/Review.png" alt="Import your reviews" width={80} height={80} />
+            <h3 className="mt-4 text-xl font-semibold text-[#1a1a1a]">Import your reviews</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto">
+  We import your review score from other platforms and display it on your Booking.com property page, so you don’t start at zero reviews.
+</p>
+          </div>
 
-        {/* Accordion Component */}
-        <div className="flex space-x-8">
-          {/* FAQ Item 1 */}
-          <Accordion type="single" collapsible className="border-t border-b divide-y w-1/2">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
-                What happens if my property is damaged by a guest?
-              </AccordionTrigger>
-              <AccordionContent>
-                <p className="text-base text-gray-700 mt-2">
-                  Property owners can request damage deposits from guests. Deposits help cover any potential damage caused by a guest, offering some reassurance that your property will be treated respectfully. If anything goes wrong, it can be reported to our team through our misconduct reporting feature.
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          {/* Import your property details */}
+          <div className="flex flex-col items-center">
+            <Image src="/Puzzle.png" alt="Import your property details" width={80} height={50} />
+            <h3 className="mt-4 text-xl font-semibold text-[#1a1a1a]">Import your property details</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto"> {/* Paragraph restyled */}
+              Seamlessly import your property details and sync your availability calendar with other platforms to make it easy to list and avoid double-bookings.
+            </p>
+          </div>
 
-          {/* FAQ Item 2 */}
-          <Accordion type="single" collapsible className="border-t border-b divide-y w-1/2">
-            <AccordionItem value="item-2">
-              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
-                When will my property go online?
-              </AccordionTrigger>
-              <AccordionContent>
-                <p className="text-base text-gray-700 mt-2">
-                  Your property will go online once the listing has been reviewed and approved by our team. You’ll receive a notification when it is live.
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          {/* Stand out in the market */}
+          <div className="flex flex-col items-center">
+            <Image src="/Search.png" alt="Stand out in the market" width={80} height={80} />
+            <h3 className="mt-4 text-xl font-semibold text-[#1a1a1a]">Stand out in the market</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto"> {/* Paragraph restyled */}
+              The “New to Booking.com” label helps you stand out in our search results.
+            </p>
+          </div>
+
         </div>
-
-        {/* Additional Link */}
-        <p className="text-base mt-6 text-gray-500">
-          Still have questions? Find answers to all your questions in our{" "}
-          <a href="#" className="text-blue-600 hover:underline">
-            FAQ
-          </a>.
-        </p>
       </div>
     </section>
     <div className="relative bg-gray-100 py-12 px-4 text-center">
@@ -205,92 +240,7 @@ const List = () => {
           
         </div>
       </div>
-      <div className="text-left text-white max-w-md">
-      <h1 className="text-4xl font-bold">
-        List <span className="text-blue-500">anything</span> on Booking.com
-      </h1>
-      <p className="mt-4 text-lg text-gray-300">
-        Whether hosting is your side passion or full-time job, list your home today and quickly start earning more income.
-      </p>
-    </div>
-    <header className="bg-blue-900 text-white p-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* Left side - Booking.com Logo */}
-          <h1 className="text-2xl font-bold">Booking.com</h1>
-  
-          {/* Right side - Partner info, Sign in, Help, Flag */}
-          <div className="flex items-center space-x-4">
-            {/* US Flag */}
-            <div className="w-6 h-6 rounded-full overflow-hidden">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" 
-                alt="US flag"
-              />
-            </div>
-  
-            {/* Already a partner text */}
-            <span className="text-sm">Already a partner?</span>
-  
-            {/* Sign in button */}
-            <button className="border border-white py-1 px-3 rounded text-sm hover:bg-white hover:text-blue-900 transition-colors">
-              Sign in
-            </button>
-  
-            {/* Help button */}
-            <button className="bg-blue-500 text-white py-1 px-3 rounded text-sm hover:bg-blue-600 transition-colors">
-              Help
-            </button>
-          </div>
-        </div>
-      </header>
-      <div className="bg-white text-black p-6 rounded-lg shadow-lg w-80">
-      <h2 className="text-lg font-semibold mb-4">Register for free</h2>
-      <ul className="list-disc list-inside text-sm text-gray-700 mb-4">
-        <li>45% of hosts get their first booking within a week</li>
-        <li>Choose between instant bookings and booking requests</li>
-        <li>We handle payments for you</li>
-      </ul>
-      <button className="bg-blue-600 text-white py-2 px-4 rounded-lg w-full">Get started now</button>
-      <p className="mt-4 text-sm ">
-        Already started registration? <a href="#" className="underline"><br></br>Continue your registration</a>
-      </p>
-    </div>
-    <section className="py-12 bg-gray-100"> {/* Background color updated to gray */}
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-8 text-black">Stand out from the start</h2>
-        <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
-          
-          {/* Import your reviews */}
-          <div className="flex flex-col items-center">
-            <Image src="/Review.png" alt="Import your reviews" width={80} height={80} />
-            <h3 className="mt-4 text-xl font-semibold text-[#1a1a1a]">Import your reviews</h3>
-            <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto">
-  We import your review score from other platforms and display it on your Booking.com property page, so you don’t start at zero reviews.
-</p>
-          </div>
-
-          {/* Import your property details */}
-          <div className="flex flex-col items-center">
-            <Image src="/Puzzle.png" alt="Import your property details" width={80} height={50} />
-            <h3 className="mt-4 text-xl font-semibold text-[#1a1a1a]">Import your property details</h3>
-            <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto"> {/* Paragraph restyled */}
-              Seamlessly import your property details and sync your availability calendar with other platforms to make it easy to list and avoid double-bookings.
-            </p>
-          </div>
-
-          {/* Stand out in the market */}
-          <div className="flex flex-col items-center">
-            <Image src="/Search.png" alt="Stand out in the market" width={80} height={80} />
-            <h3 className="mt-4 text-xl font-semibold text-[#1a1a1a]">Stand out in the market</h3>
-            <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto"> {/* Paragraph restyled */}
-              The “New to Booking.com” label helps you stand out in our search results.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-    <div className="py-16 bg-gray-50">
+      <div className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
           What hosts like you say
@@ -402,9 +352,53 @@ const List = () => {
         </div>
       </div>
     </div>
-    </div>
-    
-  );
-};
+    <section className="w-full bg-white text-black py-8">
+      <div className="px-4 max-w-6xl mx-auto">
+        {/* Heading */}
+        <h2 className="text-3xl font-bold mb-6">
+          Your questions answered
+        </h2>
 
-export default List;
+        {/* Accordion Component */}
+        <div className="flex space-x-8">
+          {/* FAQ Item 1 */}
+          <Accordion type="single" collapsible className="border-t border-b divide-y w-1/2">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                What happens if my property is damaged by a guest?
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className="text-base text-gray-700 mt-2">
+                  Property owners can request damage deposits from guests. Deposits help cover any potential damage caused by a guest, offering some reassurance that your property will be treated respectfully. If anything goes wrong, it can be reported to our team through our misconduct reporting feature.
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          {/* FAQ Item 2 */}
+          <Accordion type="single" collapsible className="border-t border-b divide-y w-1/2">
+            <AccordionItem value="item-2">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                When will my property go online?
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className="text-base text-gray-700 mt-2">
+                  Your property will go online once the listing has been reviewed and approved by our team. You’ll receive a notification when it is live.
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+
+        {/* Additional Link */}
+        <p className="text-base mt-6 text-gray-500">
+          Still have questions? Find answers to all your questions in our{" "}
+          <a href="#" className="text-blue-600 hover:underline">
+            FAQ
+          </a>.
+        </p>
+      </div>
+    </section>
+    </div>
+  );
+}
