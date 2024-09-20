@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/Components/ui/accordion";
+import Link from "next/link";
 
 export default function List() {
   return (
@@ -12,7 +13,9 @@ export default function List() {
       <header className="bg-blue-900 text-white p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Left side - Booking.com Logo */}
-          <h1 className="text-2xl font-bold">Booking.com</h1>
+          <Link href="/">
+            <h1 className="text-2xl font-bold">Booking.com</h1>
+          </Link>
 
           {/* Right side - Partner info, Sign in, Help, Flag */}
           <div className="flex items-center space-x-4">
