@@ -1,13 +1,16 @@
-
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function Signin() {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-      <h1 className="text-2xl font-semibold text-center mb-6">Sign in or create an account</h1>
+      <h1 className="text-2xl font-semibold text-center mb-6">
+        Sign in or create an account
+      </h1>
       <form className="space-y-4">
         <div>
-          <label htmlFor="email" className="sr-only">Email address</label>
+          <label htmlFor="email" className="sr-only">
+            Email address
+          </label>
           <input
             id="email"
             type="email"
@@ -23,7 +26,9 @@ export default function Signin() {
         </button>
       </form>
 
-      <div className="my-6 text-center text-gray-500">or use one of these options</div>
+      <div className="my-6 text-center text-gray-500">
+        or use one of these options
+      </div>
 
       <div className="flex justify-around">
         <button className="p-2 bg-gray-200 rounded-full">
@@ -38,7 +43,15 @@ export default function Signin() {
       </div>
 
       <p className="mt-6 text-xs text-center text-gray-500">
-        By signing in or creating an account, you agree with our <a href="#" className="text-blue-600">Terms & Conditions</a> and <a href="#" className="text-blue-600">Privacy Statement</a>.
+        By signing in or creating an account, you agree with our{" "}
+        <a href="#" className="text-blue-600">
+          Terms & Conditions
+        </a>{" "}
+        and{" "}
+        <a href="#" className="text-blue-600">
+          Privacy Statement
+        </a>
+        .
       </p>
     </div>
   );
