@@ -1,10 +1,10 @@
 import Image from "next/image";
-import ENFlag from "@/app/Public/ENFlag.png";
-import AgodaLogo from "@/app/Public/AgodaLogo.svg";
-import PriceLogo from "@/app/Public/PriceLogo.svg";
-import KayakLogo from "@/app/Public/KayakLogo.svg";
-import OpenLogo from "@/app/Public/OpenLogo.svg";
-import BookingLogo from "@/app/Public/BookingLogo.svg";
+import ENFlag from "@/Public/ENFlag.png";
+import AgodaLogo from "@/Public/AgodaLogo.svg";
+import PriceLogo from "@/Public/PriceLogo.svg";
+import KayakLogo from "@/Public/KayakLogo.svg";
+import OpenLogo from "@/Public/OpenLogo.svg";
+import BookingLogo from "@/Public/BookingLogo.svg";
 import React from "react";
 import {
   supportLinks,

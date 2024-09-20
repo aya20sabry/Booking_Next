@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import find from "@/app/Public/Find.png";
+import find from "@/Public/Find.png";
 
 const Animated = () => {
   const words = ["homes", "apartments", "villas", "cottages"];

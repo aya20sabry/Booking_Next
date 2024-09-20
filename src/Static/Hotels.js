@@ -1,4 +1,4 @@
-import Alam from "@/app/Public/Hotel1.webp";
+import Alam from "@/Public/Hotel1.webp";
 
 export const hotels = [
   {
