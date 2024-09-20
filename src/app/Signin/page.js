@@ -1,13 +1,16 @@
 import Navbar from "@/Components/Navbar/Navbar";
 import Image from "next/image";
-
+import facebook from "@/Public/facebook.png";
+import google from "@/Public/google.png";
+import apple from "@/Public/apple.png";
+import NavPlain from "@/Components/Navbar/NavPlain";
 export default function Signin() {
   return (
     <>
-      <Navbar />
+      <NavPlain />
       <div className="flex items-center justify-center">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm ">
-          <h1 className="text-2xl font-semibold text-center mb-6">
+        <div className="bg-white p-8 rounded-lg  w-full max-w-sm ">
+          <h1 className="text-xl font-bold text-start mb-6">
             Sign in or create an account
           </h1>
           <form className="space-y-4">
@@ -35,19 +38,14 @@ export default function Signin() {
           </div>
 
           <div className="flex justify-around">
-            <button className="p-2 bg-gray-200 rounded-full">
-              <Image
-                src="/facebook.svg"
-                alt="Facebook"
-                width={24}
-                height={24}
-              />
+            <button className="p-4 bg-white rounded-lg border-2 border-grey-200">
+              <Image src={facebook} alt="Facebook" width={24} height={24} />
             </button>
-            <button className="p-2 bg-gray-200 rounded-full">
-              <Image src="/google.svg" alt="Google" width={24} height={24} />
+            <button className="p-4 bg-white rounded-lg border-2 border-grey-200">
+              <Image src={google} alt="Google" width={24} height={24} />
             </button>
-            <button className="p-2 bg-gray-200 rounded-full">
-              <Image src="/apple.svg" alt="Apple" width={24} height={24} />
+            <button className="p-4 bg-white rounded-lg border-2 border-grey-200">
+              <Image src={apple} alt="Apple" width={24} height={24} />
             </button>
           </div>
 
