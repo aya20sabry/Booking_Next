@@ -1,3 +1,4 @@
+import SmFooter from "@/Components/Footer/smFooter";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 
@@ -6,6 +7,8 @@ function Taxi() {
     <>
       <Navbar />
       <Header />
+
+      <SmFooter />
     </>
   );
 }

@@ -1,0 +1,95 @@
+.container{
+    padding-left: 120px;
+    size:20px
+
+}
+.Popular{
+    font-family:"Blue Sans", BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    color:#1a1a1a;
+    /* font-size:24px; */
+    line-height:34px;
+    font-weight: 700;
+    letter-spacing:normal;
+    text-align:start
+    
+}
+.imgg{
+    margin-right: 10px;
+    border: 1px rgb(230, 229, 229) solid;
+}
+.font{
+    margin-left: 30px;
+    font-size: 8px;
+}
+.card{
+   /* display:flex ; 
+  
+   justify-content: flex-end; */
+    border:1px solid rgb(193, 191, 191);
+    width: 800px;
+    height: 100px;
+    border-radius: 5px;
+}
+/* .Accordion{
+    margin-left:10px;
+    
+} */
+.Accordion1{
+    width: 350px;
+    border: 1px solid rgb(204, 203, 203);
+    border-radius: 5px;
+
+
+}
+
+.Deliver{
+    font-weight: 500;
+    color: #1a1a1a;
+    font-size: 12px;
+    line-height: 20px;
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+.Sign{
+    font-family:"Blue Sans", BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    color:#1a1a1a;
+    font-size: 12px;
+    line-height:34px;
+    font-weight: 700;
+    letter-spacing:normal;
+    text-align:start
+}
+.Signin{
+    
+    font-family:"Blue Sans", BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    color:#1a1a1a;
+    font-size: 12px;
+    line-height:34px;
+    font-weight: 700;
+    letter-spacing:normal;
+    text-align:start
+}
+/* .w{
+    width :600px;
+} */
+.Save_10{
+    /* width :500px; */
+    height: 20px;
+    font-size: 10px;
+font-weight:300;
+line-height: 20px;
+font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+}
+.phot33{
+
+
+height: 20px;
+font-size: 10px;
+font-weight:300;
+line-height: 20px;
+font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+}
+.sectio3photo{
+    height: 130px;
+}
