@@ -36,14 +36,14 @@ export default function Home() {
       <Navbar />
       <Header />
       <Main
-        title="Find your next stay"
+        title="Find your next stay "
         description="Search deals on hotels, homes, and much more..."
       />
       <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
         <SearchBar />
       </div>
       {/* offers section */}
-      <section className="py-8 sm:py-20">
+      <section className="py-8 sm:py-20 hidden lg:block">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
           <Heading
             title="Offers"
