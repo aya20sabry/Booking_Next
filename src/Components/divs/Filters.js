@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Map from "@/app/Public/Map.png";
+import Map from "@/Public/Map.png";
 
 function Filters() {
   return (

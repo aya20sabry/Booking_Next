@@ -1,9 +1,9 @@
 import Image from "next/image";
-import AgodaLogo from "@/app/Public/AgodaLogo.svg";
-import PriceLogo from "@/app/Public/PriceLogo.svg";
-import KayakLogo from "@/app/Public/KayakLogo.svg";
-import OpenLogo from "@/app/Public/OpenLogo.svg";
-import BookingLogo from "@/app/Public/BookingLogo.svg";
+import AgodaLogo from "@/Public/AgodaLogo.svg";
+import PriceLogo from "@/Public/PriceLogo.svg";
+import KayakLogo from "@/Public/KayakLogo.svg";
+import OpenLogo from "@/Public/OpenLogo.svg";
+import BookingLogo from "@/Public/BookingLogo.svg";
 
 function SmFooter() {
   return (
