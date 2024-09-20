@@ -3,7 +3,6 @@ import { useState } from 'react';
 import './page.css'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-
 const ContactForm = () => {
   const [firstName, setFirstName] = useState(''); // تأكد من عدم وجود مشكلة في تعريف useState
   const [lastName, setLastName] = useState('');   // نفس الأمر هنا
