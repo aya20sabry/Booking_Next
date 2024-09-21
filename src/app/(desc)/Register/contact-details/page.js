@@ -3,6 +3,8 @@ import { useState } from 'react';
 import './page.css'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import Link from "next/link";
+
 const ContactForm = () => {
   const [firstName, setFirstName] = useState(''); // تأكد من عدم وجود مشكلة في تعريف useState
   const [lastName, setLastName] = useState('');   // نفس الأمر هنا
@@ -63,7 +65,8 @@ const ContactForm = () => {
           type="submit"
           className="block w-60 p-2 bg-blue-600 text-white font-bold  hover:bg-blue-700"
         >
-          Next
+          <Link href='/'>Next</Link>
+          
         </button>
       </form>
     </div>

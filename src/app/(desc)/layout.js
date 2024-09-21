@@ -8,8 +8,12 @@ export default function Layout({ children }) {
 
 
         <body>
-        <NavPlain/>
-            {children}</body>
+          <section>
+          <NavPlain/>
+
+          </section>
+            {children}
+            </body>
       </html>
     );
   }
