@@ -1,10 +1,7 @@
-import NavPlain from '../../Components/Navbar/NavPlain'
+import NavPlain from "../../Components/Navbar/NavPlain";
 export default function Layout({ children }) {
-    return (
+    return (<>
       <html lang="en">
-
-
-
 
 
         <body>
@@ -15,5 +12,6 @@ export default function Layout({ children }) {
             {children}
             </body>
       </html>
-    );
+      </>);
   }
+
