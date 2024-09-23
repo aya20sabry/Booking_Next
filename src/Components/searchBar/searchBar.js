@@ -159,7 +159,7 @@ const SearchBar = () => {
             </span>
           </div>
           <Link
-            href="/SearchResults"
+            href="/searchResults"
             className="border-4 rounded-lg border-yellow-300 bg-blue-600 "
           >
             <button
