@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons from react-icons
 import Link from "next/link";
-import { useLocation } from "react-router-dom";
-
+import NavPlain from "@/Components/Navbar/NavPlain";
 const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -30,6 +29,7 @@ const Register = () => {
 
   return (
     <>
+      <NavPlain />
       <div className="max-w-md mx-auto p-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
