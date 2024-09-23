@@ -68,7 +68,6 @@ function Cars() {
         title="Car rentals for any kind of trip"
         description="Great cars at great prices from the biggest rental companies"
       />
-      {/* <p>aya</p> */}
       <section className="container ">
         <form className="flex justify-start mx-1">
           <div className="flex m-5 grid grid-cols-2 ">
@@ -390,8 +389,6 @@ function Cars() {
             Explore more options to hire a car for cheap
           </h4>
         </div>
-
-        {/* map //////// */}
         <div>
           <div className="Save_10 pt-1 mx-2" style={{ display: "flex" }}>
             {Object.keys(data).map((key) => (

@@ -37,16 +37,21 @@ function Navbar() {
               {" "}
               <span className="infolink  "></span>
             </button>
-
-            <button className="mainColor navHover px-3 py-2 rounded">
-              List your property
-            </button>
-            <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
-              Register
-            </button>
-            <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded  border-blue-900 font-medium">
-              Sign in
-            </button>
+            <Link href="/list">
+              <button className="mainColor navHover px-3 py-2 rounded">
+                List your property
+              </button>
+            </Link>
+            <Link href="/Register">
+              <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
+                Register
+              </button>
+            </Link>
+            <Link href="/Signin">
+              <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded  border-blue-900 font-medium">
+                Sign in
+              </button>
+            </Link>
           </div>
 
           {/* Mobile menu */}
