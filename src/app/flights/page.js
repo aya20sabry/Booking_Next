@@ -11,10 +11,6 @@ import Link from "next/link";
 
 import Image from 'next/image';
 import Dropdown from './../../Components/Drowpdown/Dropdown';
-import Register from './../Register/page';
-
-
-
 
 
 
@@ -68,10 +64,6 @@ function Flights() {
     <>
       <Navbar />
       <Header />
-
-
-
-
 
 
     <div className="items-center pt-20 bg-custom-bg" style={{ textAlign: 'left' }}>
@@ -184,11 +176,6 @@ function Flights() {
         </Link>
       </div>
     </div>
-
-
-
-   
-    
       
     </>
   )
