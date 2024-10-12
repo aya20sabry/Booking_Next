@@ -1,7 +1,7 @@
 const Dropdown = ({ options, selected, onSelect, isOpen, onToggle }) => {
     const handleItemClick = (item) => {
-      onSelect(item); // Update the selected option
-      onToggle(); // Close the dropdown after selection
+      onSelect(item)
+      onToggle();
     };
   
     return (
