@@ -2,12 +2,8 @@
 import ComponantFlight from './../../components/flight/flight';
 
 export default function Flights() {
- 
-  
 
   return (
-
-
     <div
     className="items-center pt-20 bg-custom-bg mb-20 h-lvh"
     style={{ textAlign: "left" }}
