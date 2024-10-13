@@ -1,19 +1,19 @@
 "use client";
 
-import { FaPlaneDeparture, FaPlaneArrival, FaExchangeAlt, FaCalendarAlt } from "react-icons/fa";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import {
+  FaPlaneDeparture,
+  FaPlaneArrival,
+  FaExchangeAlt,
+  FaCalendarAlt,
+} from "react-icons/fa";
+
 import { useState } from "react";
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 import Datepicker from "react-tailwindcss-datepicker";
 import { FaChevronDown } from "react-icons/fa";
 
-
-
 export default function ComponantFlight() {
-
- 
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
@@ -33,17 +33,20 @@ export default function ComponantFlight() {
     toddlers: 0,
     infants: 0,
   });
-  const [selectedOption, setSelectedOption] = useState('1 adult');
+  const [selectedOption, setSelectedOption] = useState("1 adult");
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
-  const [selectedOption1, setSelectedOption1] = useState('Round-trip');
-  const [selectedOption3, setSelectedOption3] = useState('Economy');
+  const [selectedOption1, setSelectedOption1] = useState("Round-trip");
+  const [selectedOption3, setSelectedOption3] = useState("Economy");
 
   const toggleDropdown = (index) => {
     setOpenDropdownIndex(openDropdownIndex === index ? null : index);
   };
 
   const handleCountChange = (category, change) => {
-    setCounts((prev) => ({ ...prev, [category]: Math.max(0, prev[category] + change) }));
+    setCounts((prev) => ({
+      ...prev,
+      [category]: Math.max(0, prev[category] + change),
+    }));
   };
 
   const swapAirports = () => {
@@ -58,7 +61,7 @@ export default function ComponantFlight() {
 
   const toggleCheckOutCalendar = () => {
     setIsCheckOutCalendarOpen(!isCheckOutCalendarOpen);
-  }
+  };
 
   const [borderStyle, setBorderStyle] = useState({});
   const handleClick = () => {
@@ -72,16 +75,9 @@ export default function ComponantFlight() {
   return (
     // <Header/>
 
-
-    <div
-    className="items-center pt-5  "
-    style={{ textAlign: "left" }}
-  >
-   
-
-
-    <div className="gap-4  items-center  mx-64  flex ">
-      {/* <Dropdown
+    <div className="items-center pt-5  " style={{ textAlign: "left" }}>
+      <div className="gap-4  items-center  mx-64  flex ">
+        {/* <Dropdown
         options={["one-way", "Round-trip", "Multi-city"]}
         selected={selectedOption1}
         onSelect={setSelectedOption1}
@@ -89,9 +85,9 @@ export default function ComponantFlight() {
         onToggle={() => toggleDropdown(0)}
         className="text-sm  "
       /> */}
-      <FaChevronDown />
+        <FaChevronDown />
 
-      {/* <Dropdown
+        {/* <Dropdown
         options={Object.keys(counts)}
         selected={selectedOption}
         onSelect={setSelectedOption}
@@ -102,7 +98,7 @@ export default function ComponantFlight() {
       /> */}
         <FaChevronDown />
 
-      {/* <Dropdown
+        {/* <Dropdown
         options={["Economy", "Premium Economy", "Business", "First"]}
         selected={selectedOption3}
         onSelect={setSelectedOption3}
@@ -112,57 +108,56 @@ export default function ComponantFlight() {
         zIndex={10}
       /> */}
         <FaChevronDown />
-    </div>
-
-    {/* Search form */}
-    <div className="p-4 flex items-center space-x-4  mx-64  pl-50 relative">
-      <div
-        className="flex items-center border border-gray-300 rounded-lg px-4 py-2 space-x-2 font:font-custome bg-[#F0F3F5]"
-        style={borderStylee}
-      >
-        <Image
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMS4yNWVtIiBoZWlnaHQ9IjEuMjVlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBjbGFzcz0iVG43ei1pY29uIiByb2xlPSJwcmVzZW50YXRpb24iPjxwYXRoIGQ9Ik0xNzguMDgxIDQxLjk3M2MtMi42ODEgMi42NjMtMTYuMDY1IDE3LjQxNi0yOC45NTYgMzAuMjIxYzAgMTA3LjkxNiAzLjU1OCA5OS44MTUtMTQuNTU1IDExNy44MDdsLTE0LjM1OC02MC40MDJsLTE0LjY3LTE0LjU3MmMtMzguODczIDM4LjYwNi0zMy4wMTUgOC43MTEtMzMuMDE1IDQ1LjY2OWMuMDM3IDguMDcxLTMuMzczIDEzLjM4LTguMjYzIDE4LjIzN0w1MC42NiAxNDguMzlsLTMwLjc1MS0xMy41MTNjMTAuMDk0LTEwLjAxNyAxNS42MDktOC4yMDcgMzkuNDg4LTguMjA3YzguMTI3LTE2LjY2NiAxOC4xNzMtMjMuODEgMjYuMDMzLTMxLjYyTDcwLjc5IDgwLjUwOUwxMCA2Ni4yNjljMTcuMTUzLTE3LjAzOSA2LjYzOC0xMy44OTUgMTE4LjM5Ni0xMy44OTVjMTIuOTYtMTIuODczIDI2Ljg4Mi0yNy43MDMgMjkuNTc0LTMwLjM3N2M3Ljc0NS03LjY5MiAyOC4wMTctMTQuMzU3IDMxLjIwNS0xMS4xOTFjMy4xODcgMy4xNjYtMy4zNDkgMjMuNDc0LTExLjA5NCAzMS4xNjd6bS0xMy42NzQgNDIuNDY5bC04LjA5OSA4LjAyN3YyMy41OGMxNy41MDgtMTcuNTUgMjEuOTYzLTE3Ljc2NyA4LjA5OS0zMS42MDd6bS00OC4xMjUtNDcuOTIzYy0xMy42NzgtMTMuNjUyLTEyLjY0Mi0xMC44MjgtMzIuMTUyIDguNTdoMjMuNjI1bDguNTI3LTguNTd6Ij48L3BhdGg+PC9zdmc+"
-          width={25}
-          height={50}
-        />
-        <input
-          type="text"
-          placeholder="From?"
-          value={fromAirport}
-          onChange={(e) => setFromAirport(e.target.value)}
-          onClick={handleClic}
-          className=" outline-none text-gray-600 bg-[#F0F3F5]"
-        />
       </div>
 
-      <Image
-        src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMS4yNWVtIiBoZWlnaHQ9IjEuMjVlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBjbGFzcz0iYy1QXy0taWNvbiBjLVBfLS1tb2QtcmVzcG9uc2l2ZSIgcm9sZT0icHJlc2VudGF0aW9uIj48cGF0aCBkPSJNNTYuMjM4IDE1NC44MDFjLTI1LjI3MS0zMC4zMjYtMzAuMzM1LTMzLjIwMS0yNS0zOS42MDNsMjUtMzBsMTEuNTIzIDkuNjAzTDUzLjAxMyAxMTIuNUgxMjB2MTVINTMuMDEzbDE0Ljc0OSAxNy42OTlsLTExLjUyNCA5LjYwMnptODYuNTI0LTQwbC0xMS41MjMtOS42MDNMMTQ1Ljk4NyA4Ny41SDgwdi0xNWg2NS45ODdsLTE0Ljc0OS0xNy42OTlsMTEuNTIzLTkuNjAzbDI1IDMwYzUuMzM1IDYuNDAzLjI3MiA5LjI3OC0yNC45OTkgMzkuNjAzeiI+PC9wYXRoPjwvc3ZnPg=="
-        onClick={swapAirports}
-        width={40}
-        height={50}
-        className="bg-[#F0F3F5]"
-        alt="Descriptive text"
-      />
+      {/* Search form */}
+      <div className="p-4 flex items-center space-x-4  mx-64  pl-50 relative">
+        <div
+          className="flex items-center border border-gray-300 rounded-lg px-4 py-2 space-x-2 font:font-custome bg-[#F0F3F5]"
+          style={borderStylee}
+        >
+          <Image
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMS4yNWVtIiBoZWlnaHQ9IjEuMjVlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBjbGFzcz0iVG43ei1pY29uIiByb2xlPSJwcmVzZW50YXRpb24iPjxwYXRoIGQ9Ik0xNzguMDgxIDQxLjk3M2MtMi42ODEgMi42NjMtMTYuMDY1IDE3LjQxNi0yOC45NTYgMzAuMjIxYzAgMTA3LjkxNiAzLjU1OCA5OS44MTUtMTQuNTU1IDExNy44MDdsLTE0LjM1OC02MC40MDJsLTE0LjY3LTE0LjU3MmMtMzguODczIDM4LjYwNi0zMy4wMTUgOC43MTEtMzMuMDE1IDQ1LjY2OWMuMDM3IDguMDcxLTMuMzczIDEzLjM4LTguMjYzIDE4LjIzN0w1MC42NiAxNDguMzlsLTMwLjc1MS0xMy41MTNjMTAuMDk0LTEwLjAxNyAxNS42MDktOC4yMDcgMzkuNDg4LTguMjA3YzguMTI3LTE2LjY2NiAxOC4xNzMtMjMuODEgMjYuMDMzLTMxLjYyTDcwLjc5IDgwLjUwOUwxMCA2Ni4yNjljMTcuMTUzLTE3LjAzOSA2LjYzOC0xMy44OTUgMTE4LjM5Ni0xMy44OTVjMTIuOTYtMTIuODczIDI2Ljg4Mi0yNy43MDMgMjkuNTc0LTMwLjM3N2M3Ljc0NS03LjY5MiAyOC4wMTctMTQuMzU3IDMxLjIwNS0xMS4xOTFjMy4xODcgMy4xNjYtMy4zNDkgMjMuNDc0LTExLjA5NCAzMS4xNjd6bS0xMy42NzQgNDIuNDY5bC04LjA5OSA4LjAyN3YyMy41OGMxNy41MDgtMTcuNTUgMjEuOTYzLTE3Ljc2NyA4LjA5OS0zMS42MDd6bS00OC4xMjUtNDcuOTIzYy0xMy42NzgtMTMuNjUyLTEyLjY0Mi0xMC44MjgtMzIuMTUyIDguNTdoMjMuNjI1bDguNTI3LTguNTd6Ij48L3BhdGg+PC9zdmc+"
+            width={25}
+            height={50}
+          />
+          <input
+            type="text"
+            placeholder="From?"
+            value={fromAirport}
+            onChange={(e) => setFromAirport(e.target.value)}
+            onClick={handleClic}
+            className=" outline-none text-gray-600 bg-[#F0F3F5]"
+          />
+        </div>
 
-<div
-  className="flex items-center border border-gray-300 rounded-lg px-1 py-2 space-x-2 bg-[#F0F3F5] rounded-lg"
-  style={borderStyle}
->
         <Image
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMS4yNWVtIiBoZWlnaHQ9IjEuMjVlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBjbGFzcz0iVG43ei1pY29uIiByb2xlPSJwcmVzZW50YXRpb24iPjxwYXRoIGQ9Ik0xNzguMDgxIDQxLjk3M2MtMi42ODEgMi42NjMtMTYuMDY1IDE3LjQxNi0yOC45NTYgMzAuMjIxYzAgMTA3LjkxNiAzLjU1OCA5OS44MTUtMTQuNTU1IDExNy44MDdsLTE0LjM1OC02MC40MDJsLTE0LjY3LTE0LjU3MmMtMzguODczIDM4LjYwNi0zMy4wMTUgOC43MTEtMzMuMDE1IDQ1LjY2OWMuMDM3IDguMDcxLTMuMzczIDEzLjM4LTguMjYzIDE4LjIzN0w1MC42NiAxNDguMzlsLTMwLjc1MS0xMy41MTNjMTAuMDk0LTEwLjAxNyAxNS42MDktOC4yMDcgMzkuNDg4LTguMjA3YzguMTI3LTE2LjY2NiAxOC4xNzMtMjMuODEgMjYuMDMzLTMxLjYyTDcwLjc5IDgwLjUwOUwxMCA2Ni4yNjljMTcuMTUzLTE3LjAzOSA2LjYzOC0xMy44OTUgMTE4LjM5Ni0xMy44OTVjMTIuOTYtMTIuODczIDI2Ljg4Mi0yNy43MDMgMjkuNTc0LTMwLjM3N2M3Ljc0NS03LjY5MiAyOC4wMTctMTQuMzU3IDMxLjIwNS0xMS4xOTFjMy4xODcgMy4xNjYtMy4zNDkgMjMuNDc0LTExLjA5NCAzMS4xNjd6bS0xMy42NzQgNDIuNDY5bC04LjA5OSA4LjAyN3YyMy41OGMxNy41MDgtMTcuNTUgMjEuOTYzLTE3Ljc2NyA4LjA5OS0zMS42MDd6bS00OC4xMjUtNDcuOTIzYy0xMy42NzgtMTMuNjUyLTEyLjY0Mi0xMC44MjgtMzIuMTUyIDguNTdoMjMuNjI1bDguNTI3LTguNTd6Ij48L3BhdGg+PC9zdmc+"
-          width={25}
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMS4yNWVtIiBoZWlnaHQ9IjEuMjVlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBjbGFzcz0iYy1QXy0taWNvbiBjLVBfLS1tb2QtcmVzcG9uc2l2ZSIgcm9sZT0icHJlc2VudGF0aW9uIj48cGF0aCBkPSJNNTYuMjM4IDE1NC44MDFjLTI1LjI3MS0zMC4zMjYtMzAuMzM1LTMzLjIwMS0yNS0zOS42MDNsMjUtMzBsMTEuNTIzIDkuNjAzTDUzLjAxMyAxMTIuNUgxMjB2MTVINTMuMDEzbDE0Ljc0OSAxNy42OTlsLTExLjUyNCA5LjYwMnptODYuNTI0LTQwbC0xMS41MjMtOS42MDNMMTQ1Ljk4NyA4Ny41SDgwdi0xNWg2NS45ODdsLTE0Ljc0OS0xNy42OTlsMTEuNTIzLTkuNjAzbDI1IDMwYzUuMzM1IDYuNDAzLjI3MiA5LjI3OC0yNC45OTkgMzkuNjAzeiI+PC9wYXRoPjwvc3ZnPg=="
+          onClick={swapAirports}
+          width={40}
           height={50}
+          className="bg-[#F0F3F5]"
+          alt="Descriptive text"
         />
-        <input
-          type="text"
-          placeholder="To?"
-          value={toAirport}
-          onChange={(e) => setToAirport(e.target.value)}
-          onClick={handleClick}
-          className=" outline-none text-gray-600 bg-[#F0F3F5]"
-        />
-      </div>
 
+        <div
+          className="flex items-center border border-gray-300 rounded-lg px-1 py-2 space-x-2 bg-[#F0F3F5] rounded-lg"
+          style={borderStyle}
+        >
+          <Image
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMS4yNWVtIiBoZWlnaHQ9IjEuMjVlbSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBjbGFzcz0iVG43ei1pY29uIiByb2xlPSJwcmVzZW50YXRpb24iPjxwYXRoIGQ9Ik0xNzguMDgxIDQxLjk3M2MtMi42ODEgMi42NjMtMTYuMDY1IDE3LjQxNi0yOC45NTYgMzAuMjIxYzAgMTA3LjkxNiAzLjU1OCA5OS44MTUtMTQuNTU1IDExNy44MDdsLTE0LjM1OC02MC40MDJsLTE0LjY3LTE0LjU3MmMtMzguODczIDM4LjYwNi0zMy4wMTUgOC43MTEtMzMuMDE1IDQ1LjY2OWMuMDM3IDguMDcxLTMuMzczIDEzLjM4LTguMjYzIDE4LjIzN0w1MC42NiAxNDguMzlsLTMwLjc1MS0xMy41MTNjMTAuMDk0LTEwLjAxNyAxNS42MDktOC4yMDcgMzkuNDg4LTguMjA3YzguMTI3LTE2LjY2NiAxOC4xNzMtMjMuODEgMjYuMDMzLTMxLjYyTDcwLjc5IDgwLjUwOUwxMCA2Ni4yNjljMTcuMTUzLTE3LjAzOSA2LjYzOC0xMy44OTUgMTE4LjM5Ni0xMy44OTVjMTIuOTYtMTIuODczIDI2Ljg4Mi0yNy43MDMgMjkuNTc0LTMwLjM3N2M3Ljc0NS03LjY5MiAyOC4wMTctMTQuMzU3IDMxLjIwNS0xMS4xOTFjMy4xODcgMy4xNjYtMy4zNDkgMjMuNDc0LTExLjA5NCAzMS4xNjd6bS0xMy42NzQgNDIuNDY5bC04LjA5OSA4LjAyN3YyMy41OGMxNy41MDgtMTcuNTUgMjEuOTYzLTE3Ljc2NyA4LjA5OS0zMS42MDd6bS00OC4xMjUtNDcuOTIzYy0xMy42NzgtMTMuNjUyLTEyLjY0Mi0xMC44MjgtMzIuMTUyIDguNTdoMjMuNjI1bDguNTI3LTguNTd6Ij48L3BhdGg+PC9zdmc+"
+            width={25}
+            height={50}
+          />
+          <input
+            type="text"
+            placeholder="To?"
+            value={toAirport}
+            onChange={(e) => setToAirport(e.target.value)}
+            onClick={handleClick}
+            className=" outline-none text-gray-600 bg-[#F0F3F5]"
+          />
+        </div>
 
         <div className="relative w-64">
           <FaCalendarAlt
@@ -173,7 +168,7 @@ export default function ComponantFlight() {
             value={value}
             onChange={(newValue) => {
               setValue(newValue);
-              setIsCheckInCalendarOpen(false); 
+              setIsCheckInCalendarOpen(false);
             }}
             placeholder="Check-in Date — Check-out Date"
             popoverDirection="down"
@@ -200,12 +195,9 @@ export default function ComponantFlight() {
           />
         </div>
         <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow hover:bg-blue-600 transition duration-200">
-        Search
-    </button>
-       
+          Search
+        </button>
+      </div>
     </div>
-    </div>
-       
   );
-
 }

@@ -17,19 +17,19 @@ const HotelSearch = ({
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+    <div className="bg-white rounded-lg shadow-md border border-gray-300 p-4 mb-4">
       <div className="flex flex-col md:flex-row">
         {/* Image and heart section */}
         <div className="md:w-1/3 pr-4 relative mb-4 md:mb-0">
           <Image
             src={image}
             alt={name}
-            className="rounded-lg w-full"
-            width={600}
-            height={600}
+            className="rounded-lg w-full md:w-60"
+            width={240}
+            height={240}
           />
           <button
-            className="absolute top-4 right-6 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-200"
+            className="absolute top-4 right-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-200"
             onClick={() => setIsFavorite(!isFavorite)}
           >
             {isFavorite ? (
