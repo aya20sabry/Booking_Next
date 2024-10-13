@@ -1,6 +1,7 @@
 "use client";
 import ComponantFlight from './../../components/flight/flight';
 
+
 export default function Flights() {
 
   return (
@@ -16,5 +17,6 @@ export default function Flights() {
    
     </div>
        
+
   );
 }
