@@ -1,5 +1,5 @@
-import visa from "/public/visa.png";
-import mastercard from "/public/mastercard.png";
+import visa from "@/Public/visa.png";
+import mastercard from "@/Public/mastercard.png";
 import Image from "next/image";
 function PaymentMethods({ icon: Icon, title }) {
   return (
