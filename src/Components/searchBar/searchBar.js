@@ -4,12 +4,10 @@ import { IoBedOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import Datepicker from "react-tailwindcss-datepicker";
-import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 const SearchBar = () => {
+  const router = useRouter(); // تهيئة useRouter
   const [destination, setDestination] = useState("");
-
-  // TODO: Replace these default suggestions with data from a database in the future
   const [allSuggestions] = useState([
     "Hurghada,EG",
     "Cairo, EG",
@@ -17,7 +15,6 @@ const SearchBar = () => {
     "Giza, EG",
     "Dahab, EG",
   ]);
-
   const [filteredSuggestions, setFilteredSuggestions] =
     useState(allSuggestions);
   const [guestInfo, setGuestInfo] = useState({
@@ -68,6 +65,20 @@ const SearchBar = () => {
   }, [openSection]);
 
   const handleSearch = () => {
+   
+    const queryParams = new URLSearchParams({
+      destination,
+      startDate: value.startDate,
+      endDate: value.endDate,
+      adults: guestInfo.adults,
+      children: guestInfo.children,
+      rooms: guestInfo.rooms,
+     
+      isVacationHome,
+      isTravelingWithPets,
+    });
+
+    router.push(`/cars?${queryParams.toString()}`); 
     console.log("Searching for:", {
       destination,
       dateRange: value,
@@ -98,7 +109,6 @@ const SearchBar = () => {
     const inputValue = e.target.value;
     setDestination(inputValue);
 
-    // TODO: Replace this with an API call to fetch suggestions from the database
     if (inputValue.trim() === "") {
       setFilteredSuggestions(allSuggestions);
     } else {
@@ -158,17 +168,14 @@ const SearchBar = () => {
               {`${guestInfo.adults} adults · ${guestInfo.children} children · ${guestInfo.rooms} room`}
             </span>
           </div>
-          <Link
-            href="/searchResults"
+          <button
             className="border-4 rounded-lg border-yellow-300 bg-blue-600 "
+            onClick={handleSearch} 
           >
-            <button
-              className=" text-white px-8 py-3 text-xl font-semibold  hover:bg-blue-700 transition-colors"
-              onClick={handleSearch}
-            >
+            <span className="text-white px-8 py-3 text-xl font-semibold hover:bg-blue-700 transition-colors">
               Search
-            </button>
-          </Link>
+            </span>
+          </button>
         </div>
 
         {openSection === "destination" && (
@@ -183,7 +190,7 @@ const SearchBar = () => {
                   className="px-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer"
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
-                  <IoLocationOutline className="inline-block  text-black mr-2 text-3xl" />
+                  <IoLocationOutline className="inline-block text-black mr-2 text-3xl" />
                   {suggestion}
                 </li>
               ))}
@@ -199,17 +206,17 @@ const SearchBar = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="font-semibold">Adults</span>
-                <div className="flex items-center align-middle space-x-2  border-2 border-gray-200 rounded-lg">
+                <div className="flex items-center space-x-2 border-2 border-gray-200 rounded-lg">
                   <button
                     onClick={() => handleGuestChange("adults", "subtract")}
-                    className="w-8 h-8  flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
+                    className="w-8 h-8 flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
                   >
                     -
                   </button>
                   <span>{guestInfo.adults}</span>
                   <button
                     onClick={() => handleGuestChange("adults", "add")}
-                    className="w-8 h-8  flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
+                    className="w-8 h-8 flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
                   >
                     +
                   </button>
@@ -217,35 +224,35 @@ const SearchBar = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="font-semibold">Children</span>
-                <div className="flex items-center space-x-2  border-2 border-gray-200 rounded-lg">
+                <div className="flex items-center space-x-2 border-2 border-gray-200 rounded-lg">
                   <button
                     onClick={() => handleGuestChange("children", "subtract")}
-                    className="w-8 h-8  flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
+                    className="w-8 h-8 flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
                   >
                     -
                   </button>
                   <span>{guestInfo.children}</span>
                   <button
                     onClick={() => handleGuestChange("children", "add")}
-                    className="w-8 h-8  flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
+                    className="w-8 h-8 flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
                   >
                     +
                   </button>
                 </div>
               </div>
-              <div className="flex justify-between items-center ">
+              <div className="flex justify-between items-center">
                 <span className="font-semibold">Rooms</span>
-                <div className="flex items-center space-x-2  border-2 border-gray-200 rounded-lg">
+                <div className="flex items-center space-x-2 border-2 border-gray-200 rounded-lg">
                   <button
                     onClick={() => handleGuestChange("rooms", "subtract")}
-                    className="w-8 h-8  flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
+                    className="w-8 h-8 flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
                   >
                     -
                   </button>
                   <span>{guestInfo.rooms}</span>
                   <button
                     onClick={() => handleGuestChange("rooms", "add")}
-                    className="w-8 h-8  flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
+                    className="w-8 h-8 flex items-center justify-center text-xl font-semibold text-blue-700 hover:bg-blue-100"
                   >
                     +
                   </button>
@@ -261,7 +268,7 @@ const SearchBar = () => {
                     checked={isVacationHome}
                     onChange={() => setIsVacationHome(!isVacationHome)}
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 </label>
               </div>
               <div className="flex justify-between items-center">
@@ -276,7 +283,7 @@ const SearchBar = () => {
                       setIsTravelingWithPets(!isTravelingWithPets)
                     }
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 </label>
               </div>
 
@@ -295,3 +302,4 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+                        
