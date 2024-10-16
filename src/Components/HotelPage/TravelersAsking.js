@@ -6,7 +6,7 @@ const TravelersAsking = () => {
   const rightQuestions = questions.slice(Math.ceil(questions.length / 2));
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
+    <div className="max-w-6xl mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Travelers are asking</h2>
         <button className="bg-blue-600 text-white px-3 py-2 rounded text-sm">

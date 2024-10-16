@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.scroll-smooth {
+html {
   scroll-behavior: smooth;
 }
 
@@ -173,34 +173,38 @@ input:focus::placeholder {
   body {
     @apply bg-background text-foreground;
   }
-  .Save_10{
+  .Save_10 {
     /* width :500px; */
     height: 20px;
     font-size: 10px;
-font-weight:300;
-line-height: 20px;
-font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-
-}
-.Sign{
-  font-family:"Blue Sans", BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  color:#1a1a1a;
-  font-size: 12px;
-  line-height:34px;
-  font-weight: 700;
-  letter-spacing:normal;
-  text-align:start
-}
-.borderr{
-border-radius: 5px;  
-border:1px solid rgb(202, 201, 201);
-width: 110px;
-height: 40px;
-}
-.borderr2{
-  border-radius: 5px;  
-  border:1px solid rgb(202, 201, 201);
-  width: 130px;
-  height: 40px;
+    font-weight: 300;
+    line-height: 20px;
+    font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+      Arial, sans-serif;
   }
+  .Sign {
+    font-family: "Blue Sans", BlinkMacSystemFont, -apple-system, Segoe UI,
+      Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    font-size: 12px;
+    line-height: 34px;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-align: start;
+  }
+  .borderr {
+    border-radius: 5px;
+    border: 1px solid rgb(202, 201, 201);
+    width: 110px;
+    height: 40px;
+  }
+  .borderr2 {
+    border-radius: 5px;
+    border: 1px solid rgb(202, 201, 201);
+    width: 130px;
+    height: 40px;
+  }
+}
+.big-photoGallery {
+  height: 360px;
 }

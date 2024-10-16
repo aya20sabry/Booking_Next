@@ -30,7 +30,7 @@ function EndLinks() {
       </div>
 
       {/* Desktop version */}
-      <div className="hidden md:block  pt-8 pb-4 text-xs mx-16 lg:mx-48 px-4">
+      <div className="hidden md:block  pt-8 pb-4 text-xs mx-16 lg:mx-48 px-4 ">
         <p className="mb-2">
           {[...footerLinks, ...additionalLinks].map((link, index) => (
             <React.Fragment key={index}>
