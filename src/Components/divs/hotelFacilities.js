@@ -15,7 +15,6 @@ import {
   FaShuttleVan,
   FaBaby,
   FaTshirt,
-  FaIron,
   FaUmbrellaBeach,
   FaParking,
   FaSpa,
@@ -28,7 +27,7 @@ import {
   FaPlane,
 } from "react-icons/fa";
 import SubHeading from "../Headings/SubHeading";
-import { Loader } from "lucide-react";
+import { MdOutlineIron } from "react-icons/md";
 const facilityIcons = {
   Parking: FaCar,
   SwimmingPool: FaSwimmingPool,
@@ -41,7 +40,7 @@ const facilityIcons = {
   Babysitting: FaBaby,
   Laundry: FaTshirt,
   DryCleaning: FaTshirt,
-  Ironing: FaIron,
+  Ironing: MdOutlineIron,
   Beachfront: FaUmbrellaBeach,
   FreeParking: TbParkingCircle,
   Spa: FaSpa,

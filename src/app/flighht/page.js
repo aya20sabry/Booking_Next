@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { useState } from "react";
 // import ComponantFlight from './../../compnant/flight/flight';
-// import Bus from "../../public/Bus.png";
-// import MS from "../../public/MS.png";
-// import cairo from "../../public/cairo.png";
+import Bus from "@/Public/Bus.png";
+import MS from "@/Public/MS.png";
+import cairo from "@/Public/cairo.png";
 // import FlightFilter from './../test/page';
 
 const FlightCard = () => {

@@ -22,7 +22,6 @@ import {
   FaShuttleVan,
   FaBaby,
   FaTshirt,
-  FaIron,
   FaUmbrellaBeach,
   FaSpa,
   FaHotTub,
@@ -31,6 +30,7 @@ import {
   FaHandsWash,
   FaSwimmer,
 } from "react-icons/fa";
+import { MdOutlineIron } from "react-icons/md";
 import { GetHotelReviews } from "@/API/GET";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -48,7 +48,7 @@ const facilityIcons = {
   Babysitting: FaBaby,
   Laundry: PiTShirt,
   DryCleaning: FaTshirt,
-  Ironing: FaIron,
+  Ironing: MdOutlineIron,
   Beachfront: FaUmbrellaBeach,
   FreeParking: TbParkingCircle,
   Spa: FaSpa,
