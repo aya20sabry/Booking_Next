@@ -6,7 +6,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useRouter } from "next/navigation";
 const SearchBar = () => {
-  const router = useRouter(); // تهيئة useRouter
+  const router = useRouter(); 
   const [destination, setDestination] = useState("");
   const [allSuggestions] = useState([
     "Hurghada,EG",
@@ -78,7 +78,7 @@ const SearchBar = () => {
       isTravelingWithPets,
     });
 
-    router.push(`/cars?${queryParams.toString()}`); 
+    router.push(`/hotelSearch?${queryParams.toString()}`);
     console.log("Searching for:", {
       destination,
       dateRange: value,
