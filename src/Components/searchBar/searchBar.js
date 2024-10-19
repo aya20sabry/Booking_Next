@@ -8,8 +8,6 @@ import Link from "next/link";
 
 const SearchBar = () => {
   const [destination, setDestination] = useState("");
-
-  // TODO: Replace these default suggestions with data from a database in the future
   const [allSuggestions] = useState([
     "Hurghada,EG",
     "Cairo, EG",
