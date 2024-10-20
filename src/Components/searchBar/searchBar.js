@@ -78,7 +78,7 @@ const SearchBar = () => {
       isTravelingWithPets,
     });
 
-    router.push(`/hotelSearch?${queryParams.toString()}`);
+    router.push(`/searchResults?${queryParams.toString()}`);
     console.log("Searching for:", {
       destination,
       dateRange: value,
