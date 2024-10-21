@@ -1,8 +1,16 @@
 import { questions } from "@/Static/Arrays";
 import FAQItem from "../divs/FAQItem";
 import SubHeading from "../Headings/SubHeading";
+import { unstable_setRequestLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 
 const TravelersAsking = () => {
+  const locale = useLocale();
+  unstable_setRequestLocale(locale);
   const leftQuestions = questions.slice(0, Math.ceil(questions.length / 2));
   const rightQuestions = questions.slice(Math.ceil(questions.length / 2));
 

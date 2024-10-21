@@ -1,6 +1,14 @@
 import Image from "next/image";
+import { unstable_setRequestLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 
 function ImageModal({ images, onClose }) {
+  const locale = useLocale();
+  unstable_setRequestLocale(locale);
   const handleOutsideClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();

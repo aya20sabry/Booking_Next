@@ -2,8 +2,16 @@ import Footer from "@/Components/Footer/Footer";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 import Link from "next/link";
+import { unstable_setRequestLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 
 function NotFound() {
+  const locale = useLocale();
+  unstable_setRequestLocale(locale);
   return (
     <>
       <Navbar />

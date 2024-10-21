@@ -1,9 +1,9 @@
-"use client"; // Indicate that this is a client component
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NavPlain from "@/Components/Navbar/NavPlain";
-import axios from "axios"; // Ensure axios is imported
+import axios from "axios";
 
 export default function Signinlist() {
   const [email, setEmail] = useState("");

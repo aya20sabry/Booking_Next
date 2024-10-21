@@ -1,6 +1,14 @@
 import Link from "next/link";
+import { unstable_setRequestLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 
 function Destination({ text, isActive }) {
+  const locale = useLocale();
+  unstable_setRequestLocale(locale);
   return (
     <>
       <button

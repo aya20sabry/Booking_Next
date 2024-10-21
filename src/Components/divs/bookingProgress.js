@@ -1,7 +1,15 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
+import { unstable_setRequestLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 
 const ProgressSteps = ({ step, handleStep }) => {
+  const locale = useLocale();
+  unstable_setRequestLocale(locale);
   return (
     <div className="flex items-center w-full max-w-5xl mx-auto">
       <div className="flex items-center text-blue-600 relative">

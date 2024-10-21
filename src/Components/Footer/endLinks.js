@@ -1,7 +1,15 @@
 import React from "react";
 import { footerLinks, additionalLinks } from "@/Static/footer";
+import { unstable_setRequestLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 
 function EndLinks() {
+  const locale = useLocale();
+  unstable_setRequestLocale(locale);
   return (
     <>
       {/* Mobile version */}
