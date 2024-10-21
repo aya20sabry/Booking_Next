@@ -1,4 +1,6 @@
+import { useLocale } from "next-intl";
 function Main({ title, description }) {
+  const locale = useLocale();
   return (
     <>
       <section

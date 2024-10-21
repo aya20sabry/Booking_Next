@@ -8,8 +8,8 @@ import { MdMenu } from "react-icons/md";
 import { BsHouseAdd } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "@/i18n/routing";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 function Navbar() {
   const locale = useLocale();
