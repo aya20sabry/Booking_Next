@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
+
   const t = useTranslations("Navbar");
   const locale = useLocale();
   const pathname = usePathname();
@@ -26,10 +27,18 @@ function Navbar() {
     return path;
   };
 
+
   const languages = [
     { code: "en", name: "English", flag: ENFlag },
     { code: "ar", name: "العربية", flag: SaudiFlag },
   ];
+
+
+  const handleLanguageChange = (langCode) => {
+    setCurrentLanguage(langCode);
+    setIsLanguageModalOpen(false);
+  };
+
 
   return (
     <>
@@ -52,7 +61,9 @@ function Navbar() {
               onClick={() => setIsLanguageModalOpen(true)}
             >
               <Image
+
                 src={locale == "en" ? ENFlag : SaudiFlag}
+
                 className="rounded-full"
                 alt="Language"
                 width={24}
@@ -121,13 +132,16 @@ function Navbar() {
                   onClick={() => setIsLanguageModalOpen(true)}
                 >
                   <Image
+
                     src={locale == "en" ? ENFlag : SaudiFlag}
+
                     className="rounded-full me-2"
                     alt="Language"
                     width={24}
                     height={24}
-                  />
+   />
                   {locale == "en" ? "English" : "العربية"}
+
                 </button>
                 <button className="px-3 py-2 rounded flex items-center space-x-2">
                   <BsHouseAdd className="text-2xl me-2" />
@@ -158,14 +172,16 @@ function Navbar() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
             >
-              <h2 className="text-2xl font-bold mb-4">
+<h2 className="text-2xl font-bold mb-4">
                 {t("select_language")}
               </h2>
+
               <div className="space-y-2">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
                     className="flex items-center space-x-2 w-full p-2 hover:bg-gray-100 rounded"
+
                   >
                     <Link
                       href={getPathWithoutLocale(pathname)}
@@ -181,6 +197,7 @@ function Navbar() {
                       />
                       <span>{lang.name}</span>
                     </Link>
+
                   </button>
                 ))}
               </div>
@@ -188,7 +205,11 @@ function Navbar() {
                 className="mt-4 bg-[#003B95] px-4 py-2 rounded text-white hover:bg-[#003B95]/80 w-full"
                 onClick={() => setIsLanguageModalOpen(false)}
               >
+
                 {t("close")}
+
+                Close
+
               </button>
             </motion.div>
           </motion.div>
