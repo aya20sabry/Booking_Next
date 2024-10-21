@@ -1,7 +1,6 @@
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
 import "./globals.css";
 
 export const metadata = {
@@ -14,8 +13,7 @@ export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ar" }];
 }
 
-export default async function RootLayout({ children }) {
-  const locale = useLocale();
+export default async function RootLayout({ children, params: { locale } }) {
   unstable_setRequestLocale(locale);
 
   let messages;
