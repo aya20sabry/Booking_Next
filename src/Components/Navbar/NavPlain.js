@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import ENFlag from "@/Public/ENFlag.png";
 import SaudiFlag from "@/Public/saudiArabia.png";
-
+import { useLocale } from "next-intl";
 function NavPlain() {
+  const locale = useLocale();
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState("en");
 
@@ -28,7 +29,7 @@ function NavPlain() {
               onClick={() => setIsLanguageModalOpen(true)}
             >
               <Image
-                src={currentLanguage === "en" ? ENFlag : SaudiFlag}
+                src={locale === "en" ? ENFlag : SaudiFlag}
                 className="rounded-full"
                 alt="Language"
                 width={24}
