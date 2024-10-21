@@ -8,7 +8,6 @@ import {
   AccordionTrigger,
 } from "@/Components/ui/accordion";
 import Link from "next/link";
-import singinlist from "../singinlist/page";
 
 export default function List() {
   return (
