@@ -9,16 +9,8 @@ import { LiaConciergeBellSolid } from "react-icons/lia";
 import { PiFlowerTulip } from "react-icons/pi";
 import { RiWheelchairLine } from "react-icons/ri";
 import { GiGolfFlag } from "react-icons/gi";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 const AmenityIcon = ({ name }) => {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   const icons = {
     bed: IoBedOutline,
     bath: LiaBathSolid,

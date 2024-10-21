@@ -1,13 +1,4 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
-
 function Places({ name, propertyCount }) {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <>
       <div className="mb-4">

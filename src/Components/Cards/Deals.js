@@ -1,10 +1,4 @@
 import Image from "next/image";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 function Deals({
   imageSrc,
@@ -16,8 +10,6 @@ function Deals({
   newPrice,
   nights,
 }) {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <div className="w-full max-w-sm mx-auto rounded overflow-hidden shadow-lg flex flex-col h-full">
       <div className="relative w-full h-0 pb-[75%]">

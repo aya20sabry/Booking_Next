@@ -1,7 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { GetHotelAmenities } from "@/API/GET";
 import HotelAmenities from "@/Components/divs/Facilities";
 import { TbParkingCircle } from "react-icons/tb";
 import {

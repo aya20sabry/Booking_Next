@@ -1,14 +1,6 @@
 import { Progress } from "@/Components/ui/progress";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 const RatingBar = ({ category, score }) => {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <div className="mb-4 w-full">
       <div className="flex justify-between items-center mb-1">

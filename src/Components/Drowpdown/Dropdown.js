@@ -1,13 +1,4 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
-
 const Dropdown = ({ options, selected, onSelect, isOpen, onToggle }) => {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   const handleItemClick = (item) => {
     onSelect(item);
     onToggle();

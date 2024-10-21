@@ -1,13 +1,4 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
-
 function SubHeading({ title, description }) {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <section className="mx-auto max-w-6xl mt-6 flex justify-between">
       <div className="flex flex-col">

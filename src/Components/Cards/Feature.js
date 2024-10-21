@@ -1,14 +1,6 @@
 import React from "react";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 const FeatureItem = ({ Icon, title, description }) => {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <div className="flex justify-center ">
       <div className="me-2 ">

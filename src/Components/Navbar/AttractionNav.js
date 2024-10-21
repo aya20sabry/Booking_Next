@@ -1,13 +1,4 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
-
 const AttractionNav = ({ tabs, activeTab, onTabChange }) => {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <nav className="flex overflow-x-auto pb-4 mb-6">
       {tabs.map((tab) => (

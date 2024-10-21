@@ -1,15 +1,7 @@
 import Image from "next/image";
 import Map from "@/Public/Map.png";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 function Filters() {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <div>
       <div className="bg-gray-100 p-4 rounded-lg mb-4">

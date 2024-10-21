@@ -1,14 +1,6 @@
 import React from "react";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 const Nav = ({ icon: Icon, text, isActive }) => {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <button
       className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors text-sm ${

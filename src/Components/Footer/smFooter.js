@@ -4,16 +4,8 @@ import PriceLogo from "@/Public/PriceLogo.svg";
 import KayakLogo from "@/Public/KayakLogo.svg";
 import OpenLogo from "@/Public/OpenLogo.svg";
 import BookingLogo from "@/Public/BookingLogo.svg";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 function SmFooter() {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <>
       <footer className="text-black text-xs text-center border-t pt-4 w-full">

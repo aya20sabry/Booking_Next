@@ -1,15 +1,7 @@
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { FaAngleRight } from "react-icons/fa6";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 const FAQItem = ({ question }) => {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <div className="flex items-start justify-start p-3 border-b last:border-b-0">
       <IoChatbubblesOutline className="  text-gray-500 text-xl" />

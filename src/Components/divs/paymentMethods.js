@@ -2,16 +2,8 @@ import visa from "@/Public/Visa.png";
 import mastercard from "@/Public/masterCard.png";
 import paypal from "@/Public/Paypal.png";
 import Image from "next/image";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 function PaymentMethods({ icon: Icon, title }) {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <>
       <div className="grid grid-cols-4 p-4 ">

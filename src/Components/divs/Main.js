@@ -1,13 +1,4 @@
-import { useLocale } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
-
 function Main({ title, description }) {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <>
       <section

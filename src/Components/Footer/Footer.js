@@ -13,16 +13,8 @@ import {
   partnerLinks,
   aboutLinks,
 } from "@/Static/footer";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 function Footer() {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <>
       <footer className="bg-gray-100 pt-8 pb-4">

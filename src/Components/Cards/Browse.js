@@ -1,14 +1,6 @@
 import Image from "next/image";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { useLocale } from "next-intl";
-
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
 
 function Browse({ src, title, date, description }) {
-  const locale = useLocale();
-  unstable_setRequestLocale(locale);
   return (
     <>
       <div className="flex-none   relative">
