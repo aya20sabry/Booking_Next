@@ -1,19 +1,42 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
 import ENFlag from "@/Public/ENFlag.png";
+import SaudiFlag from "@/Public/saudiArabia.png";
 import { MdMenu } from "react-icons/md";
 import { BsHouseAdd } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "@/i18n/routing";
+import { usePathname } from "next/navigation";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
+  const t = useTranslations("Navbar");
+  const locale = useLocale();
+  const pathname = usePathname();
+
+  const getPathWithoutLocale = (path) => {
+    const pathParts = path.split("/");
+    if (locale.includes(pathParts[1])) {
+      return "/" + pathParts.slice(2).join("/");
+    }
+    return path;
+  };
+
+  const languages = [
+    { code: "en", name: "English", flag: ENFlag },
+    { code: "ar", name: "العربية", flag: SaudiFlag },
+  ];
 
   return (
     <>
-      <header className="mainColor text-white py-4">
+      <header
+        className="mainColor text-white py-4"
+        dir={locale === "ar" ? "rtl" : "ltr"}
+      >
         <div className="max-w-7xl lg:mx-44 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="font-bold text-2xl BodyFont">
             Booking.com
@@ -24,9 +47,12 @@ function Navbar() {
             <button className="mainColor navHover  px-3 py-2 rounded">
               EGP
             </button>
-            <button className="mainColor navHover px-3 py-2 rounded">
+            <button
+              className="mainColor navHover px-3 py-2 rounded"
+              onClick={() => setIsLanguageModalOpen(true)}
+            >
               <Image
-                src={ENFlag}
+                src={locale == "en" ? ENFlag : SaudiFlag}
                 className="rounded-full"
                 alt="Language"
                 width={24}
@@ -34,30 +60,29 @@ function Navbar() {
               />
             </button>
             <button className="mainColor navHover px-3 py-2 rounded">
-              {" "}
-              <span className="infolink  "></span>
+              <span className="infolink"></span>
             </button>
             <Link href="/list">
               <button className="mainColor navHover px-3 py-2 rounded">
-                List your property
+                {t("list_your_property")}
               </button>
             </Link>
             <Link href="/Register">
               <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
-                Register
+                {t("register")}
               </button>
             </Link>
             <Link href="/Signin">
               <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded  border-blue-900 font-medium">
-                Sign in
+                {t("sign_in")}
               </button>
             </Link>
           </div>
 
-          {/* Mobile menu */}
-          <div className="flex md:hidden space-x-4">
+          {/* Mobile menu button */}
+          <div className="flex md:hidden space-x-4 items-center">
             <Link href="/signin" className="text-white text-2xl">
-              <FaRegUserCircle />
+              <FaRegUserCircle className="me-2" />
             </Link>
             <button
               onClick={() => setIsMenuOpen(true)}
@@ -69,7 +94,7 @@ function Navbar() {
         </div>
       </header>
 
-      {/* Mobile menu  */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -79,7 +104,7 @@ function Navbar() {
             exit={{ y: "-100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="flex flex-col  h-full">
+            <div className="flex flex-col h-full">
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="absolute top-4 right-4 text-black text-2xl"
@@ -87,29 +112,85 @@ function Navbar() {
                 &times;
               </button>
               <div className="flex flex-col items-start justify-start space-y-4 h-full p-6 mt-10">
-                <h1 className="text-2xl font-bold">More</h1>
-                <button className="   px-3 py-2 rounded">
-                  EGP Egyptian Pound
+                <h1 className="text-2xl font-bold">{t("more")}</h1>
+                <button className="px-3 py-2 rounded">
+                  EGP {t("currency")}
                 </button>
-                <button className="  px-3 py-2 rounded flex items-center space-x-2">
+                <button
+                  className="px-3 py-2 rounded flex items-center space-x-2"
+                  onClick={() => setIsLanguageModalOpen(true)}
+                >
                   <Image
-                    src={ENFlag}
+                    src={locale == "en" ? ENFlag : SaudiFlag}
                     className="rounded-full me-2"
                     alt="Language"
                     width={24}
                     height={24}
-                  />{" "}
-                  English (US)
+                  />
+                  {locale == "en" ? "English" : "العربية"}
                 </button>
-                <button className="  px-3 py-2 rounded flex items-center space-x-2">
-                  <BsHouseAdd className="text-2xl me-2" /> List your property
+                <button className="px-3 py-2 rounded flex items-center space-x-2">
+                  <BsHouseAdd className="text-2xl me-2" />
+                  {t("list_your_property")}
                 </button>
-                <button className="  px-3 py-2 rounded">
-                  {" "}
-                  <span className="infolink  "></span> Contact Customer Service
+                <button className="px-3 py-2 rounded flex items-center space-x-2">
+                  <span className="infolink me-2"></span>
+                  {t("contact_customer_service")}
                 </button>
               </div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Language Modal */}
+      <AnimatePresence>
+        {isLanguageModalOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-lg p-6 w-96"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+            >
+              <h2 className="text-2xl font-bold mb-4">
+                {t("select_language")}
+              </h2>
+              <div className="space-y-2">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    className="flex items-center space-x-2 w-full p-2 hover:bg-gray-100 rounded"
+                  >
+                    <Link
+                      href={getPathWithoutLocale(pathname)}
+                      locale={lang.code}
+                      className="flex items-center space-x-2"
+                    >
+                      <Image
+                        src={lang.flag}
+                        alt={lang.name}
+                        width={24}
+                        height={24}
+                        className="rounded-full"
+                      />
+                      <span>{lang.name}</span>
+                    </Link>
+                  </button>
+                ))}
+              </div>
+              <button
+                className="mt-4 bg-[#003B95] px-4 py-2 rounded text-white hover:bg-[#003B95]/80 w-full"
+                onClick={() => setIsLanguageModalOpen(false)}
+              >
+                {t("close")}
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,0 +1,35 @@
+{
+    "HomePage": {
+        "title": "ابحث عن إقامتك التالية",
+        "description": "استكشف العروض على الفنادق والبيوت وغيرها الكثير..."
+    },
+    "Navbar": {
+        "list_your_property": " أعرض عقارك على موقعنا",
+        "register": "سجل",
+        "sign_in": "سجل الدخول",
+        "more": "المزيد",
+        "currency": "جنيه مصري",
+        "contact_customer_service": "اتصل بخدمة العملاء",
+        "select_language": "اختر اللغة",
+        "close": "إغلاق"
+    },
+    "Header": {
+        "stays": "الإقامات",
+        "flights": "رحلات الطيران",
+        "cars": "تأجير السيارات",
+        "attractions": "المعالم السياحية",
+        "taxi": "تاكسي المطار"
+    },
+    "Attractions": {
+        "title": "معالم سياحية وأنشطة وتجارب متنوعة",
+        "description": "اكتشف معالم سياحية وتجارب جديدة تتناسب مع اهتماماتك وأسلوب سفرك",
+        "nearby_destinations": "وجهات بالجوار"
+    },
+    "Footer": {
+        "about": "عنا",
+        "careers": "الوظائف",
+        "newsroom": "غرفة الأخبار",
+        "sustainability": "الاستدامة",
+        "partners": "الشركاء"
+    }
+}

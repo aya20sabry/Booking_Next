@@ -1,0 +1,35 @@
+{
+    "Navbar": {
+        "list_your_property": "List your property",
+        "register": "Register",
+        "sign_in": "Sign in",
+        "more": "More",
+        "currency": " Egyptian Pound",
+        "contact_customer_service": "Contact Customer Service",
+        "select_language": "Select Language",
+        "close": "Close"
+    },
+    "HomePage": {
+        "title": "Find your next stay",
+        "description": "Search deals on hotels, homes, and much more..."
+    },
+    "Header": {
+        "stays": "Stays",
+        "flights": "Flights",
+        "cars": "Cars",
+        "attractions": "Attractions",
+        "taxi": "Airport Taxi"
+    },
+    "Attractions": {
+        "title": "Attractions, activities, and experiences",
+        "description": "Discover new attractions and experiences to match your interests and travel style",
+        "nearby_destinations": "Nearby destinations"
+    },
+    "Footer": {
+        "about": "About",
+        "careers": "Careers",
+        "newsroom": "Newsroom",
+        "sustainability": "Sustainability",
+        "partners": "Partners"
+    }
+}

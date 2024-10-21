@@ -12,22 +12,23 @@ import { useState } from "react";
 import AttractionCard from "@/Components/Cards/AttractionCard";
 import { regions } from "@/Static/Arrays";
 import AttractionSearch from "@/Components/searchBar/AttractionSearch";
+import { useTranslations, useLocale } from "next-intl";
+
 function Attractions() {
+  const t = useTranslations("Attractions");
+  const locale = useLocale();
   const [activeRegion, setActiveRegion] = useState("Europe");
   return (
     <>
       <Navbar />
       <Header />
-      <Main
-        title="Attractions, activities, and experiences"
-        description="Discover new attractions and experiences to match your interests and travel style"
-      />
+      <Main title={t("title")} description={t("description")} />
       <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
         <AttractionSearch />
       </div>
-      <section className="py-8 sm:py-20">
+      <section className="py-8 sm:py-20" dir={locale === "ar" ? "rtl" : "ltr"}>
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading title="Nearby destinations" />
+          <Heading title={t("nearby_destinations")} />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           {destinations.map((dest) => (

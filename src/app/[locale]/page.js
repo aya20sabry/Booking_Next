@@ -29,16 +29,16 @@ import EndLinks from "@/Components/Footer/endLinks";
 import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
 import SearchBar from "@/Components/searchBar/searchBar";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations("HomePage");
+  const locale = useLocale();
   return (
     <>
-       <Navbar />
+      <Navbar />
       <Header />
-      <Main
-        title="Find your next stay "
-        description="Search deals on hotels, homes, and much more..."
-      />
+      <Main title={t("title")} description={t("description")} />
       <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
         <SearchBar />
       </div>
@@ -452,7 +452,7 @@ export default function Home() {
         </div>
       </section>
       <EndLinks />
-      <Footer /> 
+      <Footer />
     </>
   );
 }
