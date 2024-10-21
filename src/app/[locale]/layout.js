@@ -24,7 +24,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
