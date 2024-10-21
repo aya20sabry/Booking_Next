@@ -1,17 +1,26 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+
 export default function PaymentSuccessPage() {
   const locale = useLocale();
   const router = useRouter();
+  const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    const redirectTimer = setTimeout(() => {
       router.push("/");
     }, 5000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearInterval(timer);
+      clearTimeout(redirectTimer);
+    };
   }, [router]);
 
   return (
@@ -20,7 +29,9 @@ export default function PaymentSuccessPage() {
         Payment Successful!
       </h1>
       <p className="text-xl mb-8">Thank you for your booking.</p>
-      <p className="text-lg">Redirecting to home page in 5 seconds...</p>
+      <p className="text-lg">
+        Redirecting to home page in {countdown} seconds...
+      </p>
     </div>
   );
 }

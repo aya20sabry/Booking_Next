@@ -1,12 +1,12 @@
-"use client";
+"use client"; // Indicate that this is a client component
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NavPlain from "@/Components/Navbar/NavPlain";
-import axios from "axios";
-import { useLocale } from "next-intl";
-export default function Signinlist() {
-  const locale = useLocale();
+import axios from "axios"; // Ensure axios is imported
+import Link from "next/link";
+
+export default function Signlist() {
   const [email, setEmail] = useState("");
   const router = useRouter();
 
@@ -24,12 +24,13 @@ export default function Signinlist() {
 
       if (response.data === "please enter valid email") {
         console.log("Email not found");
-        router.push("/contact-details"); // Redirect to contact details if email not found
+        router.push("/en/contact-details");
       } else {
         console.log("Email found");
         localStorage.setItem("email", email);
-        router.push("/Register"); // Redirect to register if email found
+        router.push("/en/Register");
       }
+      localStorage.setItem("email", email);
     } catch (error) {
       console.error("Error checking email:", error);
     }
@@ -61,6 +62,7 @@ export default function Signinlist() {
                 required
               />
             </div>
+
             <button
               type="submit" // Ensure this is set to "submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
@@ -82,9 +84,11 @@ export default function Signinlist() {
           </div>
 
           <div className="text-center">
-            <button className="w-full border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200">
-              Sign in
-            </button>
+            <Link href="/en/Signin">
+              <button className="w-full border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200">
+                Sign in
+              </button>
+            </Link>
           </div>
 
           <p className="mt-6 text-xs text-center text-gray-500">

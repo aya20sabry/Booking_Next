@@ -2,9 +2,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { useLocale } from "next-intl";
+
 const Register = () => {
-  const locale = useLocale();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");

@@ -22,6 +22,7 @@ import { IoWifi } from "react-icons/io5";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import { FaCreditCard, FaPaypal } from "react-icons/fa";
 const testBookingDetails = {
   check_in_date: new Date("2024-10-18T00:00:00.000Z"),
   check_out_date: new Date("2024-10-20T00:00:00.000Z"),
@@ -271,132 +272,102 @@ function BookPage() {
                         card?
                       </button>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <FormControl className="col-span-1">
-                        <label className="text-sm font-bold mb-1">
-                          Cardholder&apos;s name{" "}
-                          <span className="text-red-700">*</span>
-                        </label>
-                        <TextField size="small" />
-                      </FormControl>
-                      <FormControl className="col-span-1">
-                        <label className="text-sm font-bold mb-1">
-                          Card type <span className="text-red-700">*</span>
-                        </label>
-                        <Select fullWidth label="-- Select --" size="small">
-                          <MenuItem value="-- Select --" disabled>
-                            -- Select card type --
-                          </MenuItem>
-                          <MenuItem value="visa">Visa</MenuItem>
-                          <MenuItem value="mastercard">Mastercard</MenuItem>
-                          <MenuItem value="amex">American Express</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <FormControl className="col-span-1">
-                        <label className="text-sm font-bold mb-1">
-                          Card number <span className="text-red-700">*</span>
-                        </label>
-                        <TextField size="small" />
-                      </FormControl>
-                      <FormControl className="col-span-1">
-                        <label className="text-sm font-bold mb-1">
-                          Expiry date <span className="text-red-700">*</span>
-                        </label>
-                        <TextField size="small" />
-                      </FormControl>
-                    </div>
-                    <h2 className="text-sm font-bold ">CVC-code</h2>
-                    <p className="text-sm mb-4">
-                      You do not need to enter a CVC code for this booking.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-2 mt-4">
-                    {bookingId && (
-                      <PayPalButtons
-                        createOrder={(data, actions) => {
-                          console.log("Creating PayPal order");
-                          return fetch("http://localhost:3000/paypal/pay", {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                              bookingId: bookingId,
-                            }),
-                          })
-                            .then((response) => {
-                              if (!response.ok) {
-                                return response.json().then((err) => {
-                                  throw new Error(
-                                    err.message ||
-                                      "Failed to create PayPal order"
-                                  );
-                                });
-                              }
-                              return response.json();
+                    <div className="flex flex-col gap-2 mt-4">
+                      <button className="mb-2 rounded-full bg-green-500 text-white p-2 flex justify-center items-center  font-semibold">
+                        <RiMoneyDollarCircleFill className="mr-2 text-3xl" />{" "}
+                        Pay cash on arrival
+                      </button>
+                      <button
+                        className="text-base font-semibold bg-[#006ce4] text-white p-2 rounded-full mb-4 text-center hover:bg-[#0057B8] flex items-center justify-center"
+                        onClick={handleBookingSubmit}
+                      >
+                        <FaPaypal className="mr-2 text-3xl" />{" "}
+                        <FaCreditCard className="mr-2 text-3xl" /> Or press here
+                        to Pay with PayPal or Credit Card
+                      </button>
+                      {bookingId && (
+                        <PayPalButtons
+                          createOrder={(data, actions) => {
+                            console.log("Creating PayPal order");
+                            return fetch("http://localhost:3000/paypal/pay", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify({
+                                bookingId: bookingId,
+                              }),
                             })
-                            .then((order) => {
-                              console.log("PayPal order created:", order);
-                              setPaypalOrderError(null); // Clear any previous errors
-                              return order.id;
-                            })
-                            .catch((error) => {
-                              console.error(
-                                "Error creating PayPal order:",
-                                error
-                              );
-                              setPaypalOrderError(error.message);
-                              throw error;
-                            });
-                        }}
-                        onApprove={(data, actions) => {
-                          console.log("Payment approved, executing payment");
-                          return fetch(
-                            `http://localhost:3000/paypal/success?token=${data.orderID}&bookingId=${bookingId}`
-                          )
-                            .then((response) => response.json())
-                            .then((details) => {
-                              console.log("Payment successful:", details);
-                              if (
-                                details.message === "Failed to process payment"
-                              ) {
-                                throw new Error(
-                                  "Backend failed to process payment"
+                              .then((response) => {
+                                if (!response.ok) {
+                                  return response.json().then((err) => {
+                                    throw new Error(
+                                      err.message ||
+                                        "Failed to create PayPal order"
+                                    );
+                                  });
+                                }
+                                return response.json();
+                              })
+                              .then((order) => {
+                                console.log("PayPal order created:", order);
+                                setPaypalOrderError(null);
+                                return order.id;
+                              })
+                              .catch((error) => {
+                                console.error(
+                                  "Error creating PayPal order:",
+                                  error
                                 );
-                              }
-                              router.push("/payment-success");
-                            })
-                            .catch((error) => {
-                              console.error("Error processing payment:", error);
-                              setPaypalError(error);
-                            });
-                        }}
-                        onError={(err) => {
-                          setPaypalError(err);
-                          console.error("PayPal error:", err);
-                        }}
-                      />
-                    )}
+                                setPaypalOrderError(error.message);
+                                throw error;
+                              });
+                          }}
+                          onApprove={(data, actions) => {
+                            console.log("Payment approved, executing payment");
+                            return fetch(
+                              `http://localhost:3000/paypal/success?token=${data.orderID}&bookingId=${bookingId}`
+                            )
+                              .then((response) => response.json())
+                              .then((details) => {
+                                console.log("Payment successful:", details);
+                                if (
+                                  details.message ===
+                                  "Failed to process payment"
+                                ) {
+                                  throw new Error(
+                                    "Backend failed to process payment"
+                                  );
+                                }
+                                router.push("/payment-success");
+                              })
+                              .catch((error) => {
+                                console.error(
+                                  "Error processing payment:",
+                                  error
+                                );
+                                setPaypalError(error);
+                              });
+                          }}
+                          onError={(err) => {
+                            setPaypalError(err);
+                            console.error("PayPal error:", err);
+                          }}
+                          style={{
+                            layout: "vertical",
+                            color: "gold",
+                            shape: "pill",
+                            label: "paypal",
+                          }}
+                        />
+                      )}
 
-                    {paypalOrderError && (
-                      <p className="text-red-500 mb-2">
-                        Error: {paypalOrderError}
-                      </p>
-                    )}
-
-                    {paypalError && (
-                      <p className="text-red-500 mb-2">
-                        PayPal Error: {paypalError.message}
-                      </p>
-                    )}
-
-                    <button className="mb-2 rounded-full bg-green-500 text-white p-2 flex justify-center items-center text-bold font-semibold">
-                      <RiMoneyDollarCircleFill className="mr-2 text-3xl" /> Pay
-                      cash on arrival
-                    </button>
+                      {paypalOrderError && (
+                        <p className="text-red-500 mb-2">
+                          Error: {paypalOrderError}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <FormControlLabel
@@ -450,12 +421,8 @@ function BookPage() {
                     <button className="rounded-md border border-[#006CE8] bg-white text-[#006CE8] py-2 px-6 flex justify-center items-center text-base font-semibold hover:bg-blue-50 ">
                       Check your booking
                     </button>
-                    <button
-                      className="rounded-md bg-[#006CE8] text-white py-4 px-6 flex justify-center items-center text-base font-semibold hover:bg-[#0057B8]"
-                      onClick={handleBookingSubmit}
-                    >
+                    <button className="rounded-md bg-[#006CE8] text-white py-4 px-6 flex justify-center items-center text-base font-semibold hover:bg-[#0057B8]">
                       <CiLock className="mr-2 text-3xl" /> Complete booking
-                      (Test)
                     </button>
                   </div>
                 </div>

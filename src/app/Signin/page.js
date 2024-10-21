@@ -8,9 +8,8 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+
 export default function Signin() {
-  const locale = useLocale();
   const [email, setEmail] = useState("");
   const router = useRouter();
 
@@ -33,7 +32,7 @@ export default function Signin() {
         console.log("Email  found");
       }
       localStorage.setItem("email", email);
-      router.push("/Register");
+      router.push("/en/Register");
     } catch (error) {
       console.error("Error checking email:", error);
     }
