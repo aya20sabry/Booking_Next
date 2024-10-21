@@ -30,8 +30,12 @@ import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { useTranslations, useLocale } from "next-intl";
-
+import { unstable_setRequestLocale } from "next-intl/server";
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 export default function Home() {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("HomePage");
   const locale = useLocale();
   return (

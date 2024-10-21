@@ -13,8 +13,12 @@ import AttractionCard from "@/Components/Cards/AttractionCard";
 import { regions } from "@/Static/Arrays";
 import AttractionSearch from "@/Components/searchBar/AttractionSearch";
 import { useTranslations, useLocale } from "next-intl";
-
+import { unstable_setRequestLocale } from "next-intl/server";
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "ar" }];
+}
 function Attractions() {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("Attractions");
   const locale = useLocale();
   const [activeRegion, setActiveRegion] = useState("Europe");
