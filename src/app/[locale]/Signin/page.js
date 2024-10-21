@@ -1,50 +1,42 @@
-"use client"; // Add this line to indicate that this is a client component
+"use client";
 
-import Navbar from "@/Components/Navbar/Navbar";
 import Image from "next/image";
 import facebook from "@/Public/facebook.png";
 import google from "@/Public/google.png";
 import apple from "@/Public/apple.png";
 import NavPlain from "@/Components/Navbar/NavPlain";
 import { useState } from "react";
-import axios from 'axios'; 
-import { useRouter } from 'next/navigation';
-import ResetPassword from "../resetPassword/[token]/page";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Signin() {
-  const [email, setEmail] = useState(""); 
-  const router = useRouter(); 
+  const [email, setEmail] = useState("");
+  const router = useRouter();
 
   const checkemail = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3000/user', 
+      baseURL: "http://localhost:3000/user",
     });
 
     try {
-      
-        const response = await axiosInstance.post('/checkemail', { email });
-        console.log(email)
-        console.log("res",response)
+      const response = await axiosInstance.post("/checkemail", { email });
+      console.log(email);
+      console.log("res", response);
 
-        if (response.data=="please enter valid email ") { 
-          // localStorage.setItem('email', email);
-            console.log("Email not found");
-            
-       
-        } else {
-            console.log("Email  found");
-            
-          }
-          localStorage.setItem('email', email);
-          router.push('/Register');
+      if (response.data == "please enter valid email") {
+        // localStorage.setItem('email', email);
+        console.log("Email not found");
+      } else {
+        console.log("Email  found");
+      }
+      localStorage.setItem("email", email);
+      router.push("/Register");
     } catch (error) {
-        console.error("Error checking email:", error); 
-
+      console.error("Error checking email:", error);
     }
-};
+  };
 
   return (
     <>
@@ -65,7 +57,7 @@ export default function Signin() {
                 placeholder="Enter your email address"
                 className="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)} // Update email state on change
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <button
@@ -105,7 +97,6 @@ export default function Signin() {
           </p>
         </div>
       </div>
-      <ResetPassword/>
     </>
   );
 }

@@ -1,287 +1,234 @@
-"use client";
+"use client"; 
+
 import { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import NavPlain from "@/Components/Navbar/NavPlain";
-import axios from 'axios'; 
-import { useRouter } from 'next/navigation'; 
+import axios from "axios"; 
+import { useRouter } from "next/navigation"; 
+import jwt_decode from 'jwt-decode';
 
 const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [emailExists, setEmailExists] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
- const [successMessage, setSuccessMessage] = useState("")
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('email'); 
+    const storedEmail = localStorage.getItem("email"); 
     if (storedEmail) {
       checkEmailInDatabase(storedEmail);
     }
   }, []);
 
   const checkEmailInDatabase = async (email) => {
-    const axiosInstance = axios.create({
-      baseURL: 'http://localhost:3000/user', 
-    });
-
     try {
-      const response = await axiosInstance.post('/checkemail', { email });
-      console.log("Email:", email);
-      console.log("Response:", response);
+      const response = await axios.post("http://localhost:3000/user/checkemail", { email });
 
-      if (response.data === "please enter valid email ") { 
-        console.log("Email not found");
+      if (response.data === "please enter valid email") {
         setEmailExists(false);
         if (password) {
-          await registerUser(email, password);
+          await registerUser(email, password, username);
         } else {
           setError("Password is required for registration.");
         }
       } else {
-        console.log("Email found");
         setEmailExists(true);
         await loginUser(email, password);
       }
     } catch (error) {
-      console.error("Error checking email:", error); 
       setError("An error occurred while checking the email. Please try again.");
     }
   };
 
-  const registerUser = async (email, password) => {
-    if (!password) {
-        setError("Password is required.");
-        return;
-    }
-    
-    console.log("hamadapass", password);
-    
+  const registerUser = async (email, password, username) => {
     try {
-        console.log("Registering user with email:", email, "and password:", password);
-        const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3000/user', 
-        });
-        const response = await axiosInstance.post('/', { email, password });
-        console.log("User registered:", response.data);
+      const response = await axios.post("http://localhost:3000/user/", { email, password, username });
+      console.log("User registered:", response.data);
     } catch (error) {
-        console.error("Error registering user:", error);
-        setError("An error occurred while registering. Please try again.");
+      setError("An error occurred while registering. Please try again.");
     }
   };
 
   const loginUser = async (email, password) => {
-    const axiosInstance = axios.create({
-      baseURL: 'http://localhost:3000/user', 
-    });
-
+    console.log("jwt_decode",jwt_decode)
     try {
-      const response = await axiosInstance.post('/login', { email, password });
+      const response = await axios.post("http://localhost:3000/user/login", { email, password });
+      console.log("respo",response)
       console.log("User logged in:", response.data);
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhYmFiYWxhYTE3NjE5OTlAZ21haWwuY29tIiwiaWQiOiI2NzBlNDM4MGI3MjAyOTIwODM0MWEyZTUiLCJyb2xlIjoidXNlciIsInVzZXJuYW1lIjoicmFiYWIiLCJpYXQiOjE3Mjk0NDQzMzd9.S3u5KCzmVmi0QZlxfO01LgA8MHM0aoXxHZTwGgCSmEU";
+      // console.log("token",token)
+      // localStorage.setItem("token", response.data);
+      // console.log("role");
+      try {
+        const decodedToken = jwt_decode(token); // Decode the token
+        console.log("Decoded Token:", decodedToken); // Log the entire decoded token
+      
+        const userRole = decodedToken.role; // Access the role
+        console.log("userRole", userRole); // Log the user role
+      
+        if (!userRole) {
+          console.error("Role not found in the token.");
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error); // Log any errors that occur during decoding
+      }
+      
+      const userRole = decodedToken.role; 
+      console.log("userRole", userRole);
+      
+      if (userRole === 'admin') {
+        router.push('/home'); 
+      } else if (userRole === 'user') {
+        router.push('/flight');
+      } else {
+        console.error("Unknown role:", userRole);
+      }
     } catch (error) {
-      console.error("Error logging in:", error);
       setError("An error occurred while logging in. Please try again.");
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const storedEmail = localStorage.getItem("email");
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{10,}$/;
+
     if (!passwordRegex.test(password)) {
-      setError(
-        "Password must be at least 10 characters long and include uppercase letters, lowercase letters, and numbers."
-      );
+      setError("Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers.");
     } else if (!emailExists && password !== confirmPassword) {
       setError("Passwords do not match.");
     } else {
       setError("");
-      console.log("Password is valid");
-
       if (emailExists) {
-        await loginUser(localStorage.getItem('email'), password);
+        await loginUser(storedEmail, password);
       } else {
-        await registerUser(localStorage.getItem('email'), password);
+        await registerUser(storedEmail, password, username);
       }
     }
-    await handleResetPassword(token);
   };
 
   const handleForgotPassword = async () => {
-    const storedEmail = localStorage.getItem('email');
+    const storedEmail = localStorage.getItem("email");
     if (!storedEmail) {
-        setError("Email is required for password reset.");
-        return;
+      setError("Email is required for password reset.");
+      return;
     }
 
-    const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3000/user',
-    });
-
     try {
-        const response = await axiosInstance.post('/forgotPassword', { email: storedEmail });
-        
-        console.log(response.data.message);
-        if(response.data.message=="Email sent successfully"){
-          setSuccessMessage("Check your email for the password reset link.");
-
-
-        }
+      const response = await axios.post("http://localhost:3000/user/forgotPassword", { email: storedEmail });
+      if (response.data.message === "Email sent successfully") {
+        setSuccessMessage("Check your email for the password reset link.");
+      }
     } catch (error) {
-        console.error("Error sending forgot password request:", error);
-        setError("An error occurred while sending the password reset request.");
+      setError("An error occurred while sending the password reset request.");
     }
   };
-  const handleResetPassword = async (token) => { // تأكد من تمرير التوكن كوسيلة
-    const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3000/user',
-    });
-
-    try {
-        const response = await axiosInstance.patch(`/resetPassword/${token}`, { // تمرير التوكن في الرابط
-            password: newPassword, // تأكد من أن لديك newPassword في الحالة
-            confirmPassword: confirmPassword // تأكد من أن لديك confirmPassword في الحالة
-        });
-        
-        console.log(response.data.message);
-        if (response.data.message === "Password updated successfully") {
-            setSuccessMessage("Your password has been reset successfully.");
-            setError(""); // مسح أي أخطاء سابقة
-        }
-    } catch (error) {
-        console.error("Error resetting password request:", error);
-        setError("An error occurred while resetting the password.");
-    }
-};
-
 
   return (
     <>
       <NavPlain />
       <div className="max-w-md mx-auto p-4">
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <h4 className="font-bold py-2 text-2xl">Create password</h4>
-            <h4 className="py-2">
-              Use a minimum of 10 characters, including uppercase letters,
-              lowercase letters and numbers.
-            </h4>
-
-            {emailExists ? (
+          {!emailExists && (
+            <>
+              <h4 className="font-bold py-2 text-2xl">Create password</h4>
+              <h4 className="py-2">
+                Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.
+              </h4>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Username
                 </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Enter your password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                  <div className="text-center">
-                    <button
-                      type="button"
-                      onClick={handleForgotPassword} 
-                      className="text-blue-500 hover:text-blue-700 underline font-semibold"
-                    >
-                      Forgot Password?
-                    </button>
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
-{successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
-                  </div>
-                </div>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Enter your username"
+                />
               </div>
-            ) : (
-              <>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Enter your password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                </div>
+            </>
+          )}
 
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Confirm Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    id="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Confirm your password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
-                  >
-                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500  hover:custom-blue"
-          >
-            Create account
-          </button>
-          <div className="text-center text-xs">
-            <span>
-              By signing in or creating an account, you agree with our{" "}
-            </span>
-            <a href="/terms" className="text-custom-color hover:underline">
-              Terms & Conditions
-            </a>
-            <span> and </span>
-            <a href="/privacy" className="text-custom-color hover:underline">
-              Privacy Statement
-            </a>
-
-            <div className="mt-2">
-              <p>All rights reserved.</p>
-              <p>Copyright (2006-2024) – Booking.com™</p>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              {emailExists ? (
+                <>
+                  <p className="font-bold">Enter your password</p>
+                  <p className="pb-3">Please enter your Booking.com password for</p>
+                  <p>password</p>
+                </>
+              ) : (
+                "Create Password"
+              )}
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
           </div>
+
+          {!emailExists && (
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Confirm your password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {emailExists && (
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="text-blue-500 hover:text-blue-700 underline font-semibold"
+              >
+                Forgot Password?
+              </button>
+              {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
+            </div>
+          )}
+
+          <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md">
+            {emailExists ? "Log In" : "Register"}
+          </button>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
       </div>
     </>
