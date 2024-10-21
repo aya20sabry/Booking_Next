@@ -8,7 +8,9 @@ import { MdMenu } from "react-icons/md";
 import { BsHouseAdd } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
+
 import Link from "next/link";
 
 function Navbar() {
@@ -20,22 +22,15 @@ function Navbar() {
   const t = useTranslations("Navbar");
   const pathname = usePathname();
 
-  const getPathWithoutLocale = (path) => {
-    const pathParts = path.split("/");
-    if (locale.includes(pathParts[1])) {
-      return "/" + pathParts.slice(2).join("/");
-    }
-    return path;
-  };
-
   const languages = [
     { code: "en", name: "English", flag: ENFlag },
     { code: "ar", name: "العربية", flag: SaudiFlag },
   ];
 
   const handleLanguageChange = (langCode) => {
-    setCurrentLanguage(langCode);
+    Cookies.set("NEXT_LOCALE", langCode);
     setIsLanguageModalOpen(false);
+    window.location.reload();
   };
 
   return (
@@ -174,9 +169,10 @@ function Navbar() {
                   <button
                     key={lang.code}
                     className="flex items-center space-x-2 w-full p-2 hover:bg-gray-100 rounded"
+                    onClick={() => handleLanguageChange(lang.code)}
                   >
                     <Link
-                      href={getPathWithoutLocale(pathname)}
+                      href={pathname}
                       locale={lang.code}
                       className="flex items-center space-x-2"
                     >
