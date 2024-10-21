@@ -193,7 +193,6 @@ function Navbar() {
                 onClick={() => setIsLanguageModalOpen(false)}
               >
                 {t("close")}
-                Close
               </button>
             </motion.div>
           </motion.div>
