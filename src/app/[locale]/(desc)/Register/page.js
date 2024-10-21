@@ -1,11 +1,11 @@
-"use client"; 
+"use client";
 
 import { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import NavPlain from "@/Components/Navbar/NavPlain";
-import axios from "axios"; 
-import { useRouter } from "next/navigation"; 
-import jwt_decode from 'jwt-decode';
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 
 const Register = () => {
   const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ const Register = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem("email"); 
+    const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       checkEmailInDatabase(storedEmail);
     }
@@ -27,7 +27,10 @@ const Register = () => {
 
   const checkEmailInDatabase = async (email) => {
     try {
-      const response = await axios.post("http://localhost:3000/user/checkemail", { email });
+      const response = await axios.post(
+        "http://localhost:3000/user/checkemail",
+        { email }
+      );
 
       if (response.data === "please enter valid email") {
         setEmailExists(false);
@@ -47,7 +50,11 @@ const Register = () => {
 
   const registerUser = async (email, password, username) => {
     try {
-      const response = await axios.post("http://localhost:3000/user/", { email, password, username });
+      const response = await axios.post("http://localhost:3000/user/", {
+        email,
+        password,
+        username,
+      });
       console.log("User registered:", response.data);
     } catch (error) {
       setError("An error occurred while registering. Please try again.");
@@ -55,36 +62,40 @@ const Register = () => {
   };
 
   const loginUser = async (email, password) => {
-    console.log("jwt_decode",jwt_decode)
+    console.log("jwt_decode", jwtDecode);
     try {
-      const response = await axios.post("http://localhost:3000/user/login", { email, password });
-      console.log("respo",response)
+      const response = await axios.post("http://localhost:3000/user/login", {
+        email,
+        password,
+      });
+      console.log("respo", response);
       console.log("User logged in:", response.data);
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhYmFiYWxhYTE3NjE5OTlAZ21haWwuY29tIiwiaWQiOiI2NzBlNDM4MGI3MjAyOTIwODM0MWEyZTUiLCJyb2xlIjoidXNlciIsInVzZXJuYW1lIjoicmFiYWIiLCJpYXQiOjE3Mjk0NDQzMzd9.S3u5KCzmVmi0QZlxfO01LgA8MHM0aoXxHZTwGgCSmEU";
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhYmFiYWxhYTE3NjE5OTlAZ21haWwuY29tIiwiaWQiOiI2NzBlNDM4MGI3MjAyOTIwODM0MWEyZTUiLCJyb2xlIjoidXNlciIsInVzZXJuYW1lIjoicmFiYWIiLCJpYXQiOjE3Mjk0NDQzMzd9.S3u5KCzmVmi0QZlxfO01LgA8MHM0aoXxHZTwGgCSmEU";
       // console.log("token",token)
       // localStorage.setItem("token", response.data);
       // console.log("role");
       try {
-        const decodedToken = jwt_decode(token); // Decode the token
+        const decodedToken = jwtDecode(token); // Use jwtDecode instead of jwt_decode
         console.log("Decoded Token:", decodedToken); // Log the entire decoded token
-      
+
         const userRole = decodedToken.role; // Access the role
         console.log("userRole", userRole); // Log the user role
-      
+
         if (!userRole) {
           console.error("Role not found in the token.");
         }
       } catch (error) {
         console.error("Error decoding token:", error); // Log any errors that occur during decoding
       }
-      
-      const userRole = decodedToken.role; 
+
+      const userRole = decodedToken.role;
       console.log("userRole", userRole);
-      
-      if (userRole === 'admin') {
-        router.push('/home'); 
-      } else if (userRole === 'user') {
-        router.push('/flight');
+
+      if (userRole === "admin") {
+        router.push("/home");
+      } else if (userRole === "user") {
+        router.push("/flight");
       } else {
         console.error("Unknown role:", userRole);
       }
@@ -99,7 +110,9 @@ const Register = () => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{10,}$/;
 
     if (!passwordRegex.test(password)) {
-      setError("Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers.");
+      setError(
+        "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers."
+      );
     } else if (!emailExists && password !== confirmPassword) {
       setError("Passwords do not match.");
     } else {
@@ -120,7 +133,10 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/user/forgotPassword", { email: storedEmail });
+      const response = await axios.post(
+        "http://localhost:3000/user/forgotPassword",
+        { email: storedEmail }
+      );
       if (response.data.message === "Email sent successfully") {
         setSuccessMessage("Check your email for the password reset link.");
       }
@@ -138,10 +154,14 @@ const Register = () => {
             <>
               <h4 className="font-bold py-2 text-2xl">Create password</h4>
               <h4 className="py-2">
-                Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.
+                Use a minimum of 10 characters, including uppercase letters,
+                lowercase letters, and numbers.
               </h4>
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Username
                 </label>
                 <input
@@ -157,11 +177,16 @@ const Register = () => {
           )}
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               {emailExists ? (
                 <>
                   <p className="font-bold">Enter your password</p>
-                  <p className="pb-3">Please enter your Booking.com password for</p>
+                  <p className="pb-3">
+                    Please enter your Booking.com password for
+                  </p>
                   <p>password</p>
                 </>
               ) : (
@@ -189,7 +214,10 @@ const Register = () => {
 
           {!emailExists && (
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Confirm Password
               </label>
               <div className="relative">
@@ -221,11 +249,16 @@ const Register = () => {
               >
                 Forgot Password?
               </button>
-              {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
+              {successMessage && (
+                <p className="text-green-500 text-sm">{successMessage}</p>
+              )}
             </div>
           )}
 
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md"
+          >
             {emailExists ? "Log In" : "Register"}
           </button>
           {error && <p className="text-red-500 text-sm">{error}</p>}
