@@ -23,8 +23,9 @@ import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoIosArrowForward, IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { IoWifi } from "react-icons/io5";
 import { MdOutlineRoomService } from "react-icons/md";
-
+import { useLocale } from "next-intl";
 function Book() {
+  const locale = useLocale();
   const [step, setStep] = useState(2);
   const [hotel, setHotel] = useState(null);
   const [rooms, setRooms] = useState(null);

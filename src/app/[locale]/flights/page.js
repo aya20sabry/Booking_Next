@@ -1,7 +1,8 @@
 "use client";
 // import ComponantFlight from './../../components/flight/flight';
-
+import { useLocale } from "next-intl";
 export default function Flights() {
+  const locale = useLocale();
   return (
     <div
       className="items-center pt-20 bg-custom-bg mb-20 h-lvh"

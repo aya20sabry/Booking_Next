@@ -9,8 +9,9 @@ import { hotels } from "@/Static/Hotels";
 import { LuArrowUpDown } from "react-icons/lu";
 import { HiChevronUpDown } from "react-icons/hi2";
 import Filters from "@/Components/divs/Filters";
-
+import { useLocale } from "next-intl";
 function SearchResults() {
+  const locale = useLocale();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   return (

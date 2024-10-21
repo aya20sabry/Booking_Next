@@ -6,8 +6,9 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-
+import { useLocale } from "next-intl";
 const Register = () => {
+  const locale = useLocale();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");

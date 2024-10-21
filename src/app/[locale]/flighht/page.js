@@ -6,8 +6,9 @@ import Bus from "@/Public/Bus.png";
 import MS from "@/Public/MS.png";
 import cairo from "@/Public/cairo.png";
 // import FlightFilter from './../test/page';
-
+import { useLocale } from "next-intl";
 const FlightCard = () => {
+  const locale = useLocale();
   const [stops, setStops] = useState({
     nonstop: true,
     oneStop: true,

@@ -21,7 +21,7 @@ import { GoQuestion } from "react-icons/go";
 import { IoWifi } from "react-icons/io5";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { useRouter } from "next/navigation";
-
+import { useLocale } from "next-intl";
 const testBookingDetails = {
   check_in_date: new Date("2024-10-18T00:00:00.000Z"),
   check_out_date: new Date("2024-10-20T00:00:00.000Z"),
@@ -48,6 +48,7 @@ const testBookingDetails = {
 };
 
 function BookPage() {
+  const locale = useLocale();
   const [step, setStep] = useState(3);
   const [hotel, setHotel] = useState(null);
   const [rooms, setRooms] = useState(null);

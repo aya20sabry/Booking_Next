@@ -8,8 +8,9 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import { useLocale } from "next-intl";
 export default function Signin() {
+  const locale = useLocale();
   const [email, setEmail] = useState("");
   const router = useRouter();
 

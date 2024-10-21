@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useLocale } from "next-intl";
 import * as React from "react";
 import Image from "next/image";
 import "./page.css";
@@ -57,6 +58,7 @@ const data = {
   ],
 };
 function Cars() {
+  const locale = useLocale();
   const [category, setCategory] = useState("Cities in Egypt");
 
   return (
@@ -436,7 +438,6 @@ function Cars() {
         </div>
       </section>
       <SmFooter />
-     
     </>
   );
 }

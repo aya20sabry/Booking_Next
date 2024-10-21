@@ -5,8 +5,9 @@ import "./page.css";
 // import "react-phone-input-2/lib/style.css";
 import Link from "next/link";
 import NavPlain from "@/Components/Navbar/NavPlain";
-
+import { useLocale } from "next-intl";
 const ContactForm = () => {
+  const locale = useLocale();
   const [firstName, setFirstName] = useState(""); // تأكد من عدم وجود مشكلة في تعريف useState
   const [lastName, setLastName] = useState(""); // نفس الأمر هنا
   const [phoneNumber, setPhoneNumber] = useState("+20"); // يجب أن يتم تعريف كل الحقول بشكل صحيح

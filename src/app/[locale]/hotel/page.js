@@ -15,7 +15,9 @@ import { GetHotelAmenities, GetHotelID } from "@/API/GET";
 import { IoAirplane } from "react-icons/io5";
 import { motion } from "framer-motion";
 import RoomTable from "@/Components/divs/roomTable";
+import { useLocale } from "next-intl";
 function Hotel() {
+  const locale = useLocale();
   const InfoTabs = [
     "Overview",
     "Apartment Info & Price",

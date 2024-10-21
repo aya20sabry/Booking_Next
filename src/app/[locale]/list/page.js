@@ -8,8 +8,9 @@ import {
   AccordionTrigger,
 } from "@/Components/ui/accordion";
 import Link from "next/link";
-
+import { useLocale } from "next-intl";
 export default function List() {
+  const locale = useLocale();
   return (
     <div>
       <header className="bg-blue-900 text-white p-4">
