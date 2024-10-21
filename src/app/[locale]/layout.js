@@ -14,6 +14,9 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, params: { locale } }) {
+  if (!locale) {
+    notFound();
+  }
   unstable_setRequestLocale(locale);
 
   let messages;
