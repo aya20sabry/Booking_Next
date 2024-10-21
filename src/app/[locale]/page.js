@@ -35,9 +35,9 @@ export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ar" }];
 }
 export default function Home() {
+  const locale = useLocale();
   unstable_setRequestLocale(locale);
   const t = useTranslations("HomePage");
-  const locale = useLocale();
   return (
     <>
       <Navbar />

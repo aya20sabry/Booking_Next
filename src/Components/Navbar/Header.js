@@ -6,14 +6,10 @@ import { IoCarOutline } from "react-icons/io5";
 import { MdOutlineAttractions } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
+
 function Header() {
-  unstable_setRequestLocale(locale);
-  const pathname = usePathname();
   const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("Header");
 
   const getButtonClass = (path) => {

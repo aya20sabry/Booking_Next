@@ -10,17 +10,14 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import { usePathname } from "next/navigation";
-import { unstable_setRequestLocale } from "next-intl/server";
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ar" }];
-}
+
 function Navbar() {
-  unstable_setRequestLocale(locale);
+  const locale = useLocale();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
 
   const t = useTranslations("Navbar");
-  const locale = useLocale();
   const pathname = usePathname();
 
   const getPathWithoutLocale = (path) => {
