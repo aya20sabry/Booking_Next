@@ -3,7 +3,7 @@
 import { useState } from "react";
 import NavPlain from "@/Components/Navbar/NavPlain";
 import axios from "axios";
-
+import { useRouter } from "next/navigation";
 const ContactDetails = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -13,6 +13,7 @@ const ContactDetails = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{10,}$/;
   const email = localStorage.getItem("email");
@@ -28,6 +29,7 @@ const ContactDetails = () => {
         email,
         role: "owner",
       });
+      router.push(" http://localhost:4200/");
       console.log("User registered:", response.data);
     } catch (error) {
       setError("An error occurred while registering. Please try again.");

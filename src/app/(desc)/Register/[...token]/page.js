@@ -2,12 +2,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-
+import { useRouter } from "next/navigation";
 const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const router = useRouter();
 
   const { token } = useParams();
 
@@ -25,11 +26,11 @@ const Register = () => {
         }
       );
 
-      console.log("pa", token.password);
+      // console.log("pa", token.password);
       console.log(password);
       if (response.status === 200) {
-        setSuccessMessage("Your password has been reset successfully.");
-        setError("");
+        window.alert("Your password has been reset successfully.");
+        router.push("/Signin");
       }
     } catch (error) {
       console.error("Error resetting password request:", error);

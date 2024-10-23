@@ -7,7 +7,8 @@
         "currency": " Egyptian Pound",
         "contact_customer_service": "Contact Customer Service",
         "select_language": "Select Language",
-        "close": "Close"
+        "close": "Close",
+        "logout":"logout"
     },
     "HomePage": {
         "title": "Find your next stay",

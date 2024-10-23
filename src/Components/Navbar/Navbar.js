@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useAuth } from "@/context/user";
+import { useState } from "react"; 
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import ENFlag from "@/Public/ENFlag.png";
@@ -10,12 +11,11 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
-
 import Link from "next/link";
 
 function Navbar() {
   const locale = useLocale();
-
+  const { email, logout } = useAuth(); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
 
@@ -69,16 +69,23 @@ function Navbar() {
                 {t("list_your_property")}
               </button>
             </Link>
-            <Link href="/Signin">
+            <Link href="/SignRegist">
               <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
                 {t("register")}
               </button>
             </Link>
-            <Link href="/Signin">
-              <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded  border-blue-900 font-medium">
-                {t("sign_in")}
+            {email ? (
+              <button onClick={logout} className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
+                
+                 {t("logout")}
               </button>
-            </Link>
+            ) : (
+              <Link href="/Signin">
+                <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
+                  {t("sign_in")}
+                </button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}

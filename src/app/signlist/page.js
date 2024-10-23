@@ -24,11 +24,11 @@ export default function Signlist() {
 
       if (response.data === "please enter valid email") {
         console.log("Email not found");
-        router.push("/en/contact-details");
+        router.push("/contact-details");
       } else {
         console.log("Email found");
         localStorage.setItem("email", email);
-        router.push("/en/Register");
+        router.push("/Register");
       }
       localStorage.setItem("email", email);
     } catch (error) {
@@ -84,11 +84,12 @@ export default function Signlist() {
           </div>
 
           <div className="text-center">
-            <Link href="/en/Signin">
+            <Link href="/Signin">
               <button className="w-full border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200">
                 Sign in
               </button>
             </Link>
+            
           </div>
 
           <p className="mt-6 text-xs text-center text-gray-500">
