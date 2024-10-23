@@ -25,5 +25,67 @@
         "title": "Attractions, activities, and experiences",
         "description": "Discover new attractions and experiences to match your interests and travel style",
         "nearby_destinations": "Nearby destinations"
-    }
+    },
+   "Signin": {
+    "Sign in or create an account": "Sign in or create an account",
+    "Enter your email address":"Enter your email address",
+    "Email address": "Email address",
+    "Continue with email": "Continue with email",
+    "or use one of these options": "or use one of these options",
+    "By signing in or creating an account, you agree with our": "By signing in or creating an account, you agree with our",
+    "Terms & Conditions": "Terms & Conditions",
+    "and": "and",
+    "Privacy Statement": "Privacy Statement"
+  },
+ 
+  "Signlist": {
+    "Create your partner account": "Create your partner account",
+    "Create an account to list and manage your property.": "Create an account to list and manage your property.",
+    "Email address": "Email address",
+    "Continue": "Continue",
+    "Do you have questions about your property or the extranet? Visit": "Do you have questions about your property or the extranet? Visit",
+    "Partner Help": "Partner Help",
+    "or ask another question on the": "or ask another question on the",
+    "Partner Community": "Partner Community",
+    "By signing in or creating an account, you agree with our": "By signing in or creating an account, you agree with our",
+    "Terms & Conditions": "Terms & Conditions",
+    "Privacy Statement": "Privacy Statement",
+    "All rights reserved. Copyright (2006 - 2024) - Booking.com™": "All rights reserved. Copyright (2006 - 2024) - Booking.com™",
+    "Sign in":"Sign in"
+  },
+  "Register": {
+    "Create password": "Create password",
+    "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.": "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.",
+    "Username": "Username",
+    "Enter your username": "Enter your username",
+    "Enter your password": "Enter your password",
+    "Please enter your Booking.com password for": "Please enter your Booking.com password for",
+    "Create Password": "Create Password",
+    "Confirm Password": "Confirm Password",
+    "Confirm your password": "Confirm your password",
+    "Forgot Password?": "Forgot Password?",
+    "Check your email for the password reset link.": "Check your email for the password reset link.",
+    "Log In": "Log In",
+    "Register": "Register",
+    "Password is required for registration.": "Password is required for registration.",
+    "An error occurred while checking the email. Please try again.": "An error occurred while checking the email. Please try again.",
+    "An error occurred while registering. Please try again.": "An error occurred while registering. Please try again.",
+    "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers.": "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers.",
+    "Passwords do not match.": "Passwords do not match.",
+    "Email is required for password reset.": "Email is required for password reset.",
+    "An error occurred while sending the password reset request.": "An error occurred while sending the password reset request."
+  },
+  "Reset": {
+    "Reset Password": "Reset Password",
+    "New Password": "New Password",
+    "Enter your new password": "Enter your new password",
+    "Confirm Password": "Confirm Password",
+    "Confirm your new password": "Confirm your new password",
+    "Your password has been reset successfully": "Your password has been reset successfully.",
+    "An error occurred while resetting the password.": "An error occurred while resetting the password.",
+    "Password must be at least 10 characters long and include uppercase letters, lowercase letters, and numbers.": "Password must be at least 10 characters long and include uppercase letters, lowercase letters, and numbers.",
+    "Passwords do not match.": "Passwords do not match."
+  }
+
+
 }
