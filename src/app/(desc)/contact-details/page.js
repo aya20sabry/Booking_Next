@@ -28,6 +28,7 @@ const ContactDetails = () => {
         email,
         role: "owner",
       });
+      
       console.log("User registered:", response.data);
     } catch (error) {
       setError("An error occurred while registering. Please try again.");

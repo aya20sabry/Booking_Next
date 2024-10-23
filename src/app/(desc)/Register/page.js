@@ -54,7 +54,9 @@ const Register = () => {
         email,
         password,
         username,
+        role:"user"
       });
+      router.push("/Signin");
       console.log("User registered:", response.data);
     } catch (error) {
       setError("An error occurred while registering. Please try again.");
@@ -80,10 +82,10 @@ const Register = () => {
         console.log("userRole", userRole); // Log the user role
 
         if (userRole === "owner") {
-          router.push("/en/Signin");
+          router.push(" http://localhost:4200/");
         } else if (userRole === "user") {
           console.log("hamadarole");
-          router.push("/en/");
+          router.push("/");
         } else {
           console.error("Unknown role:", userRole);
         }

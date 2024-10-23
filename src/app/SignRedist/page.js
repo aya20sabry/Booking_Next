@@ -9,7 +9,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-export default function Signin() {
+export default function SignRedist() {
   const [email, setEmail] = useState("");
   const router = useRouter();
 
@@ -27,10 +27,10 @@ export default function Signin() {
 
       if (response.data == "please enter valid email") {
         // localStorage.setItem('email', email);
-    window.alert("Email not found");
+   console.log ("the email is already in use ");
+   router.push("/Register");
       } else {
-        console.log("Email  found");
-        router.push("/Register");
+        window.alert("Email  found");
       }
       localStorage.setItem("email", email);
     } catch (error) {
