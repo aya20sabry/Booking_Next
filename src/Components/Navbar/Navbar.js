@@ -69,7 +69,7 @@ function Navbar() {
                 {t("list_your_property")}
               </button>
             </Link>
-            <Link href="/SignRedist">
+            <Link href="/SignRegist">
               <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
                 {t("register")}
               </button>
