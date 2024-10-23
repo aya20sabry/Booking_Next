@@ -27,10 +27,10 @@ export default function SignRedist() {
 
       if (response.data == "please enter valid email") {
         // localStorage.setItem('email', email);
-   console.log ("the email is already in use ");
-   router.push("/Register");
+      console.log  ("Email not found");
+        router.push("/Register");
       } else {
-        window.alert("Email  found");
+        window.alert ("the email is already in use ");
       }
       localStorage.setItem("email", email);
     } catch (error) {
