@@ -72,9 +72,9 @@ const uniqueDestinations = Array.from(new Set(data.map(destination =>destination
 console.log(data)
   return (
     <>
-        <div>
+        {/* <div>
         {data && <div>{JSON.stringify(data)}</div>}
-    </div>
+    </div> */}
       <Navbar />
       <Header />
       <Main title={t("title")} description={t("description")} />
@@ -187,13 +187,17 @@ console.log(data)
         </div>
 
         <div className="mt-8 flex  overflow-x-auto custom-scrollbar px-4 xl:mx-48">
-          {Egypt.map((destination) => (
+          {data.map((destination) => (
+            <Link href={`/cars?${destination.location.city.en}`}  key={destination.location.city.en} passHref>
+
             <ExploreCard
               key={destination.name}
-              src={imageMap[destination.name]}
-              title={destination.name}
-              description={destination.description}
+              src={destination.images[0]}
+              title={destination.location.city.en}
+              // description={destination.description}
             />
+           </Link>
+
           ))}
         </div>
       </section>
