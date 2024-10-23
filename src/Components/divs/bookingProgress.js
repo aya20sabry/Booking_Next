@@ -1,7 +1,9 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
-
+import { useTranslations, useLocale } from "next-intl";
 const ProgressSteps = ({ step, handleStep }) => {
+  const t = useTranslations("steps");
+  const locale = useLocale();
   return (
     <div className="flex items-center w-full max-w-5xl mx-auto">
       <div className="flex items-center text-blue-600 relative">
@@ -10,8 +12,14 @@ const ProgressSteps = ({ step, handleStep }) => {
             {step <= 1 ? 1 : <FaCheck />}
           </span>
         </div>
-        <div className="absolute top-0 -ml-10 text-center mt-10 w-32 text-xs font-bold uppercase text-blue-600">
-          Your selection
+        <div
+          className={`absolute top-0 ${
+            locale === "ar" ? "-mr-10" : "-ml-10"
+          } text-center mt-10 w-32 text-xs font-bold uppercase ${
+            step === 1 ? "text-blue-600" : "text-gray-500"
+          }`}
+        >
+          {t("your_selection")}
         </div>
       </div>
       <div className="flex-auto border-t-2 transition duration-500 ease-in-out border-blue-600"></div>
@@ -21,8 +29,14 @@ const ProgressSteps = ({ step, handleStep }) => {
             {step <= 2 ? 2 : <FaCheck />}
           </span>
         </div>
-        <div className="absolute top-0 -ml-10 text-center mt-10 w-32 text-xs font-bold uppercase text-blue-600">
-          Your details
+        <div
+          className={`absolute top-0 ${
+            locale === "ar" ? "-mr-10" : "-ml-10"
+          } text-center mt-10 w-32 text-xs font-bold uppercase ${
+            step === 2 ? "text-blue-600" : "text-gray-500"
+          }`}
+        >
+          {t("your_details")}
         </div>
       </div>
       <div
@@ -41,11 +55,13 @@ const ProgressSteps = ({ step, handleStep }) => {
           </span>
         </div>
         <div
-          className={`absolute top-0 -ml-10 text-center mt-10 w-32 text-xs font-bold uppercase ${
+          className={`absolute top-0 ${
+            locale === "ar" ? "-mr-10" : "-ml-10"
+          } text-center mt-10 w-32 text-xs font-bold uppercase ${
             step === 3 ? "text-blue-600" : "text-gray-500"
           }`}
         >
-          Final step
+          {t("final_step")}
         </div>
       </div>
     </div>

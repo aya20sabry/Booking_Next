@@ -16,7 +16,6 @@ import {
 } from "react-icons/md";
 import {
   FaDumbbell,
-  FaCoffee,
   FaUtensils,
   FaConciergeBell,
   FaShuttleVan,
@@ -60,17 +59,17 @@ const facilityIcons = {
   Massage: FaHandsWash,
   Garden: LuTreePine,
 };
+import { useTranslations, useLocale } from "next-intl";
 
 function OverView({ hotel, amenities }) {
-  console.log(amenities);
-  console.log(amenities[0].facilities);
+  const t = useTranslations("Hotel");
+  const locale = useLocale();
   const [reviews, setReviews] = useState(null);
   const [sliderRef, setSliderRef] = useState(null);
 
   useEffect(() => {
     const fetchReviews = async () => {
       const data = await GetHotelReviews(hotel._id);
-      console.log(data);
       setReviews(data);
     };
     fetchReviews();
@@ -88,14 +87,19 @@ function OverView({ hotel, amenities }) {
   return (
     <>
       <div className="max-w-6xl mx-auto">
-        <section className="flex justify-between items-start gap-4">
+        <section
+          className="flex justify-between items-start gap-4"
+          dir={locale === "ar" ? "rtl" : "ltr"}
+        >
           <div>
-            <h2 className="text-2xl font-bold">{hotel?.name?.en}</h2>
+            <h2 className="text-2xl font-bold">{hotel?.name[locale]}</h2>
             <span>
               <FaMapMarkerAlt className="mr-0.5 text-lg text-[#006ce4] inline" />{" "}
-              <span className="text-sm">{hotel?.location?.Address?.en}</span>{" "}
+              <span className="text-sm">
+                {hotel?.location?.Address[locale]}
+              </span>{" "}
               <span className="text-sm font-semibold text-[#006ce4] hover:underline cursor-default">
-                -Excellent location
+                -{t("excellent_location")}
               </span>
             </span>
           </div>
@@ -104,13 +108,13 @@ function OverView({ hotel, amenities }) {
               <IoIosHeartEmpty className="text-2xl text-[#006ce4] cursor-pointer mr-2" />
               <LuShare2 className="text-2xl text-[#006ce4] cursor-pointer mr-2" />
               <button className="bg-[#006ce4] text-white px-4 py-2 rounded-md text-sm font-semibold">
-                Reserve
+                {t("reserve")}
               </button>
             </div>
             <div className="flex items-center justify-end gap-1">
-              <BsTag className="text-2xl text-[#006ce4] cursor-pointer mr-1" />
+              <BsTag className="text-2xl text-[#006ce4] cursor-pointer mx-1" />
               <span className="text-sm text-[#006ce4] font-semibold">
-                We Price Match
+                {t("we_price_match")}
               </span>
             </div>
           </div>
@@ -126,16 +130,20 @@ function OverView({ hotel, amenities }) {
               <div className="border border-gray-200 rounded-lg">
                 <div className="flex justify-end items-center mb-1 border-b p-3">
                   <div className="mr-2 flex flex-col justify-center">
-                    <h2 className="text-base font-semibold">Very Good</h2>
-                    <p className="text-xs text-gray-600">2,062 reviews</p>
+                    <h2 className="text-base font-semibold">
+                      {t("very_good")}
+                    </h2>
+                    <p className="text-xs text-gray-600">
+                      {reviews?.length} {t("reviews")}
+                    </p>
                   </div>
-                  <p className="bg-[#003B95] text-white font-bold rounded px-2 py-1 text-lg">
+                  <p className="bg-[#003B95] text-white font-bold rounded px-2 py-1 text-lg mx-2">
                     8.3
                   </p>
                 </div>
                 <div className="px-2 py-1">
                   <p className="font-semibold mb-4 text-xs">
-                    Guests who stayed here loved
+                    {t("guests_who_stayed_here_loved")}
                   </p>
 
                   <div className="reviews-slider relative">
@@ -147,9 +155,13 @@ function OverView({ hotel, amenities }) {
                     </button>
                     <Slider ref={setSliderRef} {...sliderSettings}>
                       {reviews?.map((review) => (
-                        <div key={review._id} className="review-item px-8">
+                        <div
+                          key={review._id}
+                          className="review-item px-8"
+                          dir={locale === "ar" ? "rtl" : "ltr"}
+                        >
                           <p className="mb-4 px-3 text-xs">
-                            &quot;{review.comment.en}&quot;
+                            &quot;{review.comment[locale]}&quot;
                           </p>
                           <div className="review-item flex items-center mb-4 px-3">
                             <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
@@ -158,7 +170,7 @@ function OverView({ hotel, amenities }) {
                             <span className="font-semibold mr-2 text-xs">
                               {review.userId.firstName}
                             </span>
-                            <span className="text-gray-600 text-xs">
+                            <span className="text-gray-600 text-xs mx-1">
                               {review.userId.nationality}
                             </span>
                           </div>
@@ -187,10 +199,12 @@ function OverView({ hotel, amenities }) {
         <div className="grid grid-cols-3 gap-4 pt-6">
           <div className="col-span-2 ">
             <p className="text-sm whitespace-pre-line">
-              {hotel?.description?.en}
+              {hotel?.description[locale]}
             </p>
             <section className="mx-auto max-w-6xl mt-6">
-              <h2 className="text-base font-bold">Most popular facilities</h2>
+              <h2 className="text-base font-bold">
+                {t("most_popular_facilities")}
+              </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
                 {Object.entries(amenities[0].facilities || {}).map(
                   ([facility, value]) => {
@@ -215,18 +229,18 @@ function OverView({ hotel, amenities }) {
             </section>
           </div>
           <div className="col-span-1 bg-[#F0F6FF] rounded-lg p-6 h-fit">
-            <h2 className="text-base font-bold">Property highlights</h2>
+            <h2 className="text-base font-bold">{t("property_highlights")}</h2>
             <p className="text-sm font-bold mt-2">
-              Perfect for a 1-night stay!
+              {t("perfect_for_a_1_night_stay")}
             </p>
             <span className="flex items-center mt-4">
-              <TbParkingCircle className="mr-2 text-2xl" />
+              <TbParkingCircle className="mx-2 text-2xl" />
               <p className="text-sm">
-                Free private parking available at the hotel
+                {t("free_private_parking_available_at_the_hotel")}
               </p>
             </span>
             <button className="bg-[#006ce4] text-white w-full rounded-md mt-4 py-2">
-              Reserve now
+              {t("reserve_now")}
             </button>
           </div>
         </div>
