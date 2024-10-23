@@ -1,3 +1,4 @@
+"use client"
 import Footer from "@/Components/Footer/Footer";
 import Heading from "@/Components/Headings/Heading";
 import Header from "@/Components/Navbar/Header";
@@ -30,13 +31,50 @@ import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { useTranslations, useLocale } from "next-intl";
+import {  useEffect, useState} from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const locale = useLocale();
-
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const t = useTranslations("HomePage");
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/host');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            setData(result);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchData();
+}, []);
+
+if (loading) {
+    return <div>Loading...</div>;
+}
+
+if (error) {
+    return <div>Error: {error}</div>;
+}
+const uniqueDestinations = Array.from(new Set(data.map(destination =>destination.location.city.en)))
+    .map(name => data.find(destination => destination.location.city.en === name));
+console.log(data)
   return (
     <>
+        <div>
+        {data && <div>{JSON.stringify(data)}</div>}
+    </div>
       <Navbar />
       <Header />
       <Main title={t("title")} description={t("description")} />
@@ -109,120 +147,36 @@ export default function Home() {
       </section>
       {/* destinations section */}
       <section className="py-8 sm:py-4">
-        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading
+    <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        <Heading
             title="Trending destinations"
             description="Travellers searching for Egypt also booked these"
-          />
-        </div>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          {/* <!-- Luxor Card --> */}
-          <div
-            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
-            style={{
-              backgroundImage: `url(${imageMap.Luxor.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
-              <h3 className="font-bold text-stroke">Luxor</h3>
-              <Image
-                src={EgyptFlag}
-                alt="Egypt Flag"
-                className=" ms-2"
-                width={24}
-                height={24}
-              />
-            </div>
-          </div>
-          {/* <!-- Cairo Card --> */}
-          <div
-            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
-            style={{
-              backgroundImage: `url(${imageMap.Cairo.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
-              <h3 className="font-bold text-stroke">Cairo</h3>
-              <Image
-                src={EgyptFlag}
-                alt="Egypt Flag"
-                className=" ms-2"
-                width={24}
-                height={24}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <div
-            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card"
-            style={{
-              backgroundImage: `url(${imageMap.Aswan.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
-              <h3 className="font-bold text-white text-2xl text-stroke">
-                Aswan
-              </h3>
-              <Image
-                src={EgyptFlag}
-                alt="Egypt Flag"
-                className=" ms-2"
-                width={24}
-                height={24}
-              />
-            </div>
-          </div>
-          <div
-            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card"
-            style={{
-              backgroundImage: `url(${imageMap.Hurghada.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
-              <h3 className="font-bold text-white text-2xl text-stroke">
-                Hurghada
-              </h3>
-              <Image
-                src={EgyptFlag}
-                alt="Egypt Flag"
-                className=" ms-2"
-                width={24}
-                height={24}
-              />
-            </div>
-          </div>
-          <div
-            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card"
-            style={{
-              backgroundImage: `url(${imageMap["Sharm el-Sheikh"].src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
-              <h3 className="font-bold text-white text-2xl text-stroke">
-                Sharm El Sheikh
-              </h3>
-              <Image
-                src={EgyptFlag}
-                alt="Egypt Flag"
-                className=" ms-2"
-                width={24}
-                height={24}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+        />
+    </div>
+
+    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        {uniqueDestinations.map((destination) => (
+          <Link href={`/cars?${destination.location.city.en}`}  key={destination.location.city.en} passHref>
+            <div
+                key={destination.name}
+                className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
+                style={{
+                    backgroundImage: `url(${destination.images[0]})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+              
+                <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
+                    <h3 className="font-bold text-stroke">{destination.location.city.en}</h3>
+                  
+                </div>
+             </div> 
+            </Link>
+        ))}
+    </div>
+</section>
+
       {/* explore section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
