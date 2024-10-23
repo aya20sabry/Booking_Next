@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
+import { AuthProvider } from "@/context/user";
 
 export const metadata = {
   title:
@@ -15,9 +16,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body>
+      <AuthProvider>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
+      </AuthProvider>
       </body>
     </html>
   );

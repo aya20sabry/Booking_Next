@@ -8,8 +8,10 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/user"; 
 
 export default function Signin() {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const router = useRouter();
 
@@ -25,14 +27,12 @@ export default function Signin() {
       console.log(email);
       console.log("res", response);
 
-      if (response.data == "please enter valid email") {
-        // localStorage.setItem('email', email);
-    window.alert("Email not found");
-      } else {
-        console.log("Email  found");
+      if (response.data !== "please enter valid email") {
+        login(email); // تسجيل الدخول
         router.push("/Register");
+      } else {
+        window.alert("Email not found");
       }
-      localStorage.setItem("email", email);
     } catch (error) {
       console.error("Error checking email:", error);
     }
