@@ -84,7 +84,7 @@ export default function Signlist() {
           </div>
 
           <div className="text-center">
-            <Link href="/en/Signin">
+            <Link href="/Signin">
               <button className="w-full border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition duration-200">
                 Sign in
               </button>
