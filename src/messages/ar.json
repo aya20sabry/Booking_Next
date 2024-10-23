@@ -11,7 +11,8 @@
         "currency": "جنيه مصري",
         "contact_customer_service": "اتصل بخدمة العملاء",
         "select_language": "اختر اللغة",
-        "close": "إغلاق"
+        "close": "إغلاق",
+        "logout":"تسجيل الخروج"
     },
     "Header": {
         "stays": "الإقامات",
