@@ -27,3 +27,15 @@ export async function GetRoom(id) {
   const data = await res.json();
   return data;
 }
+
+export async function GetUserBookings(id) {
+  const res = await fetch(`http://localhost:3000/bookings/user/${id}`);
+  const data = await res.json();
+  return data;
+}
+
+export async function GetUser(id) {
+  const res = await fetch(`http://localhost:3000/user/${id}`);
+  const data = await res.json();
+  return data;
+}

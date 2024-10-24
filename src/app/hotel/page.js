@@ -14,18 +14,47 @@ import EndLinks from "@/Components/Footer/endLinks";
 import { GetHotelAmenities, GetHotelID } from "@/API/GET";
 import { IoAirplane } from "react-icons/io5";
 import { motion } from "framer-motion";
-import RoomTable from "@/Components/divs/roomTable";
 import { useLocale } from "next-intl";
+import HotelAvailability from "@/Components/divs/HotelAvailability";
+import { useSearchParams } from "next/navigation";
 function Hotel() {
+  const searchParams = useSearchParams();
+  const hotelData = searchParams.get("hotel");
+  const initialCheckInDate = searchParams.get("checkInDate") || new Date();
+  const initialCheckOutDate =
+    searchParams.get("checkOutDate") ||
+    (() => {
+      const nextDay = new Date(initialCheckInDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      return nextDay;
+    })();
+  console.log(initialCheckOutDate);
   const locale = useLocale();
   const InfoTabs = [
-    "Overview",
-    "Apartment Info & Price",
-    "Facilities",
-    "House Rules",
-    "Guest Reviews",
+    {
+      ar: "نظرة عامة",
+      en: "Overview",
+    },
+    {
+      ar: "معلومات الفندق والسعر",
+      en: "Apartment Info & Price",
+    },
+    {
+      ar: "مكان الإقامة",
+      en: "Facilities",
+    },
+    {
+      ar: "السياسات",
+      en: "House Rules",
+    },
+    {
+      ar: "تقييمات الضيوف",
+      en: "Guest Reviews",
+    },
   ];
-  const [activeTab, setActiveTab] = useState("Overview");
+  const [activeTab, setActiveTab] = useState(
+    InfoTabs[0][locale] || InfoTabs[0].en
+  );
   let [hotel, setHotel] = useState(null);
   let [amenities, setAmenities] = useState(null);
   let [loading, setLoading] = useState(true);
@@ -81,18 +110,20 @@ function Hotel() {
 
           <section className=" mx-auto  pt-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
             <div className="flex w-full overflow-x-auto pb-4 ">
-              {InfoTabs.map((Tab) => (
+              {InfoTabs.map((Tab, index) => (
                 <button
-                  key={Tab}
+                  key={index}
                   className={`flex-1 px-6 py-2 text-sm text-center font-medium ${
-                    activeTab === Tab
-                      ? " border-b-2 border-blue-600"
-                      : " hover:text-gray-700"
+                    activeTab === Tab[locale]
+                      ? "border-b-2 border-blue-600"
+                      : "hover:text-gray-700"
                   }`}
-                  onClick={() => setActiveTab("Overview")}
+                  onClick={() =>
+                    setActiveTab(InfoTabs[0][locale] || InfoTabs[0].en)
+                  }
                 >
-                  <a href={`#${Tab}`} className="no-underline">
-                    {Tab}
+                  <a href={`#${Tab.en}`} className="no-underline">
+                    {Tab[locale]}
                   </a>
                 </button>
               ))}
@@ -108,7 +139,11 @@ function Hotel() {
             className="container mx-auto mt-5  py-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48"
             id="Apartment Info & Price"
           >
-            <RoomTable hotel={hotel} />
+            <HotelAvailability
+              hotel={hotel}
+              initialCheckInDate={initialCheckInDate}
+              initialCheckOutDate={initialCheckOutDate}
+            />
           </section>
           <section
             className="container mx-auto mt-5  py-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48"

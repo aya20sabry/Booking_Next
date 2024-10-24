@@ -1,4 +1,8 @@
+import { useTranslations } from "next-intl";
+
 function SubHeading({ title, description }) {
+  const t = useTranslations("Hotel");
+
   return (
     <section className="mx-auto max-w-6xl mt-6 flex justify-between">
       <div className="flex flex-col">
@@ -7,7 +11,7 @@ function SubHeading({ title, description }) {
       </div>
       <div className="flex items-end">
         <button className="bg-[#006ce4] text-sm font-semibold text-white px-4 py-2 rounded-md">
-          <a href="#Apartment Info & Price">See availability</a>
+          <a href="#Apartment Info & Price">{t("see_availability")}</a>
         </button>
       </div>
     </section>

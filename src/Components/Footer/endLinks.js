@@ -5,7 +5,7 @@ function EndLinks() {
   return (
     <>
       {/* Mobile version */}
-      <div className=" pt-8 pb-4 text-xs flex flex-col items-start justify-center mx-4 sm:mx-8 md:hidden px-4">
+      <div className=" pt-8 pb-2 text-xs flex flex-col items-start justify-center mx-4 sm:mx-8 md:hidden px-4">
         {[
           footerLinks.slice(0, footerLinks.length / 4),
           footerLinks.slice(footerLinks.length / 4, footerLinks.length / 2),

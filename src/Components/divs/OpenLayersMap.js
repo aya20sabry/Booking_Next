@@ -42,7 +42,6 @@ const OpenLayersMap = ({ hotel }) => {
         features: [new Feature(new Point(fromLonLat(coordinates)))],
       });
 
-      // Create a custom SVG icon
       const iconSvg = renderToStaticMarkup(
         <FaMapMarkerAlt style={{ color: "#3b82f6", fontSize: "24px" }} />
       );

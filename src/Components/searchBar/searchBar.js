@@ -6,7 +6,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useRouter } from "next/navigation";
 const SearchBar = () => {
-  const router = useRouter(); // تهيئة useRouter
+  const router = useRouter();
   const [destination, setDestination] = useState("");
   const [allSuggestions] = useState([
     "Hurghada,EG",
@@ -65,7 +65,6 @@ const SearchBar = () => {
   }, [openSection]);
 
   const handleSearch = () => {
-   
     const queryParams = new URLSearchParams({
       destination,
       startDate: value.startDate,
@@ -73,12 +72,12 @@ const SearchBar = () => {
       adults: guestInfo.adults,
       children: guestInfo.children,
       rooms: guestInfo.rooms,
-     
+
       isVacationHome,
       isTravelingWithPets,
     });
 
-    router.push(`/cars?${queryParams.toString()}`); 
+    router.push(`/searchResults?${queryParams.toString()}`);
     console.log("Searching for:", {
       destination,
       dateRange: value,
@@ -170,7 +169,7 @@ const SearchBar = () => {
           </div>
           <button
             className="border-4 rounded-lg border-yellow-300 bg-blue-600 "
-            onClick={handleSearch} 
+            onClick={handleSearch}
           >
             <span className="text-white px-8 py-3 text-xl font-semibold hover:bg-blue-700 transition-colors">
               Search
@@ -302,4 +301,3 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
-                        
