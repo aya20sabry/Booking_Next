@@ -72,19 +72,22 @@ const Register = () => {
       });
       console.log("respo", response);
       console.log("User logged in:", response.data);
-      const token = response.data; // Assuming the token is in response.data
+      const token = response.data;
 
       try {
-        const decodedToken = jwtDecode(token); // Decode the token
-        console.log("Decoded Token:", decodedToken); // Log the entire decoded token
+        const decodedToken = jwtDecode(token); 
+        console.log("Decoded Token:", decodedToken);
 
-        const userRole = decodedToken.role; // Access the role
-        console.log("userRole", userRole); // Log the user role
+        const userRole = decodedToken.role; 
+        console.log("userRole", userRole); 
 
         if (userRole === "owner") {
-          router.push(" http://localhost:4200/");
+          router.push(` http://localhost:4200/login/?token=${token}`);
         } else if (userRole === "user") {
           console.log("hamadarole");
+
+
+          
           router.push("/");
         } else {
           console.error("Unknown role:", userRole);
