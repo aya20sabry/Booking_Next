@@ -17,6 +17,7 @@ function Properties({
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
+    
     <div className="w-full max-w-sm mx-auto rounded overflow-hidden shadow-lg flex flex-col h-full relative">
       <div className="relative w-full h-0 pb-[75%]">
         <Image

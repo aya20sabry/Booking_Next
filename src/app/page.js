@@ -352,35 +352,25 @@ console.log(data)
       </section>
       {/* properties section */}
       <section className="py-1 sm:py-4">
-        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading
-            title="Stay at our top unique properties"
-            description="From castles and villas to boats and igloos, we've got it all"
-          />
-        </div>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+      <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        <Heading
+          title="Stay at our top unique properties"
+          description="From castles and villas to boats and igloos, we've got it all"
+        />
+      </div>
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        {data.map((property) => (
           <Properties
-            imageSrc={NewCairo.src}
-            title="Comfort Giza Inn View"
-            location="Cairo, Egypt"
-            rating="9.4"
-            reviews="151"
-            oldPrice="3,923"
-            newPrice="2,354"
-            nights="2"
+            key={property._id} // Ensure your property object has a unique ID
+            imageSrc={property.images[0]}
+            title={property.name.en}
+            location={property.location.city.en}
+         
+            nights={property.PricePerNight}
           />
-          <Properties
-            imageSrc={NewCairo.src}
-            title="Comfort Giza Inn View"
-            location="Cairo, Egypt"
-            rating="9.4"
-            reviews="151"
-            oldPrice="3,923"
-            newPrice="2,354"
-            nights="2"
-          />
-        </div>
-      </section>
+        ))}
+      </div>
+    </section>
       {/* Travel section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
