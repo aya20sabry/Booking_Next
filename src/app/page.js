@@ -34,12 +34,47 @@ import { useTranslations, useLocale } from "next-intl";
 import {  useEffect, useState} from 'react';
 import Link from 'next/link';
 
+
+const dataa = {
+  "Cities in Egypt": [
+    { name: "Cairo", locations: 3, price: 1939.71},
+    { name: "a", locations: 7, price: 24400.0 },
+    { name: "A", locations: 8, price: 24500.00},
+    { name: "ia", locations: 9, price: 23400.00},
+    { name: "ria", locations: 0, price: 240},
+    { name: "ndria", locations: 0, price: 2400},
+    { name: "andria", locations: 3, price: 400.00},
+    { name: "Alex", locations: 1,price: 2.00},
+    { name: "a", locations: 33, price: 2400.0},
+    { name: "Adria", locations: 66, price: 240.00},
+
+  ],
+  "Regions in Egypt": [
+    { name: "Red Sea Governorate", locations: 17, price: 2541.94 },
+    { name: "Giza Governorate", locations: 4, price: 1741.54 },
+    { name: " Governorate", locations: 55, price: 1221.54 },
+  ],
+  "Cities worldwide": [
+    { name: "El Segund", locations: 105, price: 28033.83},
+    { name: "Coolangta", locations: 22, price: 25681.29 },
+    { name: "Coolanaa", locations: 92, price: 6483.29 },
+  ],
+  "Airports worldwide": [
+    { name: "Phoenix", locations: 79, price: 30040.0 },
+    { name: "qena", locations: 437, price: 320.0},
+    { name: "aswan", locations: 467, price: 3920.0 },
+  ],
+};
+
+
+
 export default function Home() {
   const locale = useLocale();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const t = useTranslations("HomePage");
+  const [category, setCategory] = useState("Cities in Egypt");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -382,23 +417,46 @@ console.log(data)
       </section>
 
       <section className="py-1 sm:py-4">
-        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading title="Destinations we love" />
+      <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+
+      <div>
+          <div className="Save_10 pt-1 mx-2" style={{ display: "flex" }}>
+            {Object.keys(dataa).map((key) => (
+              <button
+                key={key}
+                onClick={() => setCategory(key)}
+                style={{
+                  paddingLeft: "15px",
+                  border: category === key ? "0.5px blue solid" : "none",
+                  height: "25px",
+                  paddingBottom: "15px",
+                  borderRadius: "10px",
+                  backgroundColor: category === key ? "#e0f7ff" : "#fff",
+                }}
+              >
+                {key}
+              </button>
+            ))}
+          </div>
+      <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px" }}>
+  {dataa[category].map((item) => (
+    <div key={item.name}>
+      <div className="md-col-4">
+        <h3 className="Sign">{item.name}</h3>
+        <p className="Save_10">
+          {item.locations} car hire locations
+        </p>
+        <p className="Save_10">
+          Average price of EGP {item.price.toFixed(5)} per day
+        </p>
+      </div>
+    </div>
+  ))}
+</div>
+
         </div>
-        <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar  xl:mx-48">
-          <Destination text="Regions" isActive={true} />
-          <Destination text="Cities" isActive={false} />
-          <Destination text="Places of interest" isActive={false} />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 pt-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          {locations.map((location, index) => (
-            <Places
-              key={index}
-              name={location.name}
-              propertyCount={location.propertyCount}
-            />
-          ))}
-        </div>
+
       </section>
       <EndLinks />
       <Footer />
