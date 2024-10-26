@@ -92,6 +92,7 @@ const Register = () => {
 login(token)
 
         const userRole = decodedToken.role; 
+        
         console.log("userRole", userRole); 
 
         if (userRole === "owner") {
