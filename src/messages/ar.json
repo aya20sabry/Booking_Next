@@ -26,6 +26,7 @@
         "description": "اكتشف معالم سياحية وتجارب جديدة تتناسب مع اهتماماتك وأسلوب سفرك",
         "nearby_destinations": "وجهات بالجوار"
     },
+
     "Hotel": {
         "excellent_location": "موقع مثالي",
         "reserve": "أحجز الآن",
@@ -173,5 +174,66 @@
         "your_selection": "إختياراتك",
         "your_details": "التفاصيل الخاصة بك",
         "final_step": "الخطوة الأخيرة"
-    }
+    }  ,"Signin": {
+        "Sign in or create an account": "سجّل الدخول أو أنشئ حساباً",
+        "Enter your email address":"ادخل البريدالالكترونى",
+        "Email address": "عنوان البريد الإلكتروني",
+        "Continue with email": "المتابعة باستخدام البريد الإلكتروني",
+        "or use one of these options": "أو استخدم إحدى هذه الخيارات",
+        "By signing in or creating an account, you agree with our": " عند تسجيل الدخول إلى حسابك أو إنشاء حساب، فإنك توافق على",
+        "Terms & Conditions": " شروطنا وأحكامنا" ,
+        "and": "و",
+        "Privacy Statement": "بيان الخصوصية"
+      },
+      "Signlist": {
+        "Create your partner account": "أنشئ حساب شريكك",
+        "Create an account to list and manage your property": "أنشئ حسابًا لإدراج وإدارة ممتلكاتك.",
+        "Email address": "عنوان البريد الإلكتروني",
+        "Continue": "استمر",
+        "Do you have questions about your property or the extranet? Visit": "هل لديك أسئلة حول ممتلكاتك أو الشبكة الخارجية؟ قم بزيارة",
+        "Partner Help": "مساعدة الشركاء",
+        "or ask another question on the": "أو اطرح سؤالًا آخر على",
+        "Partner Community": "مجتمع الشركاء",
+        "By signing in or creating an account, you agree with our": "عند تسجيل الدخول أو إنشاء حساب، فإنك توافق على",
+        "Terms & Conditions": "الشروط والأحكام",
+        "Privacy Statement": "بيان الخصوصية",
+        "All rights reserved. Copyright (2006 - 2024) - Booking.com™": "جميع الحقوق محفوظة. حقوق الطبع والنشر (2006 - 2024) - Booking.com™",
+        "Sign in":"تسجيل الدخول"
+      },
+      "Register": {
+        "Create password": "أنشئ كلمة مرور",
+        "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.": "استخدم حد أدنى من 10 أحرف، بما في ذلك الأحرف الكبيرة والصغيرة والأرقام.",
+        "Username": "اسم المستخدم",
+        "Enter your username": "ادخل اسم المستخدم الخاص بك",
+        "Enter your password": "ادخل كلمة المرور الخاصة بك",
+        "Please enter your Booking.com password for": "يرجى إدخال كلمة مرور Booking.com الخاصة بك لـ",
+        "Create Password": "إنشاء كلمة مرور",
+        "Confirm Password": "تأكيد كلمة المرور",
+        "Confirm your password": "تأكيد كلمة المرور الخاصة بك",
+        "Forgot Password?": "نسيت كلمة المرور؟",
+        "Check your email for the password reset link.": "تحقق من بريدك الإلكتروني للحصول على رابط إعادة تعيين كلمة المرور.",
+        "Log In": "تسجيل الدخول",
+        "Register": "تسجيل",
+        "Password is required for registration.": "كلمة المرور مطلوبة للتسجيل.",
+        "An error occurred while checking the email. Please try again.": "حدث خطأ أثناء التحقق من البريد الإلكتروني. يرجى المحاولة مرة أخرى.",
+        "An error occurred while registering. Please try again.": "حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.",
+        "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers.": "يجب أن تتكون كلمة المرور من 10 أحرف على الأقل وأن تتضمن أحرفًا كبيرة وصغيرة وأرقامًا.",
+        "Passwords do not match.": "كلمات المرور غير متطابقة.",
+        "Email is required for password reset.": "البريد الإلكتروني مطلوب لإعادة تعيين كلمة المرور.",
+        "An error occurred while sending the password reset request.": "حدث خطأ أثناء إرسال طلب إعادة تعيين كلمة المرور."
+      },
+      "Reset": {
+    "Reset Password": "إعادة تعيين كلمة المرور",
+    "New Password": "كلمة المرور الجديدة",
+    "Enter your new password": "ادخل كلمة المرور الجديدة",
+    "Confirm Password": "تأكيد كلمة المرور",
+    "Confirm your new password": "تأكيد كلمة المرور الجديدة",
+    "Your password has been reset successfully.": "تمت إعادة تعيين كلمة المرور بنجاح.",
+    "An error occurred while resetting the password.": "حدث خطأ أثناء إعادة تعيين كلمة المرور.",
+    "Password must be at least 10 characters long and include uppercase letters, lowercase letters, and numbers.": "يجب أن تتكون كلمة المرور من 10 أحرف على الأقل وأن تتضمن أحرفًا كبيرة وصغيرة وأرقامًا.",
+    "Passwords do not match.": "كلمات المرور غير متطابقة."
+  }
+
+
+
 }
