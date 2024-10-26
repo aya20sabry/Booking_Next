@@ -25,13 +25,25 @@ function Profile() {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setDecodedToken(decoded);
-      setUserName(decoded.userName);
-      setFirstName(decoded.firstName);
-      setLastName(decoded.lastName);
-      setEmail(decoded.email);
-      setPhoneNumber(decoded.phoneNumber || "");
-      setNationality(decoded.nationality || "");
+      setDecodedToken(decoded); // Set the decoded token first
+      const userId = decoded.id; // Define userId here
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3000/user/${userId}`);
+          console.log("user data", response);
+       
+          setUserName(response.data.userName);
+          setFirstName(response.data.firstName);
+          setLastName(response.data.lastName);
+          setEmail(response.data.email);
+          setPhoneNumber(response.data.phoneNumber || "");
+          setNationality(response.data.nationality || "");
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchUserData(); // Call the function to fetch user data
+      console.log("userid", userId); // Move this line here to ensure userId is defined
     }
   }, []);
 
@@ -47,7 +59,7 @@ function Profile() {
 
     try {
       const userId = decodedToken.id; 
-      const response = await axios.patch(`http://localhost:3000/user/UpdateData/${userId}`, { updatedData }); 
+      const response = await axios.patch(`http://localhost:3000/user/UpdateData/${userId}`, updatedData); 
       console.log("Update response:", response.data);
     } catch (error) {
       console.error("Error updating data:", error);
@@ -202,8 +214,6 @@ function Profile() {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 }

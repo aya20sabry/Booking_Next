@@ -44,14 +44,14 @@ const Register = () => {
         if (password) {
           await registerUser(email, password, username);
         } else {
-          setError(t("Password is required for registration.")); // Translated error message
+          setError(t("Password is required for registration."));
         }
       } else {
         setEmailExists(true);
         await loginUser(email, password);
       }
     } catch (error) {
-      setError(t("An error occurred while checking the email. Please try again.")); // Translated error message
+      setError(t("An error occurred while checking the email. Please try again."));
     }
   };
 
