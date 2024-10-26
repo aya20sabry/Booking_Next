@@ -25,8 +25,8 @@ function Profile() {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setDecodedToken(decoded); // Set the decoded token first
-      const userId = decoded.id; // Define userId here
+      setDecodedToken(decoded); 
+      const userId = decoded.id; 
       const fetchUserData = async () => {
         try {
           const response = await axios.get(`http://localhost:3000/user/${userId}`);
@@ -42,8 +42,8 @@ function Profile() {
           console.error("Error fetching user data:", error);
         }
       };
-      fetchUserData(); // Call the function to fetch user data
-      console.log("userid", userId); // Move this line here to ensure userId is defined
+      fetchUserData(); 
+      console.log("userid", userId);
     }
   }, []);
 
@@ -55,7 +55,7 @@ function Profile() {
       email,
       phoneNumber,
 
-      
+
       nationality,
     };
 
