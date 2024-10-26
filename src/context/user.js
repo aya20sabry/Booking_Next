@@ -4,7 +4,9 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
   const [token, setEmail] = useState("");
+
 
   const login = (userEmail) => {
     setEmail(userEmail);

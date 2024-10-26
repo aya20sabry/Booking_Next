@@ -1,124 +1,204 @@
-"use client"; // Mark this component as a client component
+"use client";
 
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 function Profile() {
-  const [username, setName] = useState(""); // Initial name
-  const [email, setEmail] = useState(""); // Initial email
-  const [isEditingName, setIsEditingName] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [nationality, setNationality] = useState("");
+
+  const [isEditingUserName, setIsEditingUserName] = useState(false);
+  const [isEditingFirstName, setIsEditingFirstName] = useState(false);
+  const [isEditingLastName, setIsEditingLastName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [decodedToken, setDecodedToken] = useState(null); // State for decoded token
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const [isEditingNationality, setIsEditingNationality] = useState(false);
 
-  // Load email and token from localStorage on component mount
+  const [decodedToken, setDecodedToken] = useState(null);
+
   useEffect(() => {
-    const storedEmail = localStorage.getItem("decodedToken.email");
-    if (storedEmail) {
-      setEmail(storedEmail);
-    }
-
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
       setDecodedToken(decoded);
-      setName(decoded.username); // Set initial name from decoded token
-      setEmail(decoded.email); // Set initial email from decoded token
-      console.log("Decoded Token:", decoded);
+      setUserName(decoded.userName);
+      setFirstName(decoded.firstName);
+      setLastName(decoded.lastName);
+      setEmail(decoded.email);
+      setPhoneNumber(decoded.phoneNumber || "");
+      setNationality(decoded.nationality || "");
     }
   }, []);
 
-  const handleEditNameClick = () => {
-    setIsEditingName(true);
-  };
+  const handleSaveClick = async () => {
+    const updatedData = {
+      userName,
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      nationality,
+    };
 
-  const handleSaveNameClick = () => {
-    localStorage.setItem("decodedToken.userName", username); // Save updated name to localStorage
-    setIsEditingName(false);
-  };
+    try {
+      const userId = decodedToken.id; 
+      const response = await axios.patch(`http://localhost:3000/user/UpdateData/${userId}`, { updatedData }); 
+      console.log("Update response:", response.data);
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
 
-  const handleEditEmailClick = () => {
-    setIsEditingEmail(true);
-  };
-
-  const handleSaveEmailClick = () => {
-    localStorage.setItem("decodedToken.email", email); // Save updated email to localStorage
+    localStorage.setItem("decodedToken.userName", userName);
+    localStorage.setItem("decodedToken.firstName", firstName);
+    localStorage.setItem("decodedToken.lastName", lastName);
+    localStorage.setItem("decodedToken.email", email);
+    localStorage.setItem("decodedToken.phoneNumber", phoneNumber);
+    localStorage.setItem("decodedToken.nationality", nationality);
+    
+    setIsEditingUserName(false);
+    setIsEditingFirstName(false);
+    setIsEditingLastName(false);
     setIsEditingEmail(false);
+    setIsEditingPhone(false);
+    setIsEditingNationality(false);
   };
-
-  const userRole = decodedToken ? decodedToken.role : null; 
-  console.log("Role", userRole); 
 
   return (
-    <div className="bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-md mt-10">
-        <h1 className="text-2xl font-bold mb-4">Personal details</h1>
-        <p className="text-gray-600 mb-6">Update your info and find out how it's used.</p>
-        
+    <div className="bg-gray-100 max-h-screen">
+      <div className="bg-white p-6 rounded-lg shadow-md mt-10 mx-auto ">
+        <h1 className="text-2xl font-bold mb-4 text-center">Personal Details</h1>
+        <p className="text-gray-600 mb-6 text-center">Update your info and find out how it's used.</p>
+
         <div className="space-y-4">
+          {/* User Name */}
           <div className="flex justify-between items-center">
-            <span>Name</span>
-            {isEditingName ? (
+            <span className="font-medium">User Name</span>
+            {isEditingUserName ? (
               <div className="flex items-center">
                 <input
                   type="text"
-                  value={username} // Use state variable
-                  onChange={(e) => setName(e.target.value)}
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveNameClick} className="text-blue-500">Save</button>
+                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
               </div>
             ) : (
               <div className="flex items-center">
-                <span className="text-gray-500">{username}</span>
-                <button onClick={handleEditNameClick} className="text-blue-500">Edit</button>
+                <span className="text-gray-500">{userName}</span>
+                <button onClick={() => setIsEditingUserName(true)} className="text-blue-500 ml-2">Edit</button>
               </div>
             )}
           </div>
-        
+
+          {/* First Name */}
           <div className="flex justify-between items-center">
-            <span>Email address</span>
+            <span className="font-medium">First Name</span>
+            {isEditingFirstName ? (
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="border rounded p-1 mr-2"
+                />
+                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <span className="text-gray-500">{firstName}</span>
+                <button onClick={() => setIsEditingFirstName(true)} className="text-blue-500 ml-2">Edit</button>
+              </div>
+            )}
+          </div>
+
+          {/* Last Name */}
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Last Name</span>
+            {isEditingLastName ? (
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="border rounded p-1 mr-2"
+                />
+                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <span className="text-gray-500">{lastName}</span>
+                <button onClick={() => setIsEditingLastName(true)} className="text-blue-500 ml-2">Edit</button>
+              </div>
+            )}
+          </div>
+
+          {/* Email */}
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Email Address</span>
             {isEditingEmail ? (
               <div className="flex items-center">
                 <input
                   type="text"
-                  value={email} // Use state variable
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveEmailClick} className="text-blue-500">Save</button>
+                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
               </div>
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{email}</span>
-                <button onClick={handleEditEmailClick} className="text-blue-500">Edit</button>
+                <button onClick={() => setIsEditingEmail(true)} className="text-blue-500 ml-2">Edit</button>
               </div>
             )}
           </div>
-        
-          <div className="flex justify-between">
-            <span>Phone number</span>
-            <button className="text-blue-500">Edit</button>
+
+          {/* Phone Number */}
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Phone Number</span>
+            {isEditingPhone ? (
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  className="border rounded p-1 mr-2"
+                />
+                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <span className="text-gray-500">{phoneNumber}</span>
+                <button onClick={() => setIsEditingPhone(true)} className="text-blue-500 ml-2">Edit</button>
+              </div>
+            )}
           </div>
-          <div className="flex justify-between">
-            <span>Date of birth</span>
-            <button className="text-blue-500">Edit</button>
-          </div>
-          <div className="flex justify-between">
-            <span>Nationality</span>
-            <button className="text-blue-500">Edit</button>
-          </div>
-          <div className="flex justify-between">
-            <span>Gender</span>
-            <button className="text-blue-500">Edit</button>
-          </div>
-          <div className="flex justify-between">
-            <span>Address</span>
-            <button className="text-blue-500">Edit</button>
-          </div>
-          <div className="flex justify-between">
-            <span>Passport details</span>
-            <span className="text-gray-500">Not provided</span>
-            <button className="text-blue-500">Add passport</button>
+
+          {/* Nationality */}
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Nationality</span>
+            {isEditingNationality ? (
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  value={nationality}
+                  onChange={(e) => setNationality(e.target.value)}
+                  className="border rounded p-1 mr-2"
+                />
+                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <span className="text-gray-500">{nationality}</span>
+                <button onClick={() => setIsEditingNationality(true)} className="text-blue-500 ml-2">Edit</button>
+              </div>
+            )}
           </div>
         </div>
       </div>

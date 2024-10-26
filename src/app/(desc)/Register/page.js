@@ -6,7 +6,11 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+
 import { useAuth } from "@/context/user"; 
+
+import { useTranslations, useLocale } from "next-intl";
+
 
 const Register = () => {
   const { login } = useAuth();
@@ -19,6 +23,7 @@ const Register = () => {
   const [emailExists, setEmailExists] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
+  const t = useTranslations("Register");
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
@@ -39,14 +44,14 @@ const Register = () => {
         if (password) {
           await registerUser(email, password, username);
         } else {
-          setError("Password is required for registration.");
+          setError(t("Password is required for registration.")); // Translated error message
         }
       } else {
         setEmailExists(true);
         await loginUser(email, password);
       }
     } catch (error) {
-      setError("An error occurred while checking the email. Please try again.");
+      setError(t("An error occurred while checking the email. Please try again.")); // Translated error message
     }
   };
 
@@ -56,22 +61,22 @@ const Register = () => {
         email,
         password,
         username,
-        role:"user"
+        role: "user"
       });
       router.push("/Signin");
       console.log("User registered:", response.data);
     } catch (error) {
-      setError("An error occurred while registering. Please try again.");
+      setError(t("An error occurred while registering. Please try again."));
     }
   };
 
   const loginUser = async (email, password) => {
-    console.log("jwt_decode", jwtDecode);
     try {
       const response = await axios.post("http://localhost:3000/user/login", {
         email,
         password,
       });
+
       console.log("respo", response);
       console.log("User logged in:", response.data);
       const token = response.data;
@@ -87,6 +92,7 @@ const Register = () => {
 login(token)
 
         const userRole = decodedToken.role; 
+        
         console.log("userRole", userRole); 
 
         if (userRole === "owner") {
@@ -95,7 +101,7 @@ login(token)
           console.log("hamadarole");
 
 
-          
+
           router.push("/");
         } else {
           console.error("Unknown role:", userRole);
@@ -114,11 +120,9 @@ login(token)
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{10,}$/;
 
     if (!passwordRegex.test(password)) {
-      setError(
-        "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers."
-      );
+      setError(t("Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers.")); // Translated error message
     } else if (!emailExists && password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t("Passwords do not match.")); 
     } else {
       setError("");
       if (emailExists) {
@@ -132,7 +136,7 @@ login(token)
   const handleForgotPassword = async () => {
     const storedEmail = localStorage.getItem("email");
     if (!storedEmail) {
-      setError("Email is required for password reset.");
+      setError(t("Email is required for password reset.")); 
       return;
     }
 
@@ -142,10 +146,10 @@ login(token)
         { email: storedEmail }
       );
       if (response.data.message === "Email sent successfully") {
-        setSuccessMessage("Check your email for the password reset link.");
+        setSuccessMessage(t("Check your email for the password reset link.")); // Translated success message
       }
     } catch (error) {
-      setError("An error occurred while sending the password reset request.");
+      setError(t("An error occurred while sending the password reset request.")); // Translated error message
     }
   };
 
@@ -156,17 +160,16 @@ login(token)
         <form onSubmit={handleSubmit} className="space-y-4">
           {!emailExists && (
             <>
-              <h4 className="font-bold py-2 text-2xl">Create password</h4>
+              <h4 className="font-bold py-2 text-2xl">{t("Create password")}</h4>
               <h4 className="py-2">
-                Use a minimum of 10 characters, including uppercase letters,
-                lowercase letters, and numbers.
+                {t("Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.")}
               </h4>
               <div>
                 <label
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Username
+                  {t("Username")}
                 </label>
                 <input
                   type="text"
@@ -174,7 +177,7 @@ login(token)
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  placeholder="Enter your username"
+                  placeholder={t("Enter your username")}
                 />
               </div>
             </>
@@ -187,14 +190,11 @@ login(token)
             >
               {emailExists ? (
                 <>
-                  <p className="font-bold">Enter your password</p>
-                  <p className="pb-3">
-                    Please enter your Booking.com password for
-                  </p>
-                  <p>password</p>
+                  <p className="font-bold">{t("Enter your password")}</p>
+                  <p className="pb-3">{t("Please enter your Booking.com password for")}</p>
                 </>
               ) : (
-                "Create Password"
+                t("Create Password")
               )}
             </label>
             <div className="relative">
@@ -204,7 +204,7 @@ login(token)
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Enter your password"
+                placeholder={t("Enter your password")}
               />
               <button
                 type="button"
@@ -222,7 +222,7 @@ login(token)
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700"
               >
-                Confirm Password
+                {t("Confirm Password")}
               </label>
               <div className="relative">
                 <input
@@ -231,7 +231,7 @@ login(token)
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  placeholder="Confirm your password"
+                  placeholder={t("Confirm your password")}
                 />
                 <button
                   type="button"
@@ -251,7 +251,7 @@ login(token)
                 onClick={handleForgotPassword}
                 className="text-blue-500 hover:text-blue-700 underline font-semibold"
               >
-                Forgot Password?
+                {t("Forgot Password?")}
               </button>
               {successMessage && (
                 <p className="text-green-500 text-sm">{successMessage}</p>
@@ -263,7 +263,7 @@ login(token)
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md"
           >
-            {emailExists ? "Log In" : "Register"}
+            {emailExists ? t("Log In") : t("Register")}
           </button>
           {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
