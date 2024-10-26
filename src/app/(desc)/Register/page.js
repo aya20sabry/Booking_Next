@@ -89,10 +89,8 @@ const Register = () => {
 
         // localStorage.setItem("Decoded Token:",decodedToken)
 
-        // localStorage.setItem("token:",token)
-        login(token);
-
         const userRole = decodedToken.role;
+
         console.log("userRole", userRole);
 
         if (userRole === "owner") {
