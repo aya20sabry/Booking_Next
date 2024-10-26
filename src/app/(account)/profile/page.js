@@ -52,7 +52,7 @@ function Profile() {
     <div className="bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md mt-10">
         <h1 className="text-2xl font-bold mb-4">Personal details</h1>
-        <p className="text-gray-600 mb-6">Update your info and find out how it's used.</p>
+        <p className="text-gray-600 mb-6">Update your info and find out how it&apos;s used.</p>
         
         <div className="space-y-4">
           <div className="flex justify-between items-center">
