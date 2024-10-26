@@ -8,12 +8,19 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+
 // import { useAuth } from "@/context/user"; 
+
+import { useTranslations, useLocale } from "next-intl";
+
 
 export default function Signin() {
   // const { login } = useAuth();
   const [email, setEmail] = useState("");
   const router = useRouter();
+  const locale = useLocale();
+
+  const t = useTranslations("Signin");
 
   const checkemail = async (e) => {
     e.preventDefault();
@@ -42,20 +49,20 @@ export default function Signin() {
   return (
     <>
       <NavPlain />
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center" dir={locale === "ar" ? "rtl" : "ltr"}>
         <div className="bg-white p-8 rounded-lg w-full max-w-sm">
           <h1 className="text-xl font-bold text-start mb-6">
-            Sign in or create an account
+            {t("Sign in or create an account")}
           </h1>
           <form className="space-y-4" onSubmit={checkemail}>
             <div>
               <label htmlFor="email" className="sr-only">
-                Email address
+                {t("Email address")}
               </label>
               <input
                 id="email"
                 type="email"
-                placeholder="Enter your email address"
+                placeholder={t("Enter your email address")}
                 className="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -65,12 +72,12 @@ export default function Signin() {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
             >
-              Continue with email
+              {t("Continue with email")}
             </button>
           </form>
 
           <div className="my-6 text-center text-gray-500">
-            or use one of these options
+            {t("or use one of these options")}
           </div>
 
           <div className="flex justify-around">
@@ -86,13 +93,13 @@ export default function Signin() {
           </div>
 
           <p className="mt-6 text-xs text-center text-gray-500">
-            By signing in or creating an account, you agree with our{" "}
+            {t("By signing in or creating an account, you agree with our")}
             <a href="#" className="text-blue-600">
-              Terms & Conditions
+              {t("Terms & Conditions")}
             </a>{" "}
-            and{" "}
+            {t("and")}
             <a href="#" className="text-blue-600">
-              Privacy Statement
+              {t("Privacy Statement")}
             </a>
             .
           </p>
