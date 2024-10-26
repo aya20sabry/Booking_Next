@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { format, addDays, isBefore, differenceInDays } from "date-fns";
 import { Calendar, MapPin, Hotel, DollarSign, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,8 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from "@/Components/ui/dialog";
+import { ScrollArea } from "@/Components/ui/scroll-area";
 import { GetHotelID, GetUserBookings } from "@/API/GET";
 import Image from "next/image";
 import { DeleteBooking } from "@/API/DELETE";
@@ -22,7 +22,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/Components/ui/tooltip";
 
 function Bookings() {
   const [bookings, setBookings] = useState(null);
