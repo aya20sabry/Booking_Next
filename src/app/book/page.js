@@ -35,7 +35,7 @@ import { IoWifi } from "react-icons/io5";
 import { MdOutlineRoomService } from "react-icons/md";
 import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { PostBooking } from "@/API/POST";
+
 
 function Book() {
   const t = useTranslations("Book");
