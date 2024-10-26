@@ -6,8 +6,10 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+import { useAuth } from "@/context/user"; 
 
 const Register = () => {
+  const { login } = useAuth();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -73,10 +75,16 @@ const Register = () => {
       console.log("respo", response);
       console.log("User logged in:", response.data);
       const token = response.data;
+      // console.log("token user",token)
 
       try {
         const decodedToken = jwtDecode(token); 
         console.log("Decoded Token:", decodedToken);
+        
+// localStorage.setItem("Decoded Token:",decodedToken)
+
+// localStorage.setItem("token:",token)
+login(token)
 
         const userRole = decodedToken.role; 
         console.log("userRole", userRole); 

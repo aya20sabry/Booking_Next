@@ -18,7 +18,7 @@ import Avatar from "@mui/material/Avatar";
 
 function Navbar() {
   const locale = useLocale();
-  const { email, logout } = useAuth();
+  const { token, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -73,7 +73,7 @@ function Navbar() {
             </Link>
 
             {/* Check if the user is logged in */}
-            {email ? (
+            {token ? (
               <div className="relative inline-block text-left">
                 <Avatar
                   sx={{ }}
@@ -86,13 +86,15 @@ function Navbar() {
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
+                   
                       <a
-                        href="#"
+                        href="profile"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
                         Profile
                       </a>
+                     
                       <a
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
