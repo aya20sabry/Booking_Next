@@ -208,3 +208,36 @@ input:focus::placeholder {
 .big-photoGallery {
   height: 360px;
 }
+
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prev-arrow {
+  left: -40px;
+}
+
+.next-arrow {
+  right: -40px;
+}
+
+@media (max-width: 768px) {
+  .prev-arrow {
+    left: 10px;
+  }
+
+  .next-arrow {
+    right: 10px;
+  }
+}

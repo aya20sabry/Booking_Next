@@ -91,7 +91,7 @@ function BookPage() {
     try {
       console.log("Creating booking with test data:", testBookingDetails);
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      setBookingId("671bbefca2743748aa337735");
+      setBookingId("671d15e8e21885739d1d777c");
       console.log("Booking ID set:", "test_booking_123");
       setPaypalOrderError(null);
     } catch (error) {
