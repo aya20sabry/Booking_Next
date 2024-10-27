@@ -15,7 +15,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 
-
 function Navbar() {
   const locale = useLocale();
   const { token, logout } = useAuth();
@@ -53,7 +52,9 @@ function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden md:flex space-x-4">
-            <button className="mainColor navHover px-3 py-2 rounded">EGP</button>
+            <button className="mainColor navHover px-3 py-2 rounded">
+              EGP
+            </button>
             <button
               className="mainColor navHover px-3 py-2 rounded"
               onClick={() => setIsLanguageModalOpen(true)}
@@ -76,7 +77,7 @@ function Navbar() {
             {token ? (
               <div className="relative inline-block text-left">
                 <Avatar
-                  sx={{ }}
+                  sx={{}}
                   alt="User"
                   src="https://q-xx.bstatic.com/backend_static/common/img/header/avatar.png"
                   onClick={toggleDropdown}
@@ -86,7 +87,6 @@ function Navbar() {
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
-                   
                       <a
                         href="profile"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -94,7 +94,7 @@ function Navbar() {
                         {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
                         Profile
                       </a>
-                     
+
                       <a
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -107,7 +107,6 @@ function Navbar() {
                         onClick={logout}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-
                         {t("logout")}
                       </a>
                     </div>
@@ -164,7 +163,9 @@ function Navbar() {
               </button>
               <div className="flex flex-col items-start justify-start space-y-4 h-full p-6 mt-10">
                 <h1 className="text-2xl font-bold">{t("more")}</h1>
-                <button className="px-3 py-2 rounded">EGP {t("currency")}</button>
+                <button className="px-3 py-2 rounded">
+                  EGP {t("currency")}
+                </button>
                 <button
                   className="px-3 py-2 rounded flex items-center space-x-2"
                   onClick={() => setIsLanguageModalOpen(true)}

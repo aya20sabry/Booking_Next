@@ -9,10 +9,9 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-// import { useAuth } from "@/context/user"; 
+// import { useAuth } from "@/context/user";
 
 import { useTranslations, useLocale } from "next-intl";
-
 
 export default function Signin() {
   // const { login } = useAuth();
@@ -35,7 +34,7 @@ export default function Signin() {
       console.log("res", response);
 
       if (response.data !== "please enter valid email") {
-        localStorage.setItem("email",email);
+        localStorage.setItem("email", email);
         // login(email); // تسجيل الدخول
         router.push("/Register");
       } else {
@@ -49,7 +48,10 @@ export default function Signin() {
   return (
     <>
       <NavPlain />
-      <div className="flex items-center justify-center" dir={locale === "ar" ? "rtl" : "ltr"}>
+      <div
+        className="flex items-center justify-center"
+        dir={locale === "ar" ? "rtl" : "ltr"}
+      >
         <div className="bg-white p-8 rounded-lg w-full max-w-sm">
           <h1 className="text-xl font-bold text-start mb-6">
             {t("Sign in or create an account")}
@@ -109,13 +111,10 @@ export default function Signin() {
   );
 }
 
-
-
-
 // "use client";
 
 // import Image from "next/image";
-// import facebook from "@/Public/facebook.png"; 
+// import facebook from "@/Public/facebook.png";
 // import google from "@/Public/google.png";
 // import apple from "@/Public/apple.png";
 // import NavPlain from "@/Components/Navbar/NavPlain";
@@ -129,14 +128,12 @@ export default function Signin() {
 // =======
 // >>>>>>> 42ea0637e6d3df7c292805a609c591b331565fdd
 
-// // import { useAuth } from "@/context/user"; 
+// // import { useAuth } from "@/context/user";
 // >>>>>>> 42ea0637e6d3df7c292805a609c591b331565fdd
 
 // import { useTranslations, useLocale } from "next-intl";
 
-
 // import { useTranslations, useLocale } from "next-intl";
-
 
 // export default function Signin() {
 //   const [email, setEmail] = useState("");

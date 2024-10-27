@@ -25,13 +25,17 @@ function Profile() {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setDecodedToken(decoded); 
-      const userId = decoded.id; 
+
+      setDecodedToken(decoded);
+      const userId = decoded.id;
       const fetchUserData = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/user/${userId}`);
+          const response = await axios.get(
+            `http://localhost:3000/user/${userId}`
+          );
           console.log("user data", response);
-       
+
+
           setUserName(response.data.userName);
           setFirstName(response.data.firstName);
           setLastName(response.data.lastName);
@@ -42,7 +46,9 @@ function Profile() {
           console.error("Error fetching user data:", error);
         }
       };
+
       fetchUserData(); 
+
       console.log("userid", userId);
     }
   }, []);
@@ -60,8 +66,13 @@ function Profile() {
     };
 
     try {
-      const userId = decodedToken.id; 
-      const response = await axios.patch(`http://localhost:3000/user/UpdateData/${userId}`, updatedData); 
+
+      const userId = decodedToken.id;
+      const response = await axios.patch(
+        `http://localhost:3000/user/UpdateData/${userId}`,
+        updatedData
+      );
+
       console.log("Update response:", response.data);
     } catch (error) {
       console.error("Error updating data:", error);
@@ -73,7 +84,7 @@ function Profile() {
     localStorage.setItem("decodedToken.email", email);
     localStorage.setItem("decodedToken.phoneNumber", phoneNumber);
     localStorage.setItem("decodedToken.nationality", nationality);
-    
+
     setIsEditingUserName(false);
     setIsEditingFirstName(false);
     setIsEditingLastName(false);
@@ -83,13 +94,14 @@ function Profile() {
   };
 
   return (
-
     <div className="bg-gray-100 max-h-screen">
       <div className="bg-white p-6 rounded-lg shadow-md mt-10 mx-auto ">
-        <h1 className="text-2xl font-bold mb-4 text-center">Personal Details</h1>
-        <p className="text-gray-600 mb-6 text-center">Update your info and find out how it's used.</p>
-
-
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Personal Details
+        </h1>
+        <p className="text-gray-600 mb-6 text-center">
+          Update your info and find out how it&apos;s used.
+        </p>
 
         <div className="space-y-4">
           {/* User Name */}
@@ -103,12 +115,22 @@ function Profile() {
                   onChange={(e) => setUserName(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+                <button
+                  onClick={handleSaveClick}
+                  className="bg-blue-500 text-white rounded px-3 py-1"
+                >
+                  Save
+                </button>
               </div>
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{userName}</span>
-                <button onClick={() => setIsEditingUserName(true)} className="text-blue-500 ml-2">Edit</button>
+                <button
+                  onClick={() => setIsEditingUserName(true)}
+                  className="text-blue-500 ml-2"
+                >
+                  Edit
+                </button>
               </div>
             )}
           </div>
@@ -124,12 +146,22 @@ function Profile() {
                   onChange={(e) => setFirstName(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+                <button
+                  onClick={handleSaveClick}
+                  className="bg-blue-500 text-white rounded px-3 py-1"
+                >
+                  Save
+                </button>
               </div>
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{firstName}</span>
-                <button onClick={() => setIsEditingFirstName(true)} className="text-blue-500 ml-2">Edit</button>
+                <button
+                  onClick={() => setIsEditingFirstName(true)}
+                  className="text-blue-500 ml-2"
+                >
+                  Edit
+                </button>
               </div>
             )}
           </div>
@@ -145,12 +177,22 @@ function Profile() {
                   onChange={(e) => setLastName(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+                <button
+                  onClick={handleSaveClick}
+                  className="bg-blue-500 text-white rounded px-3 py-1"
+                >
+                  Save
+                </button>
               </div>
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{lastName}</span>
-                <button onClick={() => setIsEditingLastName(true)} className="text-blue-500 ml-2">Edit</button>
+                <button
+                  onClick={() => setIsEditingLastName(true)}
+                  className="text-blue-500 ml-2"
+                >
+                  Edit
+                </button>
               </div>
             )}
           </div>
@@ -166,12 +208,22 @@ function Profile() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+                <button
+                  onClick={handleSaveClick}
+                  className="bg-blue-500 text-white rounded px-3 py-1"
+                >
+                  Save
+                </button>
               </div>
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{email}</span>
-                <button onClick={() => setIsEditingEmail(true)} className="text-blue-500 ml-2">Edit</button>
+                <button
+                  onClick={() => setIsEditingEmail(true)}
+                  className="text-blue-500 ml-2"
+                >
+                  Edit
+                </button>
               </div>
             )}
           </div>
@@ -187,12 +239,22 @@ function Profile() {
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+                <button
+                  onClick={handleSaveClick}
+                  className="bg-blue-500 text-white rounded px-3 py-1"
+                >
+                  Save
+                </button>
               </div>
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{phoneNumber}</span>
-                <button onClick={() => setIsEditingPhone(true)} className="text-blue-500 ml-2">Edit</button>
+                <button
+                  onClick={() => setIsEditingPhone(true)}
+                  className="text-blue-500 ml-2"
+                >
+                  Edit
+                </button>
               </div>
             )}
           </div>
@@ -208,12 +270,22 @@ function Profile() {
                   onChange={(e) => setNationality(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
+                <button
+                  onClick={handleSaveClick}
+                  className="bg-blue-500 text-white rounded px-3 py-1"
+                >
+                  Save
+                </button>
               </div>
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{nationality}</span>
-                <button onClick={() => setIsEditingNationality(true)} className="text-blue-500 ml-2">Edit</button>
+                <button
+                  onClick={() => setIsEditingNationality(true)}
+                  className="text-blue-500 ml-2"
+                >
+                  Edit
+                </button>
               </div>
             )}
           </div>
