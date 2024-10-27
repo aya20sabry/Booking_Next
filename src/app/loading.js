@@ -14,10 +14,7 @@ function Loading() {
   unstable_setRequestLocale(locale);
   return (
     <>
-      <Navbar />
-      <Header />
       <Loaders />
-      <Footer />
     </>
   );
 }
