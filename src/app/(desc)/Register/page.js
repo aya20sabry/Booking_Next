@@ -50,9 +50,11 @@ const Register = () => {
         await loginUser(email, password);
       }
     } catch (error) {
+
       setError(
         t("An error occurred while checking the email. Please try again.")
       );
+
     }
   };
 
