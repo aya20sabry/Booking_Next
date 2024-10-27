@@ -12,13 +12,6 @@ function Profile() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [nationality, setNationality] = useState("");
 
-  const [isEditingUserName, setIsEditingUserName] = useState(false);
-  const [isEditingFirstName, setIsEditingFirstName] = useState(false);
-  const [isEditingLastName, setIsEditingLastName] = useState(false);
-  const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [isEditingPhone, setIsEditingPhone] = useState(false);
-  const [isEditingNationality, setIsEditingNationality] = useState(false);
-
   const [decodedToken, setDecodedToken] = useState(null);
 
   useEffect(() => {
@@ -31,7 +24,7 @@ function Profile() {
         try {
           const response = await axios.get(`http://localhost:3000/user/${userId}`);
           console.log("user data", response);
-       
+
           setUserName(response.data.userName);
           setFirstName(response.data.firstName);
           setLastName(response.data.lastName);
@@ -54,8 +47,6 @@ function Profile() {
       lastName,
       email,
       phoneNumber,
-
-
       nationality,
     };
 
@@ -73,150 +64,82 @@ function Profile() {
     localStorage.setItem("decodedToken.email", email);
     localStorage.setItem("decodedToken.phoneNumber", phoneNumber);
     localStorage.setItem("decodedToken.nationality", nationality);
-    
-    setIsEditingUserName(false);
-    setIsEditingFirstName(false);
-    setIsEditingLastName(false);
-    setIsEditingEmail(false);
-    setIsEditingPhone(false);
-    setIsEditingNationality(false);
   };
 
   return (
-
-    <div className="bg-gray-100 max-h-screen">
-      <div className="bg-white p-6 rounded-lg shadow-md mt-10 mx-auto ">
+    <div className="  bg-gray-100  flex items-center justify-center">
+      <div className="  bg-white p-6 rounded-lg shadow-md w-full ">
         <h1 className="text-2xl font-bold mb-4 text-center">Personal Details</h1>
         <p className="text-gray-600 mb-6 text-center">Update your info and find out how it's used.</p>
 
-
-
         <div className="space-y-4">
-          {/* User Name */}
-          <div className="flex justify-between items-center">
-            <span className="font-medium">User Name</span>
-            {isEditingUserName ? (
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  className="border rounded p-1 mr-2"
-                />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <span className="text-gray-500">{userName}</span>
-                <button onClick={() => setIsEditingUserName(true)} className="text-blue-500 ml-2">Edit</button>
-              </div>
-            )}
-          </div>
+          {/* Input Fields in Two Columns */}
+          <div className=" pl-1 grid grid-cols-2 gap-4">
+            {/* First Name */}
+            <div>
+              <label className="block font-medium">First Name</label>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="border rounded w-full p-2 mt-1"
+              />
+            </div>
 
-          {/* First Name */}
-          <div className="flex justify-between items-center">
-            <span className="font-medium">First Name</span>
-            {isEditingFirstName ? (
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="border rounded p-1 mr-2"
-                />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <span className="text-gray-500">{firstName}</span>
-                <button onClick={() => setIsEditingFirstName(true)} className="text-blue-500 ml-2">Edit</button>
-              </div>
-            )}
-          </div>
+            {/* Last Name */}
+            <div>
+              <label className="block font-medium">Last Name</label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="border rounded w-full p-2 mt-1"
+              />
+            </div>
 
-          {/* Last Name */}
-          <div className="flex justify-between items-center">
-            <span className="font-medium">Last Name</span>
-            {isEditingLastName ? (
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="border rounded p-1 mr-2"
-                />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <span className="text-gray-500">{lastName}</span>
-                <button onClick={() => setIsEditingLastName(true)} className="text-blue-500 ml-2">Edit</button>
-              </div>
-            )}
-          </div>
+            {/* Email Address */}
+            <div>
+              <label className="block font-medium">Email Address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border rounded w-full p-2 mt-1"
+              />
+            </div>
 
-          {/* Email */}
-          <div className="flex justify-between items-center">
-            <span className="font-medium">Email Address</span>
-            {isEditingEmail ? (
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="border rounded p-1 mr-2"
-                />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <span className="text-gray-500">{email}</span>
-                <button onClick={() => setIsEditingEmail(true)} className="text-blue-500 ml-2">Edit</button>
-              </div>
-            )}
-          </div>
+            {/* Phone Number */}
+            <div>
+              <label className="block font-medium">Phone Number</label>
+              <input
+                type="text"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                className="border rounded w-full p-2 mt-1"
+              />
+            </div>
 
-          {/* Phone Number */}
-          <div className="flex justify-between items-center">
-            <span className="font-medium">Phone Number</span>
-            {isEditingPhone ? (
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="border rounded p-1 mr-2"
-                />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <span className="text-gray-500">{phoneNumber}</span>
-                <button onClick={() => setIsEditingPhone(true)} className="text-blue-500 ml-2">Edit</button>
-              </div>
-            )}
+            {/* Nationality */}
+            <div>
+              <label className="block font-medium">Nationality</label>
+              <input
+                type="text"
+                value={nationality}
+                onChange={(e) => setNationality(e.target.value)}
+                className="border rounded w-full p-2 mt-1"
+              />
+            </div>
           </div>
+        </div>
 
-          {/* Nationality */}
-          <div className="flex justify-between items-center">
-            <span className="font-medium">Nationality</span>
-            {isEditingNationality ? (
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  value={nationality}
-                  onChange={(e) => setNationality(e.target.value)}
-                  className="border rounded p-1 mr-2"
-                />
-                <button onClick={handleSaveClick} className="bg-blue-500 text-white rounded px-3 py-1">Save</button>
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <span className="text-gray-500">{nationality}</span>
-                <button onClick={() => setIsEditingNationality(true)} className="text-blue-500 ml-2">Edit</button>
-              </div>
-            )}
-          </div>
+        {/* Save Button */}
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={handleSaveClick}
+            className="mainColor text-white rounded px-4 py-2 hover:bg-blue-600"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
