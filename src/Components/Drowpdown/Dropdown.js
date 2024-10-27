@@ -13,7 +13,7 @@ const Dropdown = ({ options, selected, onSelect, isOpen, onToggle }) => {
         {selected} <i className="fa-solid fa-angle-down"></i>
       </button>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 border border-gray-200 rounded-lg shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-48 border border-gray-200 rounded-lg shadow-lg z-50 bg-white">
           <ul className="z-50">
             {options.map((option, index) => (
               <li key={index}>
