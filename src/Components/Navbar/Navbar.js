@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/context/user";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import ENFlag from "@/Public/ENFlag.png";
@@ -13,7 +13,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Avatar from "@mui/material/Avatar";
+import { jwtDecode } from "jwt-decode";
+import { GetUser } from "@/API/GET";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const locale = useLocale();
@@ -21,8 +23,32 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [user, setUser] = useState(null);
   const t = useTranslations("Navbar");
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        try {
+          const decoded = jwtDecode(storedToken);
+          const userId = decoded.id;
+          const userData = await GetUser(userId);
+          setUser(userData);
+        } catch (error) {
+          console.error("Error decoding token or fetching user data:", error);
+          logout();
+        }
+      } else {
+        setUser(null);
+      }
+    };
+
+    checkAuth();
+  }, [router.pathname]);
 
   const languages = [
     { code: "en", name: "English", flag: ENFlag },
@@ -81,14 +107,11 @@ function Navbar() {
                   className="flex items-center cursor-pointer"
                 >
                   <div className="w-9 h-9 rounded-full bg-yellow-500 border-2 border-yellow-600 flex items-center justify-center text-white font-bold mr-2">
-                    {localStorage
-                      .getItem("decodedToken.lastName")
-                      ?.charAt(0)
-                      .toUpperCase() || "U"}
+                    {user?.lastName?.charAt(0).toUpperCase() || "U"}
                   </div>
                   <div className="flex flex-col">
                     <span className="text-base mr-2 self-start font-medium">
-                      {localStorage.getItem("decodedToken.lastName")}
+                      {user?.lastName}
                     </span>
                     <span className="text-xs self-start">See profile</span>
                   </div>
