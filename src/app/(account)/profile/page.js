@@ -72,6 +72,7 @@ function Profile() {
         <h1 className="text-2xl font-bold mb-4 text-center">Personal Details</h1>
         <p className="text-gray-600 mb-6 text-center">Update your info and find out how it's used.</p>
 
+
         <div className="space-y-4">
           {/* Input Fields in Two Columns */}
           <div className=" pl-1 grid grid-cols-2 gap-4">

@@ -23,15 +23,26 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/Components/ui/tooltip";
+import { jwtDecode } from "jwt-decode";
 
 function Bookings() {
   const [bookings, setBookings] = useState(null);
   const [hotels, setHotels] = useState({});
-
+  const [userId, setUserId] = useState(null);
+  async function getUserId() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      return decoded.id;
+    }
+    return null;
+  }
   useEffect(() => {
     async function fetchData() {
+      const id = await getUserId();
+      setUserId(id);
       try {
-        const data = await GetUserBookings("66f9f2cfa46b697f106da79a");
+        const data = await GetUserBookings(id);
         setBookings(data);
 
         const hotelPromises = data.map((booking) =>

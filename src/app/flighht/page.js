@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-// import ComponantFlight from './../../compnant/flight/flight';
 import Bus from "@/Public/Bus.png";
 import MS from "@/Public/MS.png";
 import cairo from "@/Public/cairo.png";
 // import FlightFilter from './../test/page';
 import { useLocale } from "next-intl";
+import Navbar from "@/Components/Navbar/Navbar";
+import Header from "@/Components/Navbar/Header";
+import ComponantFlight from "@/Components/flight/flight";
 const FlightCard = () => {
   const locale = useLocale();
   const [stops, setStops] = useState({
@@ -91,7 +93,11 @@ const FlightCard = () => {
 
   return (
     <div>
-      <div className="bg-[#FEBB02]">{/* <ComponantFlight /> */}</div>
+      <Navbar />
+      <Header />
+      <div className="bg-[#FEBB02]">
+        <ComponantFlight />
+      </div>
 
       <div className="grid grid-cols-3 gap-4 pr-96 pl-96 bg-[#F0F3F5]">
         <div className="col-span-1 bg-white border border-gray-300 p-6 rounded-lg shadow-lg mt-4 w-72 ml-44">

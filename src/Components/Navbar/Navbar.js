@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/context/user";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import ENFlag from "@/Public/ENFlag.png";
@@ -13,7 +13,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Avatar from "@mui/material/Avatar";
+import { jwtDecode } from "jwt-decode";
+import { GetUser } from "@/API/GET";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const locale = useLocale();
@@ -21,8 +23,32 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [user, setUser] = useState(null);
   const t = useTranslations("Navbar");
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        try {
+          const decoded = jwtDecode(storedToken);
+          const userId = decoded.id;
+          const userData = await GetUser(userId);
+          setUser(userData);
+        } catch (error) {
+          console.error("Error decoding token or fetching user data:", error);
+          logout();
+        }
+      } else {
+        setUser(null);
+      }
+    };
+
+    checkAuth();
+  }, [router.pathname]);
 
   const languages = [
     { code: "en", name: "English", flag: ENFlag },
@@ -75,17 +101,24 @@ function Navbar() {
 
             {/* Check if the user is logged in */}
             {token ? (
-              <div className="relative inline-block text-left">
-                <Avatar
-                  sx={{}}
-                  alt="User"
-                  src="https://q-xx.bstatic.com/backend_static/common/img/header/avatar.png"
+              <div className="relative text-left flex items-center">
+                <div
                   onClick={toggleDropdown}
-                  className="cursor-pointer"
-                />
+                  className="flex items-center cursor-pointer"
+                >
+                  <div className="w-9 h-9 rounded-full bg-yellow-500 border-2 border-yellow-600 flex items-center justify-center text-white font-bold mr-2">
+                    {user?.lastName?.charAt(0).toUpperCase() || "U"}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-base mr-2 self-start font-medium">
+                      {user?.lastName}
+                    </span>
+                    <span className="text-xs self-start">See profile</span>
+                  </div>
+                </div>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div className="absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
                       <a
                         href="profile"
@@ -94,7 +127,12 @@ function Navbar() {
                         {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
                         Profile
                       </a>
-
+                      <a
+                        href="/bookings"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Bookings
+                      </a>
                       <a
                         href="#"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
