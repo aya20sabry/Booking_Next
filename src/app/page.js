@@ -1,3 +1,4 @@
+"use client";
 import Footer from "@/Components/Footer/Footer";
 import Heading from "@/Components/Headings/Heading";
 import Header from "@/Components/Navbar/Header";
@@ -30,11 +31,67 @@ import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function Home() {
   const locale = useLocale();
-
+  const router = useRouter();
   const t = useTranslations("HomePage");
+
+  const NextArrow = ({ onClick }) => (
+    <button
+      className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg z-10 "
+      onClick={onClick}
+    >
+      <FaChevronRight className="text-gray-600" />
+    </button>
+  );
+
+  const PrevArrow = ({ onClick, currentSlide }) => (
+    <button
+      className={`absolute -left-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 ${
+        currentSlide === 0 ? "hidden" : ""
+      }`}
+      onClick={onClick}
+    >
+      <FaChevronLeft className="text-gray-600" />
+    </button>
+  );
+
+  const createSliderSettings = (slidesToShow) => ({
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: slidesToShow,
+    slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: Math.min(2, slidesToShow),
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+  const exploreSliderSettings = createSliderSettings(6);
+  const propertyTypeSliderSettings = createSliderSettings(4);
+  const plannerSliderSettings = createSliderSettings(6);
+
   return (
     <>
       <Navbar />
@@ -118,11 +175,14 @@ export default function Home() {
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           {/* <!-- Luxor Card --> */}
           <div
-            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
+            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card cursor-pointer"
             style={{
               backgroundImage: `url(${imageMap.Luxor.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?location=Luxor`);
             }}
           >
             <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
@@ -138,11 +198,14 @@ export default function Home() {
           </div>
           {/* <!-- Cairo Card --> */}
           <div
-            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
+            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card cursor-pointer"
             style={{
               backgroundImage: `url(${imageMap.Cairo.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Cairo`);
             }}
           >
             <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
@@ -159,11 +222,14 @@ export default function Home() {
         </div>
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <div
-            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card"
+            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card cursor-pointer"
             style={{
               backgroundImage: `url(${imageMap.Aswan.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Aswan`);
             }}
           >
             <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
@@ -180,11 +246,14 @@ export default function Home() {
             </div>
           </div>
           <div
-            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card"
+            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card cursor-pointer"
             style={{
               backgroundImage: `url(${imageMap.Hurghada.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Hurghada`);
             }}
           >
             <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
@@ -201,11 +270,14 @@ export default function Home() {
             </div>
           </div>
           <div
-            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card"
+            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card cursor-pointer"
             style={{
               backgroundImage: `url(${imageMap["Sharm el-Sheikh"].src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Sharm el-Sheikh`);
             }}
           >
             <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
@@ -232,15 +304,23 @@ export default function Home() {
           />
         </div>
 
-        <div className="mt-8 flex  overflow-x-auto custom-scrollbar px-4 xl:mx-48">
-          {Egypt.map((destination) => (
-            <ExploreCard
-              key={destination.name}
-              src={imageMap[destination.name]}
-              title={destination.name}
-              description={destination.description}
-            />
-          ))}
+        <div className="mt-8 px-4 xl:mx-48">
+          <Slider {...exploreSliderSettings}>
+            {Egypt.map((destination) => (
+              <div key={destination.name} className="px-2">
+                <ExploreCard
+                  src={imageMap[destination.name]}
+                  title={destination.name}
+                  description={destination.description}
+                  onClick={() => {
+                    router.push(
+                      `/searchResults?destination=${destination.name}`
+                    );
+                  }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
       {/* browse by property type section */}
@@ -248,15 +328,18 @@ export default function Home() {
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading title="Browse by property type" />
         </div>
-        <div className="mt-8 flex  space-x-4 overflow-x-auto custom-scrollbar px-4 xl:mx-48">
-          {PropertyType.map((Property) => (
-            <Browse
-              key={Property.name}
-              src={BrowseImagesMap[Property.name]}
-              title={Property.name}
-              description={Property.description}
-            />
-          ))}
+        <div className="mt-8 px-4 xl:mx-48">
+          <Slider {...propertyTypeSliderSettings}>
+            {PropertyType.map((Property) => (
+              <div key={Property.name} className="px-2">
+                <Browse
+                  src={BrowseImagesMap[Property.name]}
+                  title={Property.name}
+                  description={Property.description}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
       {/* planner section */}
@@ -267,20 +350,28 @@ export default function Home() {
             description="Pick a vibe and explore the top destinations in Egypt"
           />
         </div>
-        <div className="mt-8 flex  space-x-4 overflow-x-auto custom-scrollbar  xl:mx-48">
+        <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar xl:mx-48">
           <Nav icon={TbBeach} text="Beach" isActive={true} />
           <Nav icon={LiaCitySolid} text="City" isActive={false} />
           <Nav icon={LuBike} text="Outdoors" isActive={false} />
         </div>
-        <div className="mt-8 flex  overflow-x-auto custom-scrollbar px-4 xl:mx-48">
-          {Egypt.map((destination) => (
-            <ExploreCard
-              key={destination.name}
-              src={imageMap[destination.name]}
-              title={destination.name}
-              description={destination.description}
-            />
-          ))}
+        <div className="mt-8 px-4 xl:mx-48">
+          <Slider {...plannerSliderSettings}>
+            {Egypt.map((destination) => (
+              <div key={destination.name} className="px-2">
+                <ExploreCard
+                  src={imageMap[destination.name]}
+                  title={destination.name}
+                  description={destination.description}
+                  onClick={() => {
+                    router.push(
+                      `/searchResults?destination=${destination.name}`
+                    );
+                  }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
       {/* deals section */}

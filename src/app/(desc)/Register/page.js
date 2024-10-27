@@ -7,10 +7,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 
-import { useAuth } from "@/context/user"; 
+import { useAuth } from "@/context/user";
 
 import { useTranslations, useLocale } from "next-intl";
-
 
 const Register = () => {
   const { login } = useAuth();
@@ -51,7 +50,11 @@ const Register = () => {
         await loginUser(email, password);
       }
     } catch (error) {
-      setError(t("An error occurred while checking the email. Please try again."));
+
+      setError(
+        t("An error occurred while checking the email. Please try again.")
+      );
+
     }
   };
 
@@ -61,7 +64,7 @@ const Register = () => {
         email,
         password,
         username,
-        role: "user"
+        role: "user",
       });
       router.push("/Signin");
       console.log("User registered:", response.data);
@@ -83,24 +86,22 @@ const Register = () => {
       // console.log("token user",token)
 
       try {
-        const decodedToken = jwtDecode(token); 
+        const decodedToken = jwtDecode(token);
         console.log("Decoded Token:", decodedToken);
-        
-// localStorage.setItem("Decoded Token:",decodedToken)
 
-// localStorage.setItem("token:",token)
-login(token)
+        // localStorage.setItem("Decoded Token:",decodedToken)
 
-        const userRole = decodedToken.role; 
-        
-        console.log("userRole", userRole); 
+        // localStorage.setItem("token:",token)
+        login(token);
+
+        const userRole = decodedToken.role;
+
+        console.log("userRole", userRole);
 
         if (userRole === "owner") {
           router.push(` http://localhost:4200/login/?token=${token}`);
         } else if (userRole === "user") {
           console.log("hamadarole");
-
-
 
           router.push("/");
         } else {
@@ -120,9 +121,13 @@ login(token)
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{10,}$/;
 
     if (!passwordRegex.test(password)) {
-      setError(t("Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers.")); // Translated error message
+      setError(
+        t(
+          "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers."
+        )
+      ); // Translated error message
     } else if (!emailExists && password !== confirmPassword) {
-      setError(t("Passwords do not match.")); 
+      setError(t("Passwords do not match."));
     } else {
       setError("");
       if (emailExists) {
@@ -136,7 +141,7 @@ login(token)
   const handleForgotPassword = async () => {
     const storedEmail = localStorage.getItem("email");
     if (!storedEmail) {
-      setError(t("Email is required for password reset.")); 
+      setError(t("Email is required for password reset."));
       return;
     }
 
@@ -149,7 +154,9 @@ login(token)
         setSuccessMessage(t("Check your email for the password reset link.")); // Translated success message
       }
     } catch (error) {
-      setError(t("An error occurred while sending the password reset request.")); // Translated error message
+      setError(
+        t("An error occurred while sending the password reset request.")
+      ); // Translated error message
     }
   };
 
@@ -160,9 +167,13 @@ login(token)
         <form onSubmit={handleSubmit} className="space-y-4">
           {!emailExists && (
             <>
-              <h4 className="font-bold py-2 text-2xl">{t("Create password")}</h4>
+              <h4 className="font-bold py-2 text-2xl">
+                {t("Create password")}
+              </h4>
               <h4 className="py-2">
-                {t("Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.")}
+                {t(
+                  "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers."
+                )}
               </h4>
               <div>
                 <label
@@ -191,7 +202,9 @@ login(token)
               {emailExists ? (
                 <>
                   <p className="font-bold">{t("Enter your password")}</p>
-                  <p className="pb-3">{t("Please enter your Booking.com password for")}</p>
+                  <p className="pb-3">
+                    {t("Please enter your Booking.com password for")}
+                  </p>
                 </>
               ) : (
                 t("Create Password")

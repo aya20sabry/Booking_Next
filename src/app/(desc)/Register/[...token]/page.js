@@ -46,7 +46,11 @@ const Register = () => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{10,}$/;
 
     if (!passwordRegex.test(password)) {
-      setError(t("Password must be at least 10 characters long and include uppercase letters, lowercase letters, and numbers.")); // Translated error message
+      setError(
+        t(
+          "Password must be at least 10 characters long and include uppercase letters, lowercase letters, and numbers."
+        )
+      ); // Translated error message
     } else if (password !== confirmPassword) {
       setError(t("Passwords do not match.")); // Translated error message
     } else {
