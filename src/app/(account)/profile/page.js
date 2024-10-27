@@ -25,6 +25,7 @@ function Profile() {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
+
       setDecodedToken(decoded);
       const userId = decoded.id;
       const fetchUserData = async () => {
@@ -33,6 +34,7 @@ function Profile() {
             `http://localhost:3000/user/${userId}`
           );
           console.log("user data", response);
+
 
           setUserName(response.data.userName);
           setFirstName(response.data.firstName);
@@ -44,7 +46,9 @@ function Profile() {
           console.error("Error fetching user data:", error);
         }
       };
-      fetchUserData();
+
+      fetchUserData(); 
+
       console.log("userid", userId);
     }
   }, []);
@@ -57,15 +61,18 @@ function Profile() {
       email,
       phoneNumber,
 
+
       nationality,
     };
 
     try {
+
       const userId = decodedToken.id;
       const response = await axios.patch(
         `http://localhost:3000/user/UpdateData/${userId}`,
         updatedData
       );
+
       console.log("Update response:", response.data);
     } catch (error) {
       console.error("Error updating data:", error);
