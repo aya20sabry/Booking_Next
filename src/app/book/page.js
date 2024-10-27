@@ -35,7 +35,7 @@ import { IoWifi } from "react-icons/io5";
 import { MdOutlineRoomService } from "react-icons/md";
 import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
-
+import { jwtDecode } from "jwt-decode";
 
 function Book() {
   const t = useTranslations("Book");
@@ -43,6 +43,7 @@ function Book() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState(2);
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [hotel, setHotel] = useState(null);
   const [rooms, setRooms] = useState(null);
   const [reviews, setReviews] = useState(null);
@@ -55,31 +56,50 @@ function Book() {
   const checkInDate = searchParams.get("checkInDate");
   const checkOutDate = searchParams.get("checkOutDate");
   const numberOfRooms = Math.round(price / rooms?.price);
+  async function getUserId() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      return decoded.id;
+    }
+    return null;
+  }
+
   useEffect(() => {
     const hotel = searchParams.get("hotel");
     const room = searchParams.get("room");
+
     async function fetchData() {
       try {
-        const [hotelData, roomData, reviewData, userData] = await Promise.all([
-          GetHotelID(hotel),
-          GetRoom(room),
-          GetHotelReviews(hotel),
-          GetUser("66f9f2cfa46b697f106da79a"),
-        ]);
+        const id = await getUserId();
+        setUserId(id);
 
-        setHotel(hotelData);
-        setRooms(roomData);
-        setReviews(reviewData);
-        setUser(userData);
+        if (id) {
+          const [hotelData, roomData, reviewData, userData] = await Promise.all(
+            [
+              GetHotelID(hotel),
+              GetRoom(room),
+              GetHotelReviews(hotel),
+              GetUser(id),
+            ]
+          );
+
+          setHotel(hotelData);
+          setRooms(roomData);
+          setReviews(reviewData);
+          setUser(userData);
+        } else {
+          console.error("User ID not available");
+        }
       } catch (error) {
-        console.error("Error fetching hotel data:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     }
 
     fetchData();
-  }, []);
+  }, [searchParams]);
   async function onSubmit() {
     let postData = {
       check_in_date: checkInDate,

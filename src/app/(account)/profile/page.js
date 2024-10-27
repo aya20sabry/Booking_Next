@@ -87,8 +87,8 @@ function Profile() {
   };
 
   return (
-    <div className="bg-gray-100 max-h-screen">
-      <div className="bg-white p-6 rounded-lg shadow-md mt-10 mx-auto ">
+    <div className=" max-h-screen px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+      <div className="bg-white p-6 rounded-lg shadow-md my-10 mx-auto ">
         <h1 className="text-2xl font-bold mb-4 text-center">
           Personal Details
         </h1>
