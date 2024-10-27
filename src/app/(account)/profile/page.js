@@ -26,13 +26,26 @@ function Profile() {
     if (token) {
       const decoded = jwtDecode(token);
       setDecodedToken(decoded);
+      const userId = decoded.id;
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:3000/user/${userId}`
+          );
+          console.log("user data", response);
 
-      setUserName(decoded.userName);
-      setFirstName(decoded.firstName);
-      setLastName(decoded.lastName);
-      setEmail(decoded.email);
-      setPhoneNumber(decoded.phoneNumber || "");
-      setNationality(decoded.nationality || "");
+          setUserName(response.data.userName);
+          setFirstName(response.data.firstName);
+          setLastName(response.data.lastName);
+          setEmail(response.data.email);
+          setPhoneNumber(response.data.phoneNumber || "");
+          setNationality(response.data.nationality || "");
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchUserData();
+      console.log("userid", userId);
     }
   }, []);
 
@@ -43,6 +56,7 @@ function Profile() {
       lastName,
       email,
       phoneNumber,
+
       nationality,
     };
 
@@ -50,7 +64,7 @@ function Profile() {
       const userId = decodedToken.id;
       const response = await axios.patch(
         `http://localhost:3000/user/UpdateData/${userId}`,
-        { updatedData }
+        updatedData
       );
       console.log("Update response:", response.data);
     } catch (error) {
@@ -67,7 +81,6 @@ function Profile() {
     setIsEditingUserName(false);
     setIsEditingFirstName(false);
     setIsEditingLastName(false);
-
     setIsEditingEmail(false);
     setIsEditingPhone(false);
     setIsEditingNationality(false);
@@ -80,7 +93,7 @@ function Profile() {
           Personal Details
         </h1>
         <p className="text-gray-600 mb-6 text-center">
-          Update your info and find out how it's used.
+          Update your info and find out how it&apos;s used.
         </p>
 
         <div className="space-y-4">
@@ -115,6 +128,7 @@ function Profile() {
             )}
           </div>
 
+          {/* First Name */}
           <div className="flex justify-between items-center">
             <span className="font-medium">First Name</span>
             {isEditingFirstName ? (
@@ -187,7 +201,6 @@ function Profile() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="border rounded p-1 mr-2"
                 />
-
                 <button
                   onClick={handleSaveClick}
                   className="bg-blue-500 text-white rounded px-3 py-1"
@@ -198,7 +211,6 @@ function Profile() {
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-500">{email}</span>
-
                 <button
                   onClick={() => setIsEditingEmail(true)}
                   className="text-blue-500 ml-2"

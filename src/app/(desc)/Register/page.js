@@ -89,6 +89,9 @@ const Register = () => {
 
         // localStorage.setItem("Decoded Token:",decodedToken)
 
+        // localStorage.setItem("token:",token)
+        login(token);
+
         const userRole = decodedToken.role;
 
         console.log("userRole", userRole);
@@ -120,7 +123,7 @@ const Register = () => {
         t(
           "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers."
         )
-      );
+      ); // Translated error message
     } else if (!emailExists && password !== confirmPassword) {
       setError(t("Passwords do not match."));
     } else {
@@ -146,12 +149,12 @@ const Register = () => {
         { email: storedEmail }
       );
       if (response.data.message === "Email sent successfully") {
-        setSuccessMessage(t("Check your email for the password reset link."));
+        setSuccessMessage(t("Check your email for the password reset link.")); // Translated success message
       }
     } catch (error) {
       setError(
         t("An error occurred while sending the password reset request.")
-      );
+      ); // Translated error message
     }
   };
 
