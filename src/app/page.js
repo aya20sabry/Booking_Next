@@ -34,6 +34,8 @@ import { useTranslations, useLocale } from "next-intl";
 import {  useEffect, useState} from 'react';
 import Link from 'next/link';
 
+import React, { useContext } from 'react'; // تأكد من استيراد useContext
+import {FavoritesContext} from '@/Context/favoritesContext';
 
 const dataa = {
   "Cities in Egypt": [
@@ -75,6 +77,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const t = useTranslations("HomePage");
   const [category, setCategory] = useState("Cities in Egypt");
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,7 +96,7 @@ export default function Home() {
     };
 
     fetchData();
-}, []);
+}, [favorites]);
 
 if (loading) {
     return <div>Loading...</div>;
@@ -394,14 +397,17 @@ console.log(data)
         />
       </div>
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-        {data.map((property) => (
+       
+      {data.map((property) => (
           <Properties
-            key={property._id} // Ensure your property object has a unique ID
+            key={property._id}
             imageSrc={property.images[0]}
             title={property.name.en}
             location={property.location.city.en}
-         
             nights={property.PricePerNight}
+            toggleFavorite={() => toggleFavorite(property)}
+            isFavorite={favorites.some((fav) => fav._id === property._id)}
+
           />
         ))}
       </div>
