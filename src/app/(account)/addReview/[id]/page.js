@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Rating } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
-import { PostReview } from "@/API/POST";
+import { PostReview } from "@/api/POST";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 function AddReview() {
