@@ -4,7 +4,7 @@ import { useState } from "react";
 import Bus from "@/Public/Bus.png";
 import MS from "@/Public/MS.png";
 import cairo from "@/Public/cairo.png";
-import FlightFilter from './../testflight/page';
+import FlightFilter from "./../testflight/page";
 import { useLocale } from "next-intl";
 import Navbar from "@/Components/Navbar/Navbar";
 import Header from "@/Components/Navbar/Header";
@@ -91,7 +91,6 @@ const FlightCard = () => {
         direct: true,
         logo: cairo,
       },
-      
     ],
     [
       {
@@ -136,7 +135,6 @@ const FlightCard = () => {
         direct: true,
         logo: cairo,
       },
-      
     ],
   ];
 
@@ -219,27 +217,36 @@ const FlightCard = () => {
             ))}
           </div>
           <div className="bg-gray-100 p-6 border-t border-gray-300">
-          <button className="bg-gray-700 text-white font-semibold py-2 px-4 rounded mb-4 w-full">
-        Show more results
-      </button>
-      <p className="text-gray-700 text-sm">
-        <span className="font-bold">*</span> Prices are per person, are for e–tickets, and include all taxes & fees in £.
-        Whilst we aim for accurate prices and fees,
-        <Link href="">
-          <a className="text-blue-600 hover:underline">
-            they are not guaranteed
-          </a>
-        </Link>
-        , and may be subject to last-minute changes over which we have no control. Finally, some train and bus prices may not include a service fee added by the provider at checkout.
-      </p>
-      <p className="text-gray-700 text-sm mt-4">
-        <span className="font-bold">†</span> Hacker Fares tickets are sold to/from a destination via different airlines and are subject to each airline's booking requirements and terms, including changes to itineraries. Any changes made to one of your tickets will not necessarily afford rights to change the other ticket. Fares change frequently and are subject to availability. International travel may require proof of return flight.
-      </p>
-    </div>
+            <button className="bg-gray-700 text-white font-semibold py-2 px-4 rounded mb-4 w-full">
+              Show more results
+            </button>
+            <p className="text-gray-700 text-sm">
+              <span className="font-bold">*</span> Prices are per person, are
+              for e–tickets, and include all taxes & fees in £. Whilst we aim
+              for accurate prices and fees,
+              <Link href="">
+                <a className="text-blue-600 hover:underline">
+                  they are not guaranteed
+                </a>
+              </Link>
+              , and may be subject to last-minute changes over which we have no
+              control. Finally, some train and bus prices may not include a
+              service fee added by the provider at checkout.
+            </p>
+            <p className="text-gray-700 text-sm mt-4">
+              <span className="font-bold">†</span> Hacker Fares tickets are sold
+              to/from a destination via different airlines and are subject to
+              each airline&apos;s booking requirements and terms, including
+              changes to itineraries. Any changes made to one of your tickets
+              will not necessarily afford rights to change the other ticket.
+              Fares change frequently and are subject to availability.
+              International travel may require proof of return flight.
+            </p>
+          </div>
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 };

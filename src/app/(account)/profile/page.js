@@ -18,11 +18,13 @@ function Profile() {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setDecodedToken(decoded); 
-      const userId = decoded.id; 
+      setDecodedToken(decoded);
+      const userId = decoded.id;
       const fetchUserData = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/user/${userId}`);
+          const response = await axios.get(
+            `http://localhost:3000/user/${userId}`
+          );
           console.log("user data", response);
 
           setUserName(response.data.userName);
@@ -35,7 +37,7 @@ function Profile() {
           console.error("Error fetching user data:", error);
         }
       };
-      fetchUserData(); 
+      fetchUserData();
       console.log("userid", userId);
     }
   }, []);
@@ -51,8 +53,11 @@ function Profile() {
     };
 
     try {
-      const userId = decodedToken.id; 
-      const response = await axios.patch(`http://localhost:3000/user/UpdateData/${userId}`, updatedData); 
+      const userId = decodedToken.id;
+      const response = await axios.patch(
+        `http://localhost:3000/user/UpdateData/${userId}`,
+        updatedData
+      );
       console.log("Update response:", response.data);
     } catch (error) {
       console.error("Error updating data:", error);
@@ -69,9 +74,12 @@ function Profile() {
   return (
     <div className="  bg-gray-100  flex items-center justify-center">
       <div className="  bg-white p-6 rounded-lg shadow-md w-full ">
-        <h1 className="text-2xl font-bold mb-4 text-center">Personal Details</h1>
-        <p className="text-gray-600 mb-6 text-center">Update your info and find out how it's used.</p>
-
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Personal Details
+        </h1>
+        <p className="text-gray-600 mb-6 text-center">
+          Update your info and find out how it&apos;s used.
+        </p>
 
         <div className="space-y-4">
           {/* Input Fields in Two Columns */}
