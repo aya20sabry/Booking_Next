@@ -24,11 +24,13 @@ import {
   TooltipTrigger,
 } from "@/Components/ui/tooltip";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 
 function Bookings() {
   const [bookings, setBookings] = useState(null);
   const [hotels, setHotels] = useState({});
   const [userId, setUserId] = useState(null);
+  const router = useRouter();
   async function getUserId() {
     const token = localStorage.getItem("token");
     if (token) {
@@ -215,6 +217,16 @@ function Bookings() {
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
+                        {new Date(booking.check_in_date) < new Date() && (
+                          <button
+                            className="ms-2 bg-[#006ce4] text-white px-4 py-2 rounded-md text-sm font-semibold"
+                            onClick={() => {
+                              router.push(`/addReview/${booking.host_id}`);
+                            }}
+                          >
+                            Add Review
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -66,6 +66,7 @@ function OverView({ hotel, amenities }) {
   const locale = useLocale();
   const [reviews, setReviews] = useState(null);
   const [sliderRef, setSliderRef] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -82,6 +83,18 @@ function OverView({ hotel, amenities }) {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+  };
+
+  const handleShare = () => {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        setShowTooltip(true);
+        setTimeout(() => setShowTooltip(false), 1000);
+      })
+      .catch((err) => {
+        console.error("Failed to copy link:", err);
+      });
   };
 
   return (
@@ -106,7 +119,17 @@ function OverView({ hotel, amenities }) {
           <div className="text-right">
             <div className="flex items-center justify-end gap-2 mb-2">
               <IoIosHeartEmpty className="text-2xl text-[#006ce4] cursor-pointer mr-2" />
-              <LuShare2 className="text-2xl text-[#006ce4] cursor-pointer mr-2" />
+              <div className="relative">
+                <LuShare2
+                  className="text-2xl text-[#006ce4] cursor-pointer mr-2"
+                  onClick={handleShare}
+                />
+                {showTooltip && (
+                  <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+                    {t("link_copied")}
+                  </div>
+                )}
+              </div>
               <button className="bg-[#006ce4] text-white px-4 py-2 rounded-md text-sm font-semibold">
                 {t("reserve")}
               </button>

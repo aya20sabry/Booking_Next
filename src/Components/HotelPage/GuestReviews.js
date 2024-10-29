@@ -13,6 +13,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useTranslations, useLocale } from "next-intl";
+import { Drawer } from "@mui/material";
+import Reviews from "./reviews";
 
 const GuestReviews = ({ hotel }) => {
   const locale = useLocale();
@@ -44,6 +46,11 @@ const GuestReviews = ({ hotel }) => {
     if (rating >= 5) return t("average");
     return t("poor");
   }
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   function getCategoryAverages(reviews) {
     if (!reviews || reviews.length === 0) return [];
@@ -175,9 +182,15 @@ const GuestReviews = ({ hotel }) => {
         </div>
       )}
 
-      <button className="border border-blue-600 text-blue-600 px-3 py-2 rounded text-sm font-semibold">
+      <button
+        className="border border-blue-600 text-blue-600 px-3 py-2 rounded text-sm font-semibold"
+        onClick={toggleDrawer(true)}
+      >
         {t("read_all_reviews")}
       </button>
+      <Drawer open={open} onClose={toggleDrawer(false)} anchor="right">
+        <Reviews reviews={reviews} />
+      </Drawer>
 
       <div className="mt-6 p-4 border-2 border-grey-600  rounded-lg ">
         <div className="flex items-center justify-start">

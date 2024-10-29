@@ -27,17 +27,26 @@ function Policy({ hotel }) {
           <TableRow
             icon={HiArrowRightEndOnRectangle}
             title={t("check_in")}
-            description={`Check-in usually be at ${hotel?.HouseRules?.CheckInTime} o'clock`}
+            description={`${t("check_in_usually_be_at")} ${
+              hotel?.HouseRules?.CheckInTime
+            } `}
           />
           <TableRow
             icon={HiArrowLeftEndOnRectangle}
             title={t("check_out")}
-            description={`Check-out usually be at ${hotel?.HouseRules?.CheckOutTime} o'clock`}
+            description={`${t("check_out_usually_be_at")} ${
+              hotel?.HouseRules?.CheckOutTime
+            } `}
           />
           <TableRow
             icon={IoIosInformationCircleOutline}
             title={t("cancellation_prepayment")}
-            description={t("cancellation_prepayment_description")}
+            description={
+              t("cancellation_prepayment_description") +
+              ` ${hotel?.HouseRules?.Cancellation?.DeadlineDays} ${t(
+                "days"
+              )} ${t("before_check_in")}`
+            }
           />
           <TableRow
             icon={IoPawOutline}

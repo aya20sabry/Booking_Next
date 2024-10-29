@@ -29,3 +29,13 @@ export async function PostBooking(bookingData) {
 
   return res.json();
 }
+
+export async function PostReview(reviewData, hotelId) {
+  const res = await fetch(`http://localhost:3000/reviews/hotel/${hotelId}`, {
+    method: "POST",
+    body: JSON.stringify(reviewData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}

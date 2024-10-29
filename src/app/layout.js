@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
 import { AuthProvider } from "@/context/user";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title:
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }) {
             {children}
           </NextIntlClientProvider>
         </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

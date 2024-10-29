@@ -1,4 +1,7 @@
+import { useTranslations } from "next-intl";
+
 const ReviewCard = ({ review }) => {
+  const t = useTranslations("Hotel");
   return (
     <div className="border rounded-lg p-4 mb-4">
       <div className="flex items-center mb-2">
@@ -16,7 +19,7 @@ const ReviewCard = ({ review }) => {
       </div>
       <p className="text-sm mb-2">&quot;{review?.comment?.en}&quot;</p>
       <a href="#" className="text-blue-500 text-sm hover:underline">
-        Read more
+        {t("read_more")}
       </a>
     </div>
   );
