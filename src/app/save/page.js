@@ -7,6 +7,8 @@ import { FavoritesContext } from '@/Context/favoritesContext';
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 import FavoritesCounter from '@/Components/favourite/favouites';
+
+
 const FavoritesPage = () => {
     const { favorites } = useContext(FavoritesContext);
 
@@ -15,12 +17,13 @@ const FavoritesPage = () => {
     
     <Navbar />
      <Header />
-
-     <nav className="flex justify-between items-center p-4 bg-blue-600 text-white">
-            <h1 className="text-xl">My App</h1>
+     
+    
+    <div className="container mx-auto py-8">
+       <nav className='mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:px-8 md:px-16 lg:px-24 xl:px-48'>
+         
             <FavoritesCounter />
         </nav>
-    <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">Your Favorite Properties</h1>
       {favorites.length === 0 ? (
         <p>No favorite properties yet.</p>
