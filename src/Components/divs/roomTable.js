@@ -88,6 +88,13 @@ const RoomTable = ({ hotel, availability, checkInDate, checkOutDate }) => {
       {}
     );
   });
+  function getDateDifference(checkInDate, checkOutDate) {
+    let startDate = new Date(checkInDate);
+    let endDate = new Date(checkOutDate);
+    const difference = endDate.getDay() - startDate.getDay();
+    return difference;
+  }
+  console.log(getDateDifference(checkInDate, checkOutDate));
   console.log(availability);
   console.log(checkInDate);
   console.log(checkOutDate);
@@ -204,14 +211,21 @@ const RoomTable = ({ hotel, availability, checkInDate, checkOutDate }) => {
                       className="border rounded p-2"
                       onChange={(e) => {
                         setSelectedRoom(room);
-                        setSelectedPrice(e.target.value);
+                        setSelectedPrice(
+                          Number(e.target.value) *
+                            getDateDifference(checkInDate, checkOutDate)
+                        );
                       }}
                     >
                       {Array.from(
                         { length: availability[room._id] + 1 },
                         (_, i) => (
                           <option key={i} value={room.price * i}>
-                            {i} (EGP {room.price * i})
+                            {i} (EGP{" "}
+                            {room.price *
+                              i *
+                              getDateDifference(checkInDate, checkOutDate)}
+                            )
                           </option>
                         )
                       )}

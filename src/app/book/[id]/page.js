@@ -16,34 +16,13 @@ import { useRouter } from "next/navigation";
 import { FaCreditCard, FaPaypal } from "react-icons/fa";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
-const testBookingDetails = {
-  check_in_date: new Date("2024-10-18T00:00:00.000Z"),
-  check_out_date: new Date("2024-10-20T00:00:00.000Z"),
-  booking_date: new Date(),
-  userID: "650550defc249cd1553613db",
-  host_id: "670550defc249cd1553613db",
-  members: 2,
-  payment: {
-    status: "PENDING",
-    date: new Date(),
-    method: "PayPal",
-    amount: 10823.42,
-    coin: "EGP",
-    payment_id: "PAY-1234567890",
-  },
-  commission: {
-    rate: 0.05,
-  },
-  room_id: ["660b29ac401ba9c92d116a71"],
-  email: "user@example.com",
-  numberOfNights: 2,
-  numberOfRooms: 1,
-  status: "PENDING",
-};
+import { useParams } from "next/navigation";
 
 function BookPage() {
   const t = useTranslations("Book");
   const locale = useLocale();
+  const params = useParams();
+  const id = params.id;
   const searchParams = useSearchParams();
   const [step, setStep] = useState(3);
   const [hotel, setHotel] = useState(null);
@@ -86,13 +65,11 @@ function BookPage() {
 
     fetchData();
   }, []);
-
+  console.log(id);
   const handleBookingSubmit = async () => {
     try {
-      console.log("Creating booking with test data:", testBookingDetails);
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      setBookingId("671d3ed1417fb8081174a9b2");
-      console.log("Booking ID set:", "test_booking_123");
+      setBookingId(id);
       setPaypalOrderError(null);
     } catch (error) {
       console.error("Error creating booking:", error);

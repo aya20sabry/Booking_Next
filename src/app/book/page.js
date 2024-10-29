@@ -36,11 +36,13 @@ import { MdOutlineRoomService } from "react-icons/md";
 import { useSearchParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 
 function Book() {
   const t = useTranslations("Book");
   const locale = useLocale();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [step, setStep] = useState(2);
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
@@ -109,7 +111,7 @@ function Book() {
       host_id: hotel._id,
       members: type === "Deluxe Double" ? 2 : 1,
       payment: {
-        status: "PENDING",
+        status: "CONFIRMED",
         date: new Date(),
         method: "paypal",
         amount: Math.round(price / 48),
@@ -120,12 +122,11 @@ function Book() {
       email: user.email,
       numberOfNights: getDateDifference(checkInDate, checkOutDate),
       numberOfRooms: numberOfRooms,
-      status: "PENDING",
+      status: "CONFIRMED",
       updatedAt: new Date(),
     };
-    console.log(postData);
+
     try {
-      console.log(postData);
       const res = await fetch("http://localhost:3000/bookings", {
         method: "POST",
         headers: {
@@ -133,14 +134,20 @@ function Book() {
         },
         body: JSON.stringify(postData),
       });
-      console.log(res);
+
       if (res.ok) {
-        alert("Success");
+        const data = await res.json();
+        console.log("Response data:", data);
+        router.push(
+          `/book/${data.id}?hotel=${hotel._id}&room=${rooms._id}&type=${type}&price=${price}`
+        );
       } else {
-        alert("Error");
+        const errorData = await res.json();
+        console.error("Error data:", errorData);
+        alert("Error: " + (errorData.message || "An error occurred"));
       }
     } catch (error) {
-      console.error(error);
+      console.error("Fetch error:", error);
       alert("An error occurred");
     }
   }
