@@ -4,12 +4,22 @@
 // import Navbar from "@/Components/Navbar/Navbar";
 import React, { useContext } from 'react';
 import { FavoritesContext } from '@/Context/favoritesContext';
-
+import Header from "@/Components/Navbar/Header";
+import Navbar from "@/Components/Navbar/Navbar";
+import FavoritesCounter from '@/Components/favourite/favouites';
 const FavoritesPage = () => {
     const { favorites } = useContext(FavoritesContext);
 
 
-  return (
+  return (<>
+    
+    <Navbar />
+     <Header />
+
+     <nav className="flex justify-between items-center p-4 bg-blue-600 text-white">
+            <h1 className="text-xl">My App</h1>
+            <FavoritesCounter />
+        </nav>
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">Your Favorite Properties</h1>
       {favorites.length === 0 ? (
@@ -29,7 +39,8 @@ const FavoritesPage = () => {
         </div>
       )}
     </div>
-  );
+    </>
+    );
 }
 export default FavoritesPage;
 
