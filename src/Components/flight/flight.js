@@ -195,9 +195,11 @@ export default function ComponantFlight() {
             inputClassName="w-full h-10 px-10 py-2 border-2 rounded-lg border-[#F0F3F5] cursor-pointer text-sm font-semibold text-gray-700 outline-none bg-[#F0F3F5]"
           />
         </div>
+        <Link href="flighht">
         <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow hover:bg-blue-600 transition duration-200">
           Search
         </button>
+        </Link>
       </div>
     </div>
   );
