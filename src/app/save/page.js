@@ -7,8 +7,10 @@ import { FavoritesContext } from '@/Context/favoritesContext';
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 import FavoritesCounter from '@/Components/favourite/favouites';
-
-
+import Image from "next/image";
+import Main from "@/Components/divs/Main";
+import Places from "@/Components/divs/places";
+import SearchBar from "@/Components/searchBar/searchBar";
 const FavoritesPage = () => {
     const { favorites } = useContext(FavoritesContext);
 
@@ -17,31 +19,48 @@ const FavoritesPage = () => {
     
     <Navbar />
      <Header />
-     
-    
+
+     <Main title={t("title")} description={t("description")} />
+      <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
+        <SearchBar />
+      </div>
+    <section>
     <div className="container mx-auto py-8">
-       <nav className='mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:px-8 md:px-16 lg:px-24 xl:px-48'>
+   
+    <h1 className="text-4xl font-bold mb-3">My next trip</h1>
+
+<FavoritesCounter />
+  </div>
+    </section>
+    
+   
          
-            <FavoritesCounter />
-        </nav>
-      <h1 className="text-2xl font-bold mb-4">Your Favorite Properties</h1>
+         
+     <section className="bg-gray-100">
+     <div className="container mx-auto py-8 bg-weight-800">
       {favorites.length === 0 ? (
         <p>No favorite properties yet.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
           {favorites.map((property, index) => (
             <div key={index} className="p-4 border rounded">
-              <img src={property.imageSrc} alt={property.title} />
+                          <div className="relative w-full h-0 pb-[75%]">
+
+              <Image src={property.imageSrc} alt={property.title} layout="fill"/>
+              </div>
+
               <h2 className="text-lg font-bold">{property.title}</h2>
               <p>{property.location}</p>
               <p>{property.rating} stars</p>
               <p>{property.reviews} reviews</p>
               <p>EGP {property.newPrice}</p>
+              <button>View property</button>
             </div>
           ))}
         </div>
       )}
-    </div>
+       </div>
+ </section>
     </>
     );
 }

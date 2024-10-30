@@ -21,7 +21,7 @@ import phot7 from "@/Public/car/phot7.png";
 import phot8 from "@/Public/car/phot8.png";
 import phot9 from "@/Public/car/phot9.png";
 import GeniusGenericGiftBox from "@/Public/car/GeniusGenericGiftBox.png";
-
+import SearchBar from "@/Components/searchBar/searchBar";
 import {
   Accordion,
   AccordionContent,
@@ -70,6 +70,9 @@ function Cars() {
         title="Car rentals for any kind of trip"
         description="Great cars at great prices from the biggest rental companies"
       />
+        <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
+        <SearchBar />
+      </div>
       <section className="container ">
         <form className="flex justify-start mx-1">
           <div className="flex m-5 grid grid-cols-2 ">

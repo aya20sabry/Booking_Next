@@ -36,7 +36,16 @@ import Link from 'next/link';
 
 import React, { useContext } from 'react'; // تأكد من استيراد useContext
 import {FavoritesContext} from '@/Context/favoritesContext';
-
+ 
+// import { Card, CardContent } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+ 
 const dataa = {
   "Cities in Egypt": [
     { name: "Cairo", locations: 3, price: 1939.71},
@@ -396,20 +405,39 @@ console.log(data)
           description="From castles and villas to boats and igloos, we've got it all"
         />
       </div>
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-       
-      {data.map((property) => (
-          <Properties
-            key={property._id}
-            imageSrc={property.images[0]}
-            title={property.name.en}
-            location={property.location.city.en}
-            nights={property.PricePerNight}
-            toggleFavorite={() => toggleFavorite(property)}
-            isFavorite={favorites.some((fav) => fav._id === property._id)}
+      
+      <div className="mt-8 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+      <Carousel
+      opts={{
+        align: "start",
+      }}
+      className="w-full"
+    >
+  <CarouselContent>
+    
+  {data.map((property,index) => (
+     <CarouselItem key={index} className="md:basis-1/4 lg:basis-1/4">
+  <Properties
+        
+        // key={property._id}
+        imageSrc={property.images[0]}
+        title={property.name.en}
+        location={property.location.city.en}
+        nights={property.PricePerNight}
+        toggleFavorite={() => toggleFavorite(property)}
+        isFavorite={favorites.some((fav) => fav._id === property._id)}
 
-          />
+      />
+     </CarouselItem>
+        
         ))}
+   
+  
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+
       </div>
     </section>
       {/* Travel section */}
