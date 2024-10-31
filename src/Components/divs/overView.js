@@ -60,6 +60,9 @@ const facilityIcons = {
   Garden: LuTreePine,
 };
 import { useTranslations, useLocale } from "next-intl";
+import { IoChatbubbleOutline } from "react-icons/io5";
+import { Drawer } from "@mui/material";
+import ChatComponent from "./ChatComponent";
 
 function OverView({ hotel, amenities }) {
   const t = useTranslations("Hotel");
@@ -67,7 +70,11 @@ function OverView({ hotel, amenities }) {
   const [reviews, setReviews] = useState(null);
   const [sliderRef, setSliderRef] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [open, setOpen] = useState(false);
 
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
   useEffect(() => {
     const fetchReviews = async () => {
       const data = await GetHotelReviews(hotel._id);
@@ -118,6 +125,17 @@ function OverView({ hotel, amenities }) {
           </div>
           <div className="text-right">
             <div className="flex items-center justify-end gap-2 mb-2">
+              <IoChatbubbleOutline
+                className="text-2xl text-[#006ce4] cursor-pointer mr-2"
+                onClick={toggleDrawer(true)}
+              />
+              <Drawer open={open} onClose={toggleDrawer(false)} anchor="right">
+                <ChatComponent
+                  hotelId={hotel._id}
+                  ownerId={hotel?.ownerId}
+                  hotelName={hotel?.name.en}
+                />
+              </Drawer>
               <IoIosHeartEmpty className="text-2xl text-[#006ce4] cursor-pointer mr-2" />
               <div className="relative">
                 <LuShare2
@@ -188,13 +206,13 @@ function OverView({ hotel, amenities }) {
                           </p>
                           <div className="review-item flex items-center mb-4 px-3">
                             <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
-                              {review.userId.firstName.charAt(0)}
+                              {review.userId?.firstName.charAt(0)}
                             </div>
                             <span className="font-semibold mr-2 text-xs">
-                              {review.userId.firstName}
+                              {review.userId?.firstName}
                             </span>
                             <span className="text-gray-600 text-xs mx-1">
-                              {review.userId.nationality}
+                              {review.userId?.nationality}
                             </span>
                           </div>
                         </div>
