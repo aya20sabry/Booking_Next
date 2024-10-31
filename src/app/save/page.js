@@ -11,6 +11,7 @@ import Image from "next/image";
 import Main from "@/Components/divs/Main";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import Footer from "@/Components/Footer/Footer";
 
 const FavoritesPage = () => {
     const { favorites, toggleFavorite } = useContext(FavoritesContext);
@@ -31,10 +32,10 @@ const FavoritesPage = () => {
                     {favorites.length === 0 ? (
                         <p>No favorite properties yet.</p>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">
                             {favorites.map((property, index) => (
-                                <div key={index} className="p-4 border rounded relative">
-                                    <div className="relative w-full h-0 pb-[75%]">
+                                <div key={index} className="p-1 border rounded relative bg-weight-100">
+                                    <div className="relative w-full h-0 pb-[75%] bg-weight-100">
                                         <Image src={property.imageSrc} alt={property.title} layout="fill" />
                                     </div>
                                     <h2 className="text-lg font-bold">{property.title}</h2>
@@ -60,6 +61,29 @@ const FavoritesPage = () => {
                     )}
                 </div>
             </section>
+            <section>
+           
+           <div className="bg-blue-950 mx-auto my-0.5">
+                
+         <p>aya2</p>
+               </div>
+           </section>
+            <section>
+           
+           <div className="bg-blue-950  py-5">
+                
+         <p className="bg-blue-950 mx-auto py-5">aya</p>
+               </div>
+           </section>
+        
+            <section>
+           
+            <div className="bg-weight-800 mx-auto py-1">
+                 
+            <Footer />
+                </div>
+            </section>
+      
         </>
     );
 }
