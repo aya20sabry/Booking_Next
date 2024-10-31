@@ -1,35 +1,65 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useSearchParams } from 'next/navigation';
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { FaAngleRight } from "react-icons/fa6";
-import HotelSearch from "@/Components/Cards/HotelSearch"; // Keep this import for card display
-import Filters from "@/Components/divs/Filters";
-import { hotels } from "@/Static/Hotels"; // For mock hotel data
+import { hotels } from "@/Static/Hotels";
 import { LuArrowUpDown } from "react-icons/lu";
 import { HiChevronUpDown } from "react-icons/hi2";
+import Image from "next/image";
 
 function SearchResults() {
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchData, setSearchData] = useState({});
+  const [filteredHotels, setFilteredHotels] = useState([]);
+  const [sortOption, setSortOption] = useState("recommended");
 
   useEffect(() => {
-    if (router.query) {
-      setSearchData({
-        destination: router.query.destination,
-        startDate: router.query.startDate,
-        endDate: router.query.endDate,
-        adults: router.query.adults,
-        children: router.query.children,
-        rooms: router.query.rooms,
-        isVacationHome: router.query.isVacationHome === "true",
-        isTravelingWithPets: router.query.isTravelingWithPets === "true",
-      });
+    if (searchParams) {
+      const searchDataObj = {
+        destination: searchParams.get('destination'),
+        startDate: searchParams.get('startDate'),
+        endDate: searchParams.get('endDate'),
+        adults: searchParams.get('adults'),
+        children: searchParams.get('children'),
+        rooms: searchParams.get('rooms'),
+        isVacationHome: searchParams.get('isVacationHome') === "true",
+        isTravelingWithPets: searchParams.get('isTravelingWithPets') === "true",
+      };
+      setSearchData(searchDataObj);
+
+      // Filter hotels based on destination
+      const filtered = hotels.filter(hotel => 
+        hotel.location.toLowerCase().includes(searchDataObj.destination?.toLowerCase() || '')
+      );
+      setFilteredHotels(filtered);
     }
-  }, [router.query]);
+  }, [searchParams]);
+
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+    let sortedHotels = [...filteredHotels];
+    
+    switch(event.target.value) {
+      case "price-low":
+        sortedHotels.sort((a, b) => a.price - b.price);
+        break;
+      case "price-high":
+        sortedHotels.sort((a, b) => b.price - a.price);
+        break;
+      case "rating":
+        sortedHotels.sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        // Default sorting (recommended)
+        sortedHotels = [...hotels];
+    }
+    
+    setFilteredHotels(sortedHotels);
+  };
 
   return (
     <>
@@ -39,116 +69,170 @@ function SearchResults() {
         <SearchBar />
       </div>
 
-      {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-20 py-4">
+        {/* Breadcrumbs */}
         <nav className="text-xs mb-4 overflow-x-auto whitespace-nowrap">
           <ol className="list-none p-0 inline-flex">
             <li className="flex items-center">
-              <a href="#" className="text-blue-600">
-                Home
-              </a>
+              <a href="#" className="text-blue-600 hover:underline">Home</a>
               <FaAngleRight className="w-4 h-4 mx-1" />
             </li>
             <li className="flex items-center">
-              <a href="#" className="text-blue-600">
-                Egypt
-              </a>
-              <FaAngleRight className="w-4 h-4 mx-1" />
-            </li>
-            <li className="flex items-center">
-              <a href="#" className="text-blue-600">
-                South Sinai
-              </a>
-              <FaAngleRight className="w-4 h-4 mx-1" />
-            </li>
-            <li className="flex items-center">
-              <a href="#" className="text-blue-600">
-                Sharm El Sheikh
-              </a>
+              <a href="#" className="text-blue-600 hover:underline">Egypt</a>
               <FaAngleRight className="w-4 h-4 mx-1" />
             </li>
             <li>Search results</li>
           </ol>
         </nav>
 
-        {/* Main Content */}
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Filters Section */}
-          <div className="w-full lg:w-1/4 lg:pr-4 mb-4 lg:mb-0">
+          <div className="w-full lg:w-1/4">
             <button
               className="lg:hidden w-full bg-blue-500 text-white py-2 rounded mb-4"
               onClick={() => setIsFilterOpen(!isFilterOpen)}
             >
               {isFilterOpen ? "Hide Filters" : "Show Filters"}
             </button>
-            <div className={`${isFilterOpen ? "block" : "hidden"} lg:block`}>
-              <Filters />
+            
+            <div className={`${isFilterOpen ? "block" : "hidden"} lg:block bg-white rounded-lg shadow-md p-4`}>
+              <h2 className="text-lg font-bold mb-4">Filter by:</h2>
+              
+              {/* Popular filters */}
+              <div className="mb-6">
+                <h3 className="font-semibold mb-2">Popular filters</h3>
+                <div className="space-y-2">
+                  <label className="flex items-center">
+                    <input type="checkbox" className="mr-2" />
+                    <span>Breakfast included</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input type="checkbox" className="mr-2" />
+                    <span>Beach access</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input type="checkbox" className="mr-2" />
+                    <span>Pool</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Price range */}
+              <div className="mb-6">
+                <h3 className="font-semibold mb-2">Your budget (per night)</h3>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="1000" 
+                  className="w-full"
+                />
+                <div className="flex justify-between text-sm">
+                  <span>$0</span>
+                  <span>$1000+</span>
+                </div>
+              </div>
+
+              {/* Star rating */}
+              <div className="mb-6">
+                <h3 className="font-semibold mb-2">Star rating</h3>
+                <div className="space-y-2">
+                  {[5, 4, 3, 2, 1].map((stars) => (
+                    <label key={stars} className="flex items-center">
+                      <input type="checkbox" className="mr-2" />
+                      <span>{stars} stars</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Search Results Section */}
+          {/* Results Section */}
           <div className="w-full lg:w-3/4">
-            <h1 className="text-lg sm:text-xl font-bold mb-4">
-              {searchData.destination}: {hotels.length} properties found
-            </h1>
-            {/* Sort and View Options */}
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-              <div className="relative hover:scale-95 cursor-pointer mb-2 sm:mb-0">
-                <div className="absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
-                  <LuArrowUpDown />
-                </div>
-                <select className="appearance-none bg-white border border-gray-300 rounded-full py-2 px-8 pr-8">
-                  <option>Sort by: Our top picks</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <HiChevronUpDown />
+            <div className="bg-white rounded-lg shadow-md p-4">
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl font-bold">
+                  {searchData.destination}: {filteredHotels.length} properties found
+                </h1>
+                <div className="relative">
+                  <select 
+                    className="appearance-none bg-white border border-gray-300 rounded-full py-2 px-8 text-sm"
+                    value={sortOption}
+                    onChange={handleSortChange}
+                  >
+                    <option value="recommended">Recommended</option>
+                    <option value="price-low">Price (lowest first)</option>
+                    <option value="price-high">Price (highest first)</option>
+                    <option value="rating">Rating (highest first)</option>
+                  </select>
+                  <HiChevronUpDown className="absolute right-3 top-1/2 transform -translate-y-1/2" />
                 </div>
               </div>
-              <div className="rounded-full border-2 border-gray-400 p-1 bg-gray-100">
-                <button className="bg-white border-2 border-gray-300 rounded-full text-gray-800 px-4 py-2 mr-2 text-xs">
-                  List
-                </button>
-                <button className="text-gray-800 px-4 py-2 rounded-full text-xs">
-                  Grid
-                </button>
-              </div>
-            </div>
 
-            {/* Display Search Results */}
-            <div className="space-y-4">
-              {hotels.map((hotel, index) => (
-                <HotelSearch key={index} {...hotel} />
-              ))}
-            </div>
-
-            {/* Additional Search Data Section */}
-            <div className="mt-8">
-              <h1 className="text-2xl font-bold mb-4">Search Details</h1>
+              {/* Hotel Results */}
               <div className="space-y-4">
-                <div className="border p-4 rounded-lg">
-                  <h2 className="text-xl font-semibold">Location</h2>
-                  <p>{searchData.destination}</p>
-                </div>
+                {filteredHotels.map((hotel, index) => (
+                  <div key={index} className="flex flex-col md:flex-row gap-4 border-b pb-4">
+                    <div className="w-full md:w-1/3 relative h-48">
+                      <Image
+                        src={hotel.image}
+                        alt={hotel.name}
+                        fill
+                        className="rounded-lg object-cover"
+                      />
+                    </div>
+                    
+                    <div className="w-full md:w-2/3 flex flex-col justify-between">
+                      <div>
+                        <h2 className="text-xl font-bold text-blue-600 hover:underline cursor-pointer">
+                          {hotel.name}
+                        </h2>
+                        <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
+                          <span>{hotel.location}</span>
+                          <span>•</span>
+                          <span>{hotel.distance} from center</span>
+                        </div>
+                        <p className="text-sm mt-2">{hotel.description}</p>
+                        
+                        {/* Room features */}
+                        <div className="mt-2">
+                          <span className="text-sm font-semibold">Room features:</span>
+                          <div className="flex flex-wrap gap-2 mt-1">
+                            {hotel.amenities?.map((amenity, i) => (
+                              <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                                {amenity}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
 
-                <div className="border p-4 rounded-lg">
-                  <h2 className="text-xl font-semibold">Dates</h2>
-                  <p>Check-in: {searchData.startDate}</p>
-                  <p>Check-out: {searchData.endDate}</p>
-                </div>
-
-                <div className="border p-4 rounded-lg">
-                  <h2 className="text-xl font-semibold">Guest Info</h2>
-                  <p>{`${searchData.adults} adults · ${searchData.children} children · ${searchData.rooms} room(s)`}</p>
-                </div>
-
-                <div className="border p-4 rounded-lg">
-                  <h2 className="text-xl font-semibold">Additional Info</h2>
-                  <p>{`Vacation Home: ${searchData.isVacationHome ? "Yes" : "No"}`}</p>
-                  <p>{`Traveling with Pets: ${searchData.isTravelingWithPets ? "Yes" : "No"}`}</p>
-                </div>
+                      {/* Price and Rating Section */}
+                      <div className="flex justify-between items-end mt-4">
+                        <div className="flex items-center gap-2">
+                          <div className="bg-blue-900 text-white px-2 py-1 rounded">
+                            {hotel.rating}
+                          </div>
+                          <div>
+                            <div className="font-bold">Excellent</div>
+                            <div className="text-sm text-gray-600">{hotel.reviewCount} reviews</div>
+                          </div>
+                        </div>
+                        
+                        <div className="text-right">
+                          <div className="text-sm text-gray-600">1 night, 2 adults</div>
+                          <div className="text-2xl font-bold">EGP {hotel.price}</div>
+                          <div className="text-xs text-gray-600 mb-2">+EGP {Math.round(hotel.price * 0.1)} taxes and fees</div>
+                          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">
+                            See availability
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
           </div>
         </div>
       </div>
