@@ -207,7 +207,7 @@ function Cars() {
               width={80}
               height={90}
             />
-            <p className="font">padget</p>
+            <p className="font">budget</p>
           </div>
         </div>
         <br />
