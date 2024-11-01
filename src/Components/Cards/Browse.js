@@ -1,9 +1,12 @@
 import Image from "next/image";
 
-function Browse({ src, title, date, description }) {
+function Browse({ src, title, date, description, handleClick }) {
   return (
     <>
-      <div className="flex-none   relative">
+      <div
+        className="flex-none   relative cursor-pointer"
+        onClick={handleClick}
+      >
         <Image
           className="object-cover w-72 h-52 rounded-lg"
           src={src}

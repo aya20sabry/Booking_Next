@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaHeart, FaMapMarkerAlt } from "react-icons/fa";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { LuShare2, LuTreePine } from "react-icons/lu";
 import { BsTag } from "react-icons/bs";
@@ -70,6 +70,7 @@ function OverView({ hotel, amenities }) {
   const [reviews, setReviews] = useState(null);
   const [sliderRef, setSliderRef] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -136,7 +137,17 @@ function OverView({ hotel, amenities }) {
                   hotelName={hotel?.name.en}
                 />
               </Drawer>
-              <IoIosHeartEmpty className="text-2xl text-[#006ce4] cursor-pointer mr-2" />
+              {isFavorite ? (
+                <FaHeart
+                  className="text-2xl text-[#006ce4] cursor-pointer mr-2"
+                  onClick={() => setIsFavorite(!isFavorite)}
+                />
+              ) : (
+                <IoIosHeartEmpty
+                  className="text-2xl text-[#006ce4] cursor-pointer mr-2"
+                  onClick={() => setIsFavorite(!isFavorite)}
+                />
+              )}
               <div className="relative">
                 <LuShare2
                   className="text-2xl text-[#006ce4] cursor-pointer mr-2"

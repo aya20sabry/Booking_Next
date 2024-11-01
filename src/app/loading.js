@@ -1,8 +1,4 @@
-import Footer from "@/Components/Footer/Footer";
-import Header from "@/Components/Navbar/Header";
-import Navbar from "@/Components/Navbar/Navbar";
 import Loaders from "@/Components/divs/loader";
-import { unstable_setRequestLocale } from "next-intl/server";
 import { useLocale } from "next-intl";
 
 export function generateStaticParams() {
@@ -11,7 +7,7 @@ export function generateStaticParams() {
 
 function Loading() {
   const locale = useLocale();
-  unstable_setRequestLocale(locale);
+
   return (
     <>
       <Loaders />

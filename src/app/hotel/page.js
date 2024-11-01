@@ -19,7 +19,7 @@ import HotelAvailability from "@/Components/divs/HotelAvailability";
 import { useSearchParams } from "next/navigation";
 function Hotel() {
   const searchParams = useSearchParams();
-  const hotelData = searchParams.get("hotel");
+  const hotelId = searchParams.get("id");
   const initialCheckInDate = searchParams.get("checkInDate") || new Date();
   const initialCheckOutDate =
     searchParams.get("checkOutDate") ||
@@ -61,7 +61,6 @@ function Hotel() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const hotelId = "670b29ac401ba9c92d116a70";
         const [hotelData, amenitiesData] = await Promise.all([
           GetHotelID(hotelId),
           GetHotelAmenities(hotelId),

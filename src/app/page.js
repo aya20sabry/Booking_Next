@@ -336,6 +336,9 @@ export default function Home() {
                   src={BrowseImagesMap[Property.name]}
                   title={Property.name}
                   description={Property.description}
+                  handleClick={() => {
+                    router.push(`/searchResults`);
+                  }}
                 />
               </div>
             ))}
