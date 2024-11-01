@@ -57,7 +57,9 @@ function Book() {
   };
   const checkInDate = searchParams.get("checkInDate");
   const checkOutDate = searchParams.get("checkOutDate");
-  const numberOfRooms = Math.round(price / rooms?.price);
+  const numberOfRooms = Math.round(
+    price / (rooms?.price * getDateDifference(checkInDate, checkOutDate))
+  );
   async function getUserId() {
     const token = localStorage.getItem("token");
     if (token) {

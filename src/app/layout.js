@@ -1,10 +1,9 @@
 import { NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
 import { AuthProvider } from "@/context/user";
 import { Toaster } from "react-hot-toast";
-
+// import { FavoritesProvider } from "@/context/favoritesContext";
 export const metadata = {
   title:
     "Booking.com | Official site | The best hotels, flights, car rentals & accommodations ",
@@ -18,9 +17,11 @@ export default async function RootLayout({ children }) {
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body>
         <AuthProvider>
+          {/* <FavoritesProvider> */}
           <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
           </NextIntlClientProvider>
+          {/* </FavoritesProvider> */}
         </AuthProvider>
         <Toaster />
       </body>
