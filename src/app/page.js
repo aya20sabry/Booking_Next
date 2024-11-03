@@ -337,7 +337,11 @@ export default function Home() {
                   title={Property.name}
                   description={Property.description}
                   handleClick={() => {
-                    router.push(`/searchResults`);
+                    if (Property.name === "Hotels") {
+                      router.push(`/searchResults`);
+                    } else {
+                      router.push(`/comingSoon`);
+                    }
                   }}
                 />
               </div>
@@ -382,7 +386,7 @@ export default function Home() {
         <div className="flex justify-start items-start flex-col mb-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
             title="Deals for the weekend"
-            description="Save on stays for September 13 - September 15" //TODO: change this description
+            description="Save on stays for November 13 - November 15"
           />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
@@ -406,7 +410,6 @@ export default function Home() {
             newPrice="12,438"
             nights="2"
           />
-          {/* Add more DealCard components as needed */}
         </div>
       </section>
       {/* inspiration section */}
