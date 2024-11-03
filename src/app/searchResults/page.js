@@ -71,7 +71,9 @@ function SearchResults() {
               .trim(",")
               .split(",")[0];
             const filtered = detailedHotels.filter(
-              (hotel) => hotel.location.city.en.toLowerCase() === destination
+              (hotel) =>
+                hotel.location.city.en.toLowerCase() === destination &&
+                hotel.approved === true
             );
             setFilteredHotels(filtered);
           } else {

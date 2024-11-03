@@ -41,7 +41,7 @@ import SiwaOasis from "@/Public/Cities/Siwa.webp";
 import Fayoum from "@/Public/Cities/Fayoum.webp";
 import SaintCatherine from "@/Public/Cities/SaintCathrine.webp";
 import RasMohammed from "@/Public/Cities/RasMuhammed.webp";
-import ElGouna from "@/Public/Cities/ElGouna.webp";
+import ElGouna from "@/Public/Cities/Elgouna.webp";
 
 export const imageMap = {
   Aswan,
