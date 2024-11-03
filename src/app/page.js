@@ -31,16 +31,70 @@ import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { useTranslations, useLocale } from "next-intl";
+
+import {  useEffect, useState} from 'react';
+import Link from 'next/link';
+
+import React, { useContext } from 'react'; 
+import {FavoritesContext} from '@/Context/favoritesContext';
+ 
+// import { Card, CardContent } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+ 
+const dataa = {
+  "Cities in Egypt": [
+    { name: "Cairo", locations: 3, price: 1939.71},
+    { name: "a", locations: 7, price: 24400.0 },
+    { name: "A", locations: 8, price: 24500.00},
+    { name: "ia", locations: 9, price: 23400.00},
+    { name: "ria", locations: 0, price: 240},
+    { name: "ndria", locations: 0, price: 2400},
+    { name: "andria", locations: 3, price: 400.00},
+    { name: "Alex", locations: 1,price: 2.00},
+    { name: "a", locations: 33, price: 2400.0},
+    { name: "Adria", locations: 66, price: 240.00},
+
+  ],
+  "Regions in Egypt": [
+    { name: "Red Sea Governorate", locations: 17, price: 2541.94 },
+    { name: "Giza Governorate", locations: 4, price: 1741.54 },
+    { name: " Governorate", locations: 55, price: 1221.54 },
+  ],
+  "Cities worldwide": [
+    { name: "El Segund", locations: 105, price: 28033.83},
+    { name: "Coolangta", locations: 22, price: 25681.29 },
+    { name: "Coolanaa", locations: 92, price: 6483.29 },
+  ],
+  "Airports worldwide": [
+    { name: "Phoenix", locations: 79, price: 30040.0 },
+    { name: "qena", locations: 437, price: 320.0},
+    { name: "aswan", locations: 467, price: 3920.0 },
+  ],
+};
+
+
+
 import { useRouter } from "next/navigation";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+
 export default function Home() {
   const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("HomePage");
+
+  const [category, setCategory] = useState("Cities in Egypt");
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
+
 
   const NextArrow = ({ onClick }) => (
     <button
@@ -50,6 +104,10 @@ export default function Home() {
       <FaChevronRight className="text-gray-600" />
     </button>
   );
+
+
+    fetchData();
+}, [favorites]);
 
   const PrevArrow = ({ onClick, currentSlide }) => (
     <button
@@ -61,6 +119,7 @@ export default function Home() {
       <FaChevronLeft className="text-gray-600" />
     </button>
   );
+
 
   const createSliderSettings = (slidesToShow) => ({
     dots: false,
@@ -491,6 +550,7 @@ export default function Home() {
       </section>
       {/* properties section */}
       <section className="py-1 sm:py-4">
+
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
             title="Stay at our top unique properties"
@@ -520,6 +580,7 @@ export default function Home() {
           />
         </div>
       </section>
+
       {/* Travel section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
