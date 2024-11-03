@@ -11,13 +11,7 @@ import ExploreCard from "@/Components/Cards/ExploreCard";
 import { Egypt, locations } from "@/Static/Arrays";
 import { PropertyType } from "@/Static/Arrays";
 import Browse from "@/Components/Cards/Browse";
-import { TbBeach } from "react-icons/tb";
-import { LiaCitySolid } from "react-icons/lia";
-import { LuBike } from "react-icons/lu";
 import Nav from "@/Components/Navbar/Nav";
-import Deals from "@/Components/Cards/Deals";
-import NewCairo from "@/Public/PrimeNewCairo.jpg";
-import Gouna from "@/Public/Gouna.jpg";
 import People from "@/Public/People.webp";
 import Japan from "@/Public/Japan.webp";
 import Asia from "@/Public/Asia.webp";
@@ -31,70 +25,31 @@ import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { useTranslations, useLocale } from "next-intl";
-
-import {  useEffect, useState} from 'react';
-import Link from 'next/link';
-
-import React, { useContext } from 'react'; 
-import {FavoritesContext} from '@/Context/favoritesContext';
- 
-// import { Card, CardContent } from "@/components/ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
- 
-const dataa = {
-  "Cities in Egypt": [
-    { name: "Cairo", locations: 3, price: 1939.71},
-    { name: "a", locations: 7, price: 24400.0 },
-    { name: "A", locations: 8, price: 24500.00},
-    { name: "ia", locations: 9, price: 23400.00},
-    { name: "ria", locations: 0, price: 240},
-    { name: "ndria", locations: 0, price: 2400},
-    { name: "andria", locations: 3, price: 400.00},
-    { name: "Alex", locations: 1,price: 2.00},
-    { name: "a", locations: 33, price: 2400.0},
-    { name: "Adria", locations: 66, price: 240.00},
-
-  ],
-  "Regions in Egypt": [
-    { name: "Red Sea Governorate", locations: 17, price: 2541.94 },
-    { name: "Giza Governorate", locations: 4, price: 1741.54 },
-    { name: " Governorate", locations: 55, price: 1221.54 },
-  ],
-  "Cities worldwide": [
-    { name: "El Segund", locations: 105, price: 28033.83},
-    { name: "Coolangta", locations: 22, price: 25681.29 },
-    { name: "Coolanaa", locations: 92, price: 6483.29 },
-  ],
-  "Airports worldwide": [
-    { name: "Phoenix", locations: 79, price: 30040.0 },
-    { name: "qena", locations: 437, price: 320.0},
-    { name: "aswan", locations: 467, price: 3920.0 },
-  ],
-};
-
-
-
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+import React, { useContext } from "react";
+import { FavoritesContext } from "@/context/favoritesContext";
+import { useRouter } from "next/navigation";
+import Loading from "./loading";
+import { GetHotelReviews } from "@/API/GET";
+import { destinationData } from "@/Static/destinationData";
+import { navigationCategories } from "@/Static/navigationData";
 
 export default function Home() {
   const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("HomePage");
-
+  const [activeDestinationType, setActiveDestinationType] = useState("Regions");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [category, setCategory] = useState("Cities in Egypt");
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
-
+  const [activeCategory, setActiveCategory] = useState("beach");
 
   const NextArrow = ({ onClick }) => (
     <button
@@ -104,10 +59,6 @@ export default function Home() {
       <FaChevronRight className="text-gray-600" />
     </button>
   );
-
-
-    fetchData();
-}, [favorites]);
 
   const PrevArrow = ({ onClick, currentSlide }) => (
     <button
@@ -119,7 +70,6 @@ export default function Home() {
       <FaChevronLeft className="text-gray-600" />
     </button>
   );
-
 
   const createSliderSettings = (slidesToShow) => ({
     dots: false,
@@ -149,7 +99,58 @@ export default function Home() {
 
   const exploreSliderSettings = createSliderSettings(6);
   const propertyTypeSliderSettings = createSliderSettings(4);
-  const plannerSliderSettings = createSliderSettings(6);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const hostsResponse = await fetch("http://localhost:3000/host");
+        if (!hostsResponse.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const hostsData = await hostsResponse.json();
+
+        const hostsWithReviews = await Promise.all(
+          hostsData.map(async (host) => {
+            const reviewsData = await GetHotelReviews(host._id);
+            console.log("reviewsData", reviewsData);
+            return {
+              ...host,
+              reviews: reviewsData,
+            };
+          })
+        );
+
+        setData(hostsWithReviews);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [favorites]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+  const uniqueDestinations = Array.from(
+    new Set(data.map((destination) => destination.location.city.en))
+  ).map((name) =>
+    data.find((destination) => destination.location.city.en === name)
+  );
+  console.log(data);
+
+  const getFilteredDestinations = () => {
+    const category = navigationCategories.find(
+      (cat) => cat.id === activeCategory
+    );
+    return category ? category.destinations : [];
+  };
 
   return (
     <>
@@ -370,7 +371,6 @@ export default function Home() {
                 <ExploreCard
                   src={imageMap[destination.name]}
                   title={destination.name}
-                  description={destination.description}
                   onClick={() => {
                     router.push(
                       `/searchResults?destination=${destination.name}`
@@ -394,7 +394,11 @@ export default function Home() {
                 <Browse
                   src={BrowseImagesMap[Property.name]}
                   title={Property.name}
-                  description={Property.description}
+                  description={
+                    Property.name === "Hotels"
+                      ? data.length + " properties"
+                      : "Coming soon"
+                  }
                   handleClick={() => {
                     if (Property.name === "Hotels") {
                       router.push(`/searchResults`);
@@ -417,31 +421,31 @@ export default function Home() {
           />
         </div>
         <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar xl:mx-48">
-          <Nav icon={TbBeach} text="Beach" isActive={true} />
-          <Nav icon={LiaCitySolid} text="City" isActive={false} />
-          <Nav icon={LuBike} text="Outdoors" isActive={false} />
+          {navigationCategories.map((category) => (
+            <Nav
+              key={category.id}
+              icon={category.icon}
+              text={category.text}
+              isActive={activeCategory === category.id}
+              onClick={() => setActiveCategory(category.id)}
+            />
+          ))}
         </div>
-        <div className="mt-8 px-4 xl:mx-48">
-          <Slider {...plannerSliderSettings}>
-            {Egypt.map((destination) => (
-              <div key={destination.name} className="px-2">
-                <ExploreCard
-                  src={imageMap[destination.name]}
-                  title={destination.name}
-                  description={destination.description}
-                  onClick={() => {
-                    router.push(
-                      `/searchResults?destination=${destination.name}`
-                    );
-                  }}
-                />
-              </div>
-            ))}
-          </Slider>
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          {getFilteredDestinations().map((destination) => (
+            <ExploreCard
+              key={destination}
+              src={imageMap[destination]}
+              title={destination}
+              onClick={() => {
+                router.push(`/searchResults?destination=${destination}`);
+              }}
+            />
+          ))}
         </div>
       </section>
       {/* deals section */}
-      <section className="py-8 sm:py-4">
+      {/* <section className="py-8 sm:py-4">
         <div className="flex justify-start items-start flex-col mb-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
             title="Deals for the weekend"
@@ -470,7 +474,7 @@ export default function Home() {
             nights="2"
           />
         </div>
-      </section>
+      </section> */}
       {/* inspiration section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
@@ -550,37 +554,37 @@ export default function Home() {
       </section>
       {/* properties section */}
       <section className="py-1 sm:py-4">
-
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
             title="Stay at our top unique properties"
             description="From castles and villas to boats and igloos, we've got it all"
           />
         </div>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Properties
-            imageSrc={NewCairo.src}
-            title="Comfort Giza Inn View"
-            location="Cairo, Egypt"
-            rating="9.4"
-            reviews="151"
-            oldPrice="3,923"
-            newPrice="2,354"
-            nights="2"
-          />
-          <Properties
-            imageSrc={NewCairo.src}
-            title="Comfort Giza Inn View"
-            location="Cairo, Egypt"
-            rating="9.4"
-            reviews="151"
-            oldPrice="3,923"
-            newPrice="2,354"
-            nights="2"
-          />
+
+        <div className="mt-8 px-4 xl:mx-48">
+          <Slider {...propertyTypeSliderSettings}>
+            {data.map((property, index) => (
+              <div key={index} className="px-2">
+                <Properties
+                  id={property._id}
+                  imageSrc={property.images[4]}
+                  title={property.name.en}
+                  location={property.location.city.en}
+                  nights={property.HouseRules.PricePerNight}
+                  toggleFavorite={() => toggleFavorite(property)}
+                  reviews={property.AverageRating}
+                  reviewsCount={
+                    property?.reviews?.length > 0
+                      ? property?.reviews?.length
+                      : "0"
+                  }
+                  isFavorite={favorites.some((fav) => fav._id === property._id)}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
-
       {/* Travel section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
@@ -595,13 +599,18 @@ export default function Home() {
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading title="Destinations we love" />
         </div>
-        <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar  xl:mx-48">
-          <Destination text="Regions" isActive={true} />
-          <Destination text="Cities" isActive={false} />
-          <Destination text="Places of interest" isActive={false} />
+        <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar xl:mx-48">
+          {Object.keys(destinationData).map((type) => (
+            <Destination
+              key={type}
+              text={type}
+              isActive={activeDestinationType === type}
+              onClick={() => setActiveDestinationType(type)}
+            />
+          ))}
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 pt-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          {locations.map((location, index) => (
+          {destinationData[activeDestinationType].map((location, index) => (
             <Places
               key={index}
               name={location.name}

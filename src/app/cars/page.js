@@ -70,10 +70,10 @@ function Cars() {
         title="Car rentals for any kind of trip"
         description="Great cars at great prices from the biggest rental companies"
       />
-        <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
+      <div className=" -mt-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
         <SearchBar />
       </div>
-      <section className="container ">
+      <section className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
         <form className="flex justify-start mx-1">
           <div className="flex m-5 grid grid-cols-2 ">
             <div className=" flex gap-x-2 ">
@@ -117,8 +117,8 @@ function Cars() {
               className="imgg"
               src={phot8}
               alt="My Image"
-              width={80}
-              height={90}
+              width={120}
+              height={100}
             />
             <p className="font">Thrifty</p>
           </div>
@@ -127,8 +127,8 @@ function Cars() {
               className="imgg"
               src={phot9}
               alt="My Image"
-              width={80}
-              height={90}
+              width={110}
+              height={100}
             />
             <p className="font">Enterprise</p>
           </div>
@@ -138,8 +138,8 @@ function Cars() {
               className="imgg"
               src={phot7}
               alt="My Image"
-              width={80}
-              height={90}
+              width={110}
+              height={100}
             />
             <p className="font">National</p>
           </div>
@@ -149,8 +149,8 @@ function Cars() {
               className="imgg"
               src={phot6}
               alt="My Image"
-              width={80}
-              height={90}
+              width={110}
+              height={100}
             />
             <p className="font">Surprice</p>
           </div>
@@ -160,8 +160,8 @@ function Cars() {
               className="imgg"
               src={phot5}
               alt="My Image"
-              width={80}
-              height={90}
+              width={110}
+              height={100}
             />
             <p className="font">Avis</p>
           </div>
@@ -171,8 +171,8 @@ function Cars() {
               className="imgg"
               src={phot4}
               alt="My Image"
-              width={80}
-              height={90}
+              width={110}
+              height={100}
             />
             <p className="font">Caldera</p>
           </div>
@@ -182,8 +182,8 @@ function Cars() {
               className="imgg"
               src={phot3}
               alt="My Image"
-              width={80}
-              height={90}
+              width={110}
+              height={100}
             />
             <p className="font">SK Rent</p>
           </div>
@@ -193,8 +193,8 @@ function Cars() {
               className="imgg"
               src={phot1}
               alt="My Image"
-              width={80}
-              height={90}
+              width={110}
+              height={100}
             />
             <p className="font">Enterprise</p>
           </div>
@@ -204,8 +204,8 @@ function Cars() {
               className="imgg"
               src={phot2}
               alt="My Image"
-              width={80}
-              height={90}
+              width={120}
+              height={100}
             />
             <p className="font">budget</p>
           </div>
@@ -235,7 +235,7 @@ function Cars() {
                 <Image
                   src={GeniusGenericGiftBox}
                   alt="My Image"
-                  width={50}
+                  width={100}
                   height={90}
                 />
               </div>
@@ -244,17 +244,29 @@ function Cars() {
         </div>
       </section>
 
-      <section className="bg-gray-100 sectio3photo">
-        <div className=" flex mx-40">
-          <div className=" flex mt-5 ">
-            <Image src={phot33} width={40} height={40} className="pt-4" />
+      <section className="bg-gray-100 flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
+        <div className=" flex m-6">
+          <div className=" flex mt-5 mx-4 ">
+            <Image
+              src={phot33}
+              width={40}
+              height={40}
+              className="pt-4"
+              alt="My Image"
+            />
             <div>
               <h6 className="Sign">We’re here for you</h6>
               <p className="phot33">Customer support in over 30 languages</p>
             </div>
           </div>
           <div className=" flex mt-5 mx-4">
-            <Image src={phot333} width={40} height={13} className="pt-4" />
+            <Image
+              src={phot333}
+              width={40}
+              height={40}
+              className="pt-4"
+              alt="My Image"
+            />
 
             <div>
               <h6 className="Sign">Free cancellation</h6>
@@ -264,7 +276,13 @@ function Cars() {
             </div>
           </div>
           <div className=" flex mt-5 mx-4">
-            <Image src={phot3333} width={50} height={40} className="pt-4" />
+            <Image
+              src={phot3333}
+              width={80}
+              height={50}
+              className="pt-4"
+              alt="My Image"
+            />
 
             <div>
               <h6 className="Sign">5 million+ reviews</h6>
@@ -274,7 +292,7 @@ function Cars() {
         </div>
       </section>
 
-      <section className="container ">
+      <section className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
         <div className="flex justify-start mx-5 mt-5">
           <h4 className="Popular">Popular car hire brands</h4>
         </div>
@@ -395,45 +413,35 @@ function Cars() {
           </h4>
         </div>
         <div>
-          <div className="Save_10 pt-1 mx-2" style={{ display: "flex" }}>
+          <div className="Save_10 pt-1 mx-2 ">
             {Object.keys(data).map((key) => (
               <button
                 key={key}
                 onClick={() => setCategory(key)}
-                style={{
-                  paddingLeft: "15px",
-                  border: category === key ? "0.5px blue solid" : "none",
-                  height: "25px",
-                  paddingBottom: "15px",
-                  borderRadius: "10px",
-                  backgroundColor: category === key ? "#e0f7ff" : "#fff",
-                }}
+                className={`button-category ${
+                  category === key ? "active" : ""
+                }`}
               >
                 {key}
               </button>
             ))}
           </div>
-          <div style={{ marginTop: "10px", display: "flex" }}>
+          <div className="item-container">
             {data[category].map((item) => (
-              <div key={item.name}>
-                <div className="flex">
-                  <div>
-                    <Image
-                      src={item.imge}
-                      width={50}
-                      height={70}
-                      className="pt-4 mx-2"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="Sign">{item.name}</h3>
-                    <p className="Save_10">
-                      {item.locations} car hire locations
-                    </p>
-                    <p className="Save_10  ">
-                      Average price of EGP {item.price.toFixed(5)} per day
-                    </p>
-                  </div>
+              <div key={item.name} className="item col-4 mt-5">
+                <Image
+                  src={item.imge}
+                  width={70}
+                  height={90}
+                  className="pt-4"
+                  alt={item.name}
+                />
+                <div>
+                  <h3 className="Sign">{item.name}</h3>
+                  <p className="Save_10">{item.locations} car hire locations</p>
+                  <p className="Save_10">
+                    Average price of EGP {item.price.toFixed(5)} per day
+                  </p>
                 </div>
               </div>
             ))}

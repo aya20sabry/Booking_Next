@@ -2,12 +2,10 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
 
-import  FavoritesProvider  from '@/Context/favoritesContext';
-
+import FavoritesProvider from "@/context/favoritesContext";
 
 import { AuthProvider } from "@/context/user";
 import { Toaster } from "react-hot-toast";
-// import { FavoritesProvider } from "@/context/favoritesContext";
 
 export const metadata = {
   title:
@@ -21,16 +19,14 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body>
-
         <AuthProvider>
-           <FavoritesProvider>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-             </FavoritesProvider>
+          <FavoritesProvider>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              {children}
+            </NextIntlClientProvider>
+          </FavoritesProvider>
         </AuthProvider>
         <Toaster />
-
       </body>
     </html>
   );

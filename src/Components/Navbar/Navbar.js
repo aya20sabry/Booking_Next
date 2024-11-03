@@ -134,11 +134,11 @@ function Navbar() {
                         Bookings
                       </a>
                       <a
-                        href="#"
+                        href="/save"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         {/* <FontAwesomeIcon icon="fa-solid fa-gear" /> */}
-                        Settings
+                        Saved
                       </a>
                       <a
                         href="#"

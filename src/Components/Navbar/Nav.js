@@ -1,17 +1,21 @@
 import React from "react";
 
-const Nav = ({ icon: Icon, text, isActive }) => {
+const Nav = ({ icon: Icon, text, isActive, onClick }) => {
   return (
-    <button
-      className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors text-sm ${
-        isActive
-          ? "bg-blue-100 text-blue-500 border border-blue-500"
-          : "text-gray-600 hover:bg-gray-100"
-      }`}
+    <div
+      onClick={onClick}
+      className={`
+       flex items-center space-x-2 px-4 py-2 rounded-full transition-colors text-sm cursor-pointer
+        ${
+          isActive
+            ? "text-blue-500 bg-[#F0F6FD] rounded-full border border-[#0F75E5]"
+            : "text-black hover:bg-gray-100  rounded-full"
+        }
+      `}
     >
-      <Icon className="w-5 h-5" />
-      <span className="text-sm ">{text}</span>
-    </button>
+      <Icon size={26} />
+      <div className="font-medium text-sm">{text}</div>
+    </div>
   );
 };
 
