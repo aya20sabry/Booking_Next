@@ -1,26 +1,54 @@
 "use client";
-import { useState } from "react";
+import { useAuth } from "@/context/user";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import ENFlag from "@/Public/ENFlag.png";
 import SaudiFlag from "@/Public/saudiArabia.png";
+
 import { MdMenu } from "react-icons/md";
 import { BsHouseAdd } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
-
 import Link from "next/link";
+import { jwtDecode } from "jwt-decode";
+import { GetUser } from "@/API/GET";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const locale = useLocale();
-
+  const { token, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const [user, setUser] = useState(null);
   const t = useTranslations("Navbar");
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        try {
+          const decoded = jwtDecode(storedToken);
+          const userId = decoded.id;
+          const userData = await GetUser(userId);
+          setUser(userData);
+        } catch (error) {
+          console.error("Error decoding token or fetching user data:", error);
+          logout();
+        }
+      } else {
+        setUser(null);
+      }
+    };
+
+    checkAuth();
+  }, [router.pathname]);
 
   const languages = [
     { code: "en", name: "English", flag: ENFlag },
@@ -31,6 +59,10 @@ function Navbar() {
     Cookies.set("NEXT_LOCALE", langCode);
     setIsLanguageModalOpen(false);
     window.location.reload();
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -46,7 +78,7 @@ function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden md:flex space-x-4">
-            <button className="mainColor navHover  px-3 py-2 rounded">
+            <button className="mainColor navHover px-3 py-2 rounded">
               EGP
             </button>
             <button
@@ -61,24 +93,78 @@ function Navbar() {
                 height={24}
               />
             </button>
-            <button className="mainColor navHover px-3 py-2 rounded">
-              <span className="infolink"></span>
-            </button>
             <Link href="/list">
               <button className="mainColor navHover px-3 py-2 rounded">
                 {t("list_your_property")}
               </button>
             </Link>
-            <Link href="/SignRegist">
-              <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
-                {t("register")}
-              </button>
-            </Link>
-            <Link href="/Signin">
-              <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded  border-blue-900 font-medium">
-                {t("sign_in")}
-              </button>
-            </Link>
+
+            {/* Check if the user is logged in */}
+            {token ? (
+              <div className="relative text-left flex items-center">
+                <div
+                  onClick={toggleDropdown}
+                  className="flex items-center cursor-pointer"
+                >
+                  <div className="w-9 h-9 rounded-full bg-yellow-500 border-2 border-yellow-600 flex items-center justify-center text-white font-bold mr-2">
+                    {user?.lastName?.charAt(0).toUpperCase() || "U"}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-base mr-2 self-start font-medium">
+                      {user?.lastName}
+                    </span>
+                    <span className="text-xs self-start">See profile</span>
+                  </div>
+                </div>
+
+                {isDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div className="py-1">
+                      <a
+                        href="profile"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        {/* <FontAwesomeIcon icon="fa-solid fa-user" /> */}
+                        Profile
+                      </a>
+                      <a
+                        href="/bookings"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Bookings
+                      </a>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        {/* <FontAwesomeIcon icon="fa-solid fa-gear" /> */}
+                        Settings
+                      </a>
+                      <a
+                        href="#"
+                        onClick={logout}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        {t("logout")}
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link href="/SignRegist">
+                  <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
+                    {t("register")}
+                  </button>
+                </Link>
+                <Link href="/Signin">
+                  <button className="bg-white text-blue-700 text-sm hover:bg-blue-100 px-3 py-2 rounded border-blue-900 font-medium">
+                    {t("sign_in")}
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -145,7 +231,6 @@ function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Language Modal */}
       <AnimatePresence>
         {isLanguageModalOpen && (
           <motion.div

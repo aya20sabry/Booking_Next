@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Indicate that this is a client component
 
 import Image from "next/image";
 import facebook from "@/Public/facebook.png";
@@ -8,10 +8,12 @@ import NavPlain from "@/Components/Navbar/NavPlain";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function SignRedist() {
   const [email, setEmail] = useState("");
   const router = useRouter();
+  const t = useTranslations("Signin");
 
   const checkemail = async (e) => {
     e.preventDefault();
@@ -25,12 +27,11 @@ export default function SignRedist() {
       console.log(email);
       console.log("res", response);
 
-      if (response.data == "please enter valid email") {
-        // localStorage.setItem('email', email);
-   console.log ("the email is already in use ");
-   router.push("/Register");
+      if (response.data === "please enter valid email") {
+        console.log("Email not found");
+        router.push("/Register");
       } else {
-        window.alert("Email  found");
+        window.alert("The email is already in use");
       }
       localStorage.setItem("email", email);
     } catch (error) {
@@ -44,32 +45,33 @@ export default function SignRedist() {
       <div className="flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg w-full max-w-sm">
           <h1 className="text-xl font-bold text-start mb-6">
-            Sign in or create an account
+            {t("Sign in or create an account")}
           </h1>
           <form className="space-y-4" onSubmit={checkemail}>
             <div>
               <label htmlFor="email" className="sr-only">
-                Email address
+                {t("Email address")}
               </label>
               <input
                 id="email"
                 type="email"
-                placeholder="Enter your email address"
+                placeholder={t("Enter your email address")}
                 className="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
             >
-              Continue with email
+              {t("Continue with email")}
             </button>
           </form>
 
           <div className="my-6 text-center text-gray-500">
-            or use one of these options
+            {t("or use one of these options")}
           </div>
 
           <div className="flex justify-around">
@@ -85,13 +87,13 @@ export default function SignRedist() {
           </div>
 
           <p className="mt-6 text-xs text-center text-gray-500">
-            By signing in or creating an account, you agree with our{" "}
+            {t("By signing in or creating an account, you agree with our")}{" "}
             <a href="#" className="text-blue-600">
-              Terms & Conditions
+              {t("Terms & Conditions")}
             </a>{" "}
-            and{" "}
+            {t("and")}{" "}
             <a href="#" className="text-blue-600">
-              Privacy Statement
+              {t("Privacy Statement")}
             </a>
             .
           </p>

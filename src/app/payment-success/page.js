@@ -29,9 +29,7 @@ export default function PaymentSuccessPage() {
         Payment Successful!
       </h1>
       <p className="text-xl mb-8">Thank you for your booking.</p>
-      <p className="text-lg">
-        Redirecting to home page in {countdown} seconds...
-      </p>
+      <p className="text-lg">Redirecting to home page in seconds...</p>
     </div>
   );
 }

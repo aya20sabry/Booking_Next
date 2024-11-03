@@ -12,6 +12,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Datepicker from "react-tailwindcss-datepicker";
 import { FaChevronDown } from "react-icons/fa";
+import Dropdown from "../Drowpdown/Dropdown";
 
 export default function ComponantFlight() {
   const [value, setValue] = useState({
@@ -77,36 +78,36 @@ export default function ComponantFlight() {
 
     <div className="items-center pt-5  " style={{ textAlign: "left" }}>
       <div className="gap-4  items-center  mx-64  flex ">
-        {/* <Dropdown
-        options={["one-way", "Round-trip", "Multi-city"]}
-        selected={selectedOption1}
-        onSelect={setSelectedOption1}
-        isOpen={openDropdownIndex === 0}
-        onToggle={() => toggleDropdown(0)}
-        className="text-sm  "
-      /> */}
+        <Dropdown
+          options={["one-way", "Round-trip", "Multi-city"]}
+          selected={selectedOption1}
+          onSelect={setSelectedOption1}
+          isOpen={openDropdownIndex === 0}
+          onToggle={() => toggleDropdown(0)}
+          className="text-sm  "
+        />
         <FaChevronDown />
 
-        {/* <Dropdown
-        options={Object.keys(counts)}
-        selected={selectedOption}
-        onSelect={setSelectedOption}
-        isOpen={openDropdownIndex === 1}
-        onToggle={() => toggleDropdown(1)}
-        className="text-sm"
-        zIndex={10}
-      /> */}
+        <Dropdown
+          options={Object.keys(counts)}
+          selected={selectedOption}
+          onSelect={setSelectedOption}
+          isOpen={openDropdownIndex === 1}
+          onToggle={() => toggleDropdown(1)}
+          className="text-sm"
+          zIndex={10}
+        />
         <FaChevronDown />
 
-        {/* <Dropdown
-        options={["Economy", "Premium Economy", "Business", "First"]}
-        selected={selectedOption3}
-        onSelect={setSelectedOption3}
-        isOpen={openDropdownIndex === 2}
-        onToggle={() => toggleDropdown(2)}
-        className="text-sm"
-        zIndex={10}
-      /> */}
+        <Dropdown
+          options={["Economy", "Premium Economy", "Business", "First"]}
+          selected={selectedOption3}
+          onSelect={setSelectedOption3}
+          isOpen={openDropdownIndex === 2}
+          onToggle={() => toggleDropdown(2)}
+          className="text-sm"
+          zIndex={10}
+        />
         <FaChevronDown />
       </div>
 
@@ -194,9 +195,11 @@ export default function ComponantFlight() {
             inputClassName="w-full h-10 px-10 py-2 border-2 rounded-lg border-[#F0F3F5] cursor-pointer text-sm font-semibold text-gray-700 outline-none bg-[#F0F3F5]"
           />
         </div>
+        <Link href="flighht">
         <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow hover:bg-blue-600 transition duration-200">
           Search
         </button>
+        </Link>
       </div>
     </div>
   );

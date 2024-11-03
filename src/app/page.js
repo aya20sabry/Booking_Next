@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Footer from "@/Components/Footer/Footer";
 import Heading from "@/Components/Headings/Heading";
 import Header from "@/Components/Navbar/Header";
@@ -31,10 +31,11 @@ import Main from "@/Components/divs/Main";
 import Places from "@/Components/divs/places";
 import SearchBar from "@/Components/searchBar/searchBar";
 import { useTranslations, useLocale } from "next-intl";
+
 import {  useEffect, useState} from 'react';
 import Link from 'next/link';
 
-import React, { useContext } from 'react'; // تأكد من استيراد useContext
+import React, { useContext } from 'react'; 
 import {FavoritesContext} from '@/Context/favoritesContext';
  
 // import { Card, CardContent } from "@/components/ui/card"
@@ -79,49 +80,79 @@ const dataa = {
 
 
 
+import { useRouter } from "next/navigation";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+
 export default function Home() {
   const locale = useLocale();
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const router = useRouter();
   const t = useTranslations("HomePage");
+
   const [category, setCategory] = useState("Cities in Egypt");
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/host');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const result = await response.json();
-            setData(result);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+
+  const NextArrow = ({ onClick }) => (
+    <button
+      className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg z-10 "
+      onClick={onClick}
+    >
+      <FaChevronRight className="text-gray-600" />
+    </button>
+  );
+
 
     fetchData();
 }, [favorites]);
 
-if (loading) {
-    return <div>Loading...</div>;
-}
+  const PrevArrow = ({ onClick, currentSlide }) => (
+    <button
+      className={`absolute -left-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 ${
+        currentSlide === 0 ? "hidden" : ""
+      }`}
+      onClick={onClick}
+    >
+      <FaChevronLeft className="text-gray-600" />
+    </button>
+  );
 
-if (error) {
-    return <div>Error: {error}</div>;
-}
-const uniqueDestinations = Array.from(new Set(data.map(destination =>destination.location.city.en)))
-    .map(name => data.find(destination => destination.location.city.en === name));
-console.log(data)
+
+  const createSliderSettings = (slidesToShow) => ({
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: slidesToShow,
+    slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: Math.min(2, slidesToShow),
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+  const exploreSliderSettings = createSliderSettings(6);
+  const propertyTypeSliderSettings = createSliderSettings(4);
+  const plannerSliderSettings = createSliderSettings(6);
+
   return (
     <>
-        {/* <div>
-        {data && <div>{JSON.stringify(data)}</div>}
-    </div> */}
       <Navbar />
       <Header />
       <Main title={t("title")} description={t("description")} />
@@ -194,36 +225,135 @@ console.log(data)
       </section>
       {/* destinations section */}
       <section className="py-8 sm:py-4">
-    <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-        <Heading
+        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          <Heading
             title="Trending destinations"
             description="Travellers searching for Egypt also booked these"
-        />
-    </div>
-
-    <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-        {uniqueDestinations.map((destination) => (
-          <Link href={`/cars?${destination.location.city.en}`}  key={destination.location.city.en} passHref>
-            <div
-                key={destination.name}
-                className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card"
-                style={{
-                    backgroundImage: `url(${destination.images[0]})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                }}
-            >
-              
-                <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
-                    <h3 className="font-bold text-stroke">{destination.location.city.en}</h3>
-                  
-                </div>
-             </div> 
-            </Link>
-        ))}
-    </div>
-</section>
-
+          />
+        </div>
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          {/* <!-- Luxor Card --> */}
+          <div
+            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card cursor-pointer"
+            style={{
+              backgroundImage: `url(${imageMap.Luxor.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?location=Luxor`);
+            }}
+          >
+            <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
+              <h3 className="font-bold text-stroke">Luxor</h3>
+              <Image
+                src={EgyptFlag}
+                alt="Egypt Flag"
+                className=" ms-2"
+                width={24}
+                height={24}
+              />
+            </div>
+          </div>
+          {/* <!-- Cairo Card --> */}
+          <div
+            className="relative overflow-hidden rounded-lg shadow-lg w-full h-64 destination-card cursor-pointer"
+            style={{
+              backgroundImage: `url(${imageMap.Cairo.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Cairo`);
+            }}
+          >
+            <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
+              <h3 className="font-bold text-stroke">Cairo</h3>
+              <Image
+                src={EgyptFlag}
+                alt="Egypt Flag"
+                className=" ms-2"
+                width={24}
+                height={24}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          <div
+            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card cursor-pointer"
+            style={{
+              backgroundImage: `url(${imageMap.Aswan.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Aswan`);
+            }}
+          >
+            <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
+              <h3 className="font-bold text-white text-2xl text-stroke">
+                Aswan
+              </h3>
+              <Image
+                src={EgyptFlag}
+                alt="Egypt Flag"
+                className=" ms-2"
+                width={24}
+                height={24}
+              />
+            </div>
+          </div>
+          <div
+            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card cursor-pointer"
+            style={{
+              backgroundImage: `url(${imageMap.Hurghada.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Hurghada`);
+            }}
+          >
+            <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
+              <h3 className="font-bold text-white text-2xl text-stroke">
+                Hurghada
+              </h3>
+              <Image
+                src={EgyptFlag}
+                alt="Egypt Flag"
+                className=" ms-2"
+                width={24}
+                height={24}
+              />
+            </div>
+          </div>
+          <div
+            className="relative bg-white shadow-lg rounded-lg overflow-hidden w-full h-64 destination-card cursor-pointer"
+            style={{
+              backgroundImage: `url(${imageMap["Sharm el-Sheikh"].src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            onClick={() => {
+              router.push(`/searchResults?destination=Sharm el-Sheikh`);
+            }}
+          >
+            <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
+              <h3 className="font-bold text-white text-2xl text-stroke">
+                Sharm El Sheikh
+              </h3>
+              <Image
+                src={EgyptFlag}
+                alt="Egypt Flag"
+                className=" ms-2"
+                width={24}
+                height={24}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
       {/* explore section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
@@ -233,19 +363,23 @@ console.log(data)
           />
         </div>
 
-        <div className="mt-8 flex  overflow-x-auto custom-scrollbar px-4 xl:mx-48">
-          {data.map((destination) => (
-            <Link href={`/cars?${destination.location.city.en}`}  key={destination.location.city.en} passHref>
-
-            <ExploreCard
-              key={destination.name}
-              src={destination.images[0]}
-              title={destination.location.city.en}
-              // description={destination.description}
-            />
-           </Link>
-
-          ))}
+        <div className="mt-8 px-4 xl:mx-48">
+          <Slider {...exploreSliderSettings}>
+            {Egypt.map((destination) => (
+              <div key={destination.name} className="px-2">
+                <ExploreCard
+                  src={imageMap[destination.name]}
+                  title={destination.name}
+                  description={destination.description}
+                  onClick={() => {
+                    router.push(
+                      `/searchResults?destination=${destination.name}`
+                    );
+                  }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
       {/* browse by property type section */}
@@ -253,15 +387,25 @@ console.log(data)
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading title="Browse by property type" />
         </div>
-        <div className="mt-8 flex  space-x-4 overflow-x-auto custom-scrollbar px-4 xl:mx-48">
-          {PropertyType.map((Property) => (
-            <Browse
-              key={Property.name}
-              src={BrowseImagesMap[Property.name]}
-              title={Property.name}
-              description={Property.description}
-            />
-          ))}
+        <div className="mt-8 px-4 xl:mx-48">
+          <Slider {...propertyTypeSliderSettings}>
+            {PropertyType.map((Property) => (
+              <div key={Property.name} className="px-2">
+                <Browse
+                  src={BrowseImagesMap[Property.name]}
+                  title={Property.name}
+                  description={Property.description}
+                  handleClick={() => {
+                    if (Property.name === "Hotels") {
+                      router.push(`/searchResults`);
+                    } else {
+                      router.push(`/comingSoon`);
+                    }
+                  }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
       {/* planner section */}
@@ -272,20 +416,28 @@ console.log(data)
             description="Pick a vibe and explore the top destinations in Egypt"
           />
         </div>
-        <div className="mt-8 flex  space-x-4 overflow-x-auto custom-scrollbar  xl:mx-48">
+        <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar xl:mx-48">
           <Nav icon={TbBeach} text="Beach" isActive={true} />
           <Nav icon={LiaCitySolid} text="City" isActive={false} />
           <Nav icon={LuBike} text="Outdoors" isActive={false} />
         </div>
-        <div className="mt-8 flex  overflow-x-auto custom-scrollbar px-4 xl:mx-48">
-          {Egypt.map((destination) => (
-            <ExploreCard
-              key={destination.name}
-              src={imageMap[destination.name]}
-              title={destination.name}
-              description={destination.description}
-            />
-          ))}
+        <div className="mt-8 px-4 xl:mx-48">
+          <Slider {...plannerSliderSettings}>
+            {Egypt.map((destination) => (
+              <div key={destination.name} className="px-2">
+                <ExploreCard
+                  src={imageMap[destination.name]}
+                  title={destination.name}
+                  description={destination.description}
+                  onClick={() => {
+                    router.push(
+                      `/searchResults?destination=${destination.name}`
+                    );
+                  }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
       {/* deals section */}
@@ -293,7 +445,7 @@ console.log(data)
         <div className="flex justify-start items-start flex-col mb-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
             title="Deals for the weekend"
-            description="Save on stays for September 13 - September 15" //TODO: change this description
+            description="Save on stays for November 13 - November 15"
           />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
@@ -317,7 +469,6 @@ console.log(data)
             newPrice="12,438"
             nights="2"
           />
-          {/* Add more DealCard components as needed */}
         </div>
       </section>
       {/* inspiration section */}
@@ -399,47 +550,37 @@ console.log(data)
       </section>
       {/* properties section */}
       <section className="py-1 sm:py-4">
-      <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-        <Heading
-          title="Stay at our top unique properties"
-          description="From castles and villas to boats and igloos, we've got it all"
-        />
-      </div>
-      
-      <div className="mt-8 w-full px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-      <Carousel
-      opts={{
-        align: "start",
-      }}
-      className="w-full"
-    >
-  <CarouselContent>
-    
-  {data.map((property,index) => (
-     <CarouselItem key={index} className="md:basis-1/4 lg:basis-1/4">
-  <Properties
-        
-        // key={property._id}
-        imageSrc={property.images[0]}
-        title={property.name.en}
-        location={property.location.city.en}
-        nights={property.PricePerNight}
-        toggleFavorite={() => toggleFavorite(property)}
-        isFavorite={favorites.some((fav) => fav._id === property._id)}
 
-      />
-     </CarouselItem>
-        
-        ))}
-   
-  
-  </CarouselContent>
-  <CarouselPrevious />
-  <CarouselNext />
-</Carousel>
+        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          <Heading
+            title="Stay at our top unique properties"
+            description="From castles and villas to boats and igloos, we've got it all"
+          />
+        </div>
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          <Properties
+            imageSrc={NewCairo.src}
+            title="Comfort Giza Inn View"
+            location="Cairo, Egypt"
+            rating="9.4"
+            reviews="151"
+            oldPrice="3,923"
+            newPrice="2,354"
+            nights="2"
+          />
+          <Properties
+            imageSrc={NewCairo.src}
+            title="Comfort Giza Inn View"
+            location="Cairo, Egypt"
+            rating="9.4"
+            reviews="151"
+            oldPrice="3,923"
+            newPrice="2,354"
+            nights="2"
+          />
+        </div>
+      </section>
 
-      </div>
-    </section>
       {/* Travel section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
@@ -451,46 +592,23 @@ console.log(data)
       </section>
 
       <section className="py-1 sm:py-4">
-      <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-
-      <div>
-          <div className="Save_10 pt-1 mx-2" style={{ display: "flex" }}>
-            {Object.keys(dataa).map((key) => (
-              <button
-                key={key}
-                onClick={() => setCategory(key)}
-                style={{
-                  paddingLeft: "15px",
-                  border: category === key ? "0.5px blue solid" : "none",
-                  height: "25px",
-                  paddingBottom: "15px",
-                  borderRadius: "10px",
-                  backgroundColor: category === key ? "#e0f7ff" : "#fff",
-                }}
-              >
-                {key}
-              </button>
-            ))}
-          </div>
-      <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px" }}>
-  {dataa[category].map((item) => (
-    <div key={item.name}>
-      <div className="md-col-4">
-        <h3 className="Sign">{item.name}</h3>
-        <p className="Save_10">
-          {item.locations} car hire locations
-        </p>
-        <p className="Save_10">
-          Average price of EGP {item.price.toFixed(5)} per day
-        </p>
-      </div>
-    </div>
-  ))}
-</div>
-
+        <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          <Heading title="Destinations we love" />
         </div>
+        <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar  xl:mx-48">
+          <Destination text="Regions" isActive={true} />
+          <Destination text="Cities" isActive={false} />
+          <Destination text="Places of interest" isActive={false} />
         </div>
-
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 pt-8 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+          {locations.map((location, index) => (
+            <Places
+              key={index}
+              name={location.name}
+              propertyCount={location.propertyCount}
+            />
+          ))}
+        </div>
       </section>
       <EndLinks />
       <Footer />

@@ -17,10 +17,10 @@ const ContactDetails = () => {
 
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{10,}$/;
   const email = localStorage.getItem("email");
-  console.log(email);
-
+  
   const creatUser = async (firstName, lastName, phoneNumber, password) => {
     try {
+      console.log(email);
       const response = await axios.post("http://localhost:3000/user/", {
         firstName,
         lastName,
@@ -29,8 +29,11 @@ const ContactDetails = () => {
         email,
         role: "owner",
       });
-      router.push(" http://localhost:4200/");
+      const token=response.data
       console.log("User registered:", response.data);
+      console.log("token",token)
+      // router.push(` http://localhost:4200/login/?token=${token}`);
+      router.push("/Signin ");
     } catch (error) {
       setError("An error occurred while registering. Please try again.");
     }

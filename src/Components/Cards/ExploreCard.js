@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-function ExploreCard({ src, title, description }) {
+function ExploreCard({ src, title, description, onClick }) {
   return (
     <>
-      <div className="flex-none w-48 relative">
+      <div className="flex-none w-48 relative cursor-pointer" onClick={onClick}>
         <Image
           className="object-cover  h-32 rounded-lg"
           src={src}
