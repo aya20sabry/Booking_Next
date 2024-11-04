@@ -86,7 +86,7 @@ function OverView({ hotel, amenities }) {
 
   const sliderSettings = {
     dots: false,
-    infinite: true,
+    infinite: reviews?.length > 0,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -206,28 +206,42 @@ function OverView({ hotel, amenities }) {
                       <FaAngleLeft className="text-gray-600" />
                     </button>
                     <Slider ref={setSliderRef} {...sliderSettings}>
-                      {reviews?.map((review) => (
-                        <div
-                          key={review._id}
-                          className="review-item px-8"
-                          dir={locale === "ar" ? "rtl" : "ltr"}
-                        >
-                          <p className="mb-4 px-3 text-xs">
-                            &quot;{review.comment[locale]}&quot;
-                          </p>
-                          <div className="review-item flex items-center mb-4 px-3">
-                            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
-                              {review.userId?.firstName.charAt(0)}
+                      {reviews?.length > 0 ? (
+                        reviews.map((review) => (
+                          <div
+                            key={review._id}
+                            className="review-item px-8"
+                            dir={locale === "ar" ? "rtl" : "ltr"}
+                          >
+                            <p className="mb-4 px-3 text-xs">
+                              &quot;{review.comment[locale]}&quot;
+                            </p>
+                            <div className="review-item flex items-center mb-4 px-3">
+                              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-2">
+                                {review.userId?.firstName.charAt(0)}
+                              </div>
+                              <span className="font-semibold mr-2 text-xs">
+                                {review.userId?.firstName}
+                              </span>
+                              <span className="text-gray-600 text-xs mx-1">
+                                {review.userId?.nationality}
+                              </span>
                             </div>
-                            <span className="font-semibold mr-2 text-xs">
-                              {review.userId?.firstName}
-                            </span>
-                            <span className="text-gray-600 text-xs mx-1">
-                              {review.userId?.nationality}
-                            </span>
                           </div>
+                        ))
+                      ) : (
+                        <div className="px-8 py-6 text-center">
+                          <div className="text-gray-400 mb-2">
+                            <FaStar className="inline-block text-3xl" />
+                          </div>
+                          <p className="text-gray-600 text-sm font-medium">
+                            {t("no_reviews_yet")}
+                          </p>
+                          <p className="text-gray-400 text-xs mt-1">
+                            {t("be_the_first_to_review")}
+                          </p>
                         </div>
-                      ))}
+                      )}
                     </Slider>
                     <button
                       onClick={() => sliderRef?.slickNext()}

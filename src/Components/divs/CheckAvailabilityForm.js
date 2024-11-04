@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
+import { useSearchParams } from "next/navigation";
 
 export default function CheckAvailabilityForm({
   setAvailability,
@@ -9,11 +10,14 @@ export default function CheckAvailabilityForm({
   initialCheckInDate,
   initialCheckOutDate,
 }) {
+  const searchParams = useSearchParams();
   const [error, setError] = useState(null);
   const [value, setValue] = useState({
     startDate: initialCheckInDate,
     endDate: initialCheckOutDate,
   });
+  let hotelId = searchParams.get("id");
+  console.log("hotelId", hotelId);
   console.log(initialCheckInDate);
   console.log(initialCheckOutDate);
   useEffect(() => {
@@ -27,7 +31,7 @@ export default function CheckAvailabilityForm({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              hotelId: "670b29ac401ba9c92d116a70",
+              hotelId: hotelId,
               checkInDate: initialCheckInDate,
               checkOutDate: initialCheckOutDate,
             }),
@@ -60,7 +64,7 @@ export default function CheckAvailabilityForm({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          hotelId: "670b29ac401ba9c92d116a70",
+          hotelId: hotelId,
           checkInDate: value.startDate,
           checkOutDate: value.endDate,
         }),

@@ -28,6 +28,7 @@ const RoomTable = ({ hotel, availability, checkInDate, checkOutDate }) => {
         })
         .finally(() => setLoading(false));
     }
+    console.log(availability);
   }, [availability, hotel._id]);
 
   const bedNameMapping = {
@@ -218,7 +219,7 @@ const RoomTable = ({ hotel, availability, checkInDate, checkOutDate }) => {
                       }}
                     >
                       {Array.from(
-                        { length: availability[room._id] + 1 },
+                        { length: (availability[room._id] || 0) + 1 },
                         (_, i) => (
                           <option key={i} value={room.price * i}>
                             {i} (EGP{" "}

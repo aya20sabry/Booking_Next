@@ -53,26 +53,27 @@ export default function Home() {
 
   const NextArrow = ({ onClick }) => (
     <button
-      className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg z-10 "
+      className="hidden md:block absolute -right-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-lg z-10"
       onClick={onClick}
     >
       <FaChevronRight className="text-gray-600" />
     </button>
   );
 
-  const PrevArrow = ({ onClick, currentSlide }) => (
-    <button
-      className={`absolute -left-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 ${
-        currentSlide === 0 ? "hidden" : ""
-      }`}
-      onClick={onClick}
-    >
-      <FaChevronLeft className="text-gray-600" />
-    </button>
-  );
+  const PrevArrow = ({ onClick, currentSlide }) => {
+    if (currentSlide === 0) return null;
+
+    return (
+      <button
+        className="hidden md:block absolute -left-5 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10"
+        onClick={onClick}
+      >
+        <FaChevronLeft className="text-gray-600" />
+      </button>
+    );
+  };
 
   const createSliderSettings = (slidesToShow) => ({
-    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: slidesToShow,
@@ -92,6 +93,8 @@ export default function Home() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false,
+          dots: true,
         },
       },
     ],
@@ -135,11 +138,11 @@ export default function Home() {
     return <Loading />;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
   const uniqueDestinations = Array.from(
-    new Set(data.map((destination) => destination.location.city.en))
+    new Set(data?.map((destination) => destination.location.city.en))
   ).map((name) =>
     data.find((destination) => destination.location.city.en === name)
   );
@@ -389,14 +392,14 @@ export default function Home() {
         </div>
         <div className="mt-8 px-4 xl:mx-48">
           <Slider {...propertyTypeSliderSettings}>
-            {PropertyType.map((Property) => (
+            {PropertyType?.map((Property) => (
               <div key={Property.name} className="px-2">
                 <Browse
                   src={BrowseImagesMap[Property.name]}
                   title={Property.name}
                   description={
                     Property.name === "Hotels"
-                      ? data.length + " properties"
+                      ? data?.length + " properties"
                       : "Coming soon"
                   }
                   handleClick={() => {
@@ -431,7 +434,7 @@ export default function Home() {
             />
           ))}
         </div>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        <div className="mt-8 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           {getFilteredDestinations().map((destination) => (
             <ExploreCard
               key={destination}
@@ -563,7 +566,7 @@ export default function Home() {
 
         <div className="mt-8 px-4 xl:mx-48">
           <Slider {...propertyTypeSliderSettings}>
-            {data.map((property, index) => (
+            {data?.map((property, index) => (
               <div key={index} className="px-2">
                 <Properties
                   id={property._id}
@@ -586,7 +589,7 @@ export default function Home() {
         </div>
       </section>
       {/* Travel section */}
-      <section className="py-1 sm:py-4">
+      <section className="py-4 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading title="Travel more, spend less" />
         </div>

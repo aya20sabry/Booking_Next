@@ -1,11 +1,15 @@
 import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
+import UAParser from "ua-parser-js";
 
 import FavoritesProvider from "@/context/favoritesContext";
 
 import { AuthProvider } from "@/context/user";
 import { Toaster } from "react-hot-toast";
+import trackVisitScript from "@/lib/trackvisit";
+
+// Move trackVisit outside of RootLayout and make it a client-side script
 
 export const metadata = {
   title:
@@ -16,12 +20,14 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   const locale = await getLocale();
   const messages = await getMessages();
+
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body>
         <AuthProvider>
           <FavoritesProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
+              <script dangerouslySetInnerHTML={{ __html: trackVisitScript }} />
               {children}
             </NextIntlClientProvider>
           </FavoritesProvider>
