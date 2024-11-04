@@ -86,7 +86,15 @@ export default function SignRedist() {
   >
     <Image src={facebook} alt="Facebook" width={24} height={24} />
   </button>
-            <button className="p-4 bg-white rounded-lg border-2 border-grey-200">
+  <button 
+              className="p-4 text-white rounded-lg border-2 border-grey-200 focus:outline-none" 
+              onClick={() => {
+                const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; 
+                const redirectUri = encodeURIComponent('https://www.yourwebsite.com/signin');
+                const scope = 'email'; // Changed scope to 'email'
+                // Corrected the URL for Google OAuth
+                window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`;
+              }}>
               <Image src={google} alt="Google" width={24} height={24} />
             </button>
           
