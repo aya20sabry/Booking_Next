@@ -83,15 +83,21 @@ export default function Signin() {
           </div>
 
           <div className="flex justify-around">
-            <button className="p-4 bg-white rounded-lg border-2 border-grey-200">
-              <Image src={facebook} alt="Facebook" width={24} height={24} />
-            </button>
+          <button 
+    className="p-4 text-white rounded-lg border-2 border-grey-200 focus:outline-none" 
+    onClick={() => {
+      const clientId = process.env.REACT_APP_FACEBOOK_CLIENT_ID; 
+      const redirectUri = encodeURIComponent('https://www.yourwebsite.com/signin');
+      const scope = 'email';
+      window.location.href = `https://www.facebook.com/v10.0/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
+    }}
+  >
+    <Image src={facebook} alt="Facebook" width={24} height={24} />
+  </button>
             <button className="p-4 bg-white rounded-lg border-2 border-grey-200">
               <Image src={google} alt="Google" width={24} height={24} />
             </button>
-            <button className="p-4 bg-white rounded-lg border-2 border-grey-200">
-              <Image src={apple} alt="Apple" width={24} height={24} />
-            </button>
+        
           </div>
 
           <p className="mt-6 text-xs text-center text-gray-500">
