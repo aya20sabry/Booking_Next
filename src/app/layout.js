@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
 import UAParser from "ua-parser-js";
+import { SessionProvider } from "next-auth/react";
 
 import FavoritesProvider from "@/context/favoritesContext";
 
@@ -24,14 +25,18 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body>
-        <AuthProvider>
-          <FavoritesProvider>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              <script dangerouslySetInnerHTML={{ __html: trackVisitScript }} />
-              {children}
-            </NextIntlClientProvider>
-          </FavoritesProvider>
-        </AuthProvider>
+        <SessionProvider>
+          <AuthProvider>
+            <FavoritesProvider>
+              <NextIntlClientProvider locale={locale} messages={messages}>
+                <script
+                  dangerouslySetInnerHTML={{ __html: trackVisitScript }}
+                />
+                {children}
+              </NextIntlClientProvider>
+            </FavoritesProvider>
+          </AuthProvider>
+        </SessionProvider>
         <Toaster />
       </body>
     </html>

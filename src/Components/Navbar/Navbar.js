@@ -8,7 +8,7 @@ import SaudiFlag from "@/Public/saudiArabia.png";
 
 import { MdMenu } from "react-icons/md";
 import { BsHouseAdd } from "react-icons/bs";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaUserCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
@@ -16,6 +16,8 @@ import Link from "next/link";
 import { jwtDecode } from "jwt-decode";
 import { GetUser } from "@/API/GET";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 function Navbar() {
   const locale = useLocale();
@@ -28,18 +30,28 @@ function Navbar() {
   const t = useTranslations("Navbar");
   const pathname = usePathname();
   const router = useRouter();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const checkAuth = async () => {
       const storedToken = localStorage.getItem("token");
-      if (storedToken) {
+
+      if (token || storedToken || session) {
         try {
-          const decoded = jwtDecode(storedToken);
-          const userId = decoded.id;
-          const userData = await GetUser(userId);
-          setUser(userData);
+          if (session) {
+            setUser({
+              lastName: session.user.name,
+            });
+          } else {
+            const currentToken = token || storedToken;
+            const decoded = jwtDecode(currentToken);
+            const userId = decoded.id;
+            const userData = await GetUser(userId);
+            setUser(userData);
+          }
         } catch (error) {
-          console.error("Error decoding token or fetching user data:", error);
+          console.error("Error in authentication:", error);
+          localStorage.removeItem("token");
           logout();
         }
       } else {
@@ -48,7 +60,7 @@ function Navbar() {
     };
 
     checkAuth();
-  }, [router.pathname]);
+  }, [token, session]);
 
   const languages = [
     { code: "en", name: "English", flag: ENFlag },
@@ -64,6 +76,15 @@ function Navbar() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  async function handleLogout() {
+    if (token) {
+      logout();
+    } else if (session) {
+      await signOut({ redirect: true, callbackUrl: "/" });
+    }
+  }
+
+  const isAuthenticated = token || session;
 
   return (
     <>
@@ -100,7 +121,7 @@ function Navbar() {
             </Link>
 
             {/* Check if the user is logged in */}
-            {token ? (
+            {isAuthenticated ? (
               <div className="relative text-left flex items-center">
                 <div
                   onClick={toggleDropdown}
@@ -142,7 +163,7 @@ function Navbar() {
                       </a>
                       <a
                         href="#"
-                        onClick={logout}
+                        onClick={handleLogout}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         {t("logout")}
@@ -169,9 +190,14 @@ function Navbar() {
 
           {/* Mobile menu button */}
           <div className="flex md:hidden space-x-4 items-center">
-            <Link href="/signin" className="text-white text-2xl">
-              <FaRegUserCircle className="me-2" />
-            </Link>
+            {isAuthenticated ? (
+              <div className="w-7 h-7 text-xs rounded-full bg-yellow-500 border-2 border-yellow-600 flex items-center justify-center text-white  mr-2">
+                {user?.lastName?.charAt(0).toUpperCase() || "U"}
+              </div>
+            ) : (
+              <FaUserCircle className="me-2" />
+            )}
+
             <button
               onClick={() => setIsMenuOpen(true)}
               className="text-white text-2xl"
@@ -201,6 +227,30 @@ function Navbar() {
               </button>
               <div className="flex flex-col items-start justify-start space-y-4 h-full p-6 mt-10">
                 <h1 className="text-2xl font-bold">{t("more")}</h1>
+                {isAuthenticated ? (
+                  <button
+                    className="px-3 py-2 rounded"
+                    onClick={() => router.push("/profile")}
+                  >
+                    Profile
+                  </button>
+                ) : null}
+                {isAuthenticated ? (
+                  <button
+                    className="px-3 py-2 rounded"
+                    onClick={() => router.push("/bookings")}
+                  >
+                    Bookings
+                  </button>
+                ) : null}
+                {isAuthenticated ? (
+                  <button
+                    className="px-3 py-2 rounded"
+                    onClick={() => router.push("/save")}
+                  >
+                    Saved
+                  </button>
+                ) : null}
                 <button className="px-3 py-2 rounded">
                   EGP {t("currency")}
                 </button>

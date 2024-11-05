@@ -72,82 +72,92 @@ function Profile() {
   };
 
   return (
-    <div className="  bg-gray-100  flex items-center justify-center">
-      <div className="  bg-white p-6 rounded-lg shadow-md w-full ">
-        <h1 className="text-2xl font-bold mb-4 text-center">
-          Personal Details
-        </h1>
-        <p className="text-gray-600 mb-6 text-center">
-          Update your info and find out how it&apos;s used.
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-3">
+            Personal Details
+          </h1>
+          <p className="text-gray-600">Update your info.</p>
+          <div className="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+        </div>
 
-        <div className="space-y-4">
-          {/* Input Fields in Two Columns */}
-          <div className=" pl-1 grid grid-cols-2 gap-4">
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* First Name */}
-            <div>
-              <label className="block font-medium">First Name</label>
+            <div className="transition-all duration-200 hover:transform hover:scale-[1.02]">
+              <label className="block text-gray-700 font-semibold mb-2">
+                First Name
+              </label>
               <input
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="border rounded w-full p-2 mt-1"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
               />
             </div>
 
             {/* Last Name */}
-            <div>
-              <label className="block font-medium">Last Name</label>
+            <div className="transition-all duration-200 hover:transform hover:scale-[1.02]">
+              <label className="block text-gray-700 font-semibold mb-2">
+                Last Name
+              </label>
               <input
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="border rounded w-full p-2 mt-1"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
               />
             </div>
 
             {/* Email Address */}
-            <div>
-              <label className="block font-medium">Email Address</label>
+            <div className="transition-all duration-200 hover:transform hover:scale-[1.02]">
+              <label className="block text-gray-700 font-semibold mb-2">
+                Email Address
+              </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="border rounded w-full p-2 mt-1"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
               />
             </div>
 
             {/* Phone Number */}
-            <div>
-              <label className="block font-medium">Phone Number</label>
+            <div className="transition-all duration-200 hover:transform hover:scale-[1.02]">
+              <label className="block text-gray-700 font-semibold mb-2">
+                Phone Number
+              </label>
               <input
                 type="text"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                className="border rounded w-full p-2 mt-1"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
               />
             </div>
 
-            {/* Nationality */}
-            <div>
-              <label className="block font-medium">Nationality</label>
+            {/* Country */}
+            <div className="transition-all duration-200 hover:transform hover:scale-[1.02]">
+              <label className="block text-gray-700 font-semibold mb-2">
+                Country
+              </label>
               <input
                 type="text"
                 value={nationality}
                 onChange={(e) => setNationality(e.target.value)}
-                className="border rounded w-full p-2 mt-1"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 outline-none"
               />
             </div>
           </div>
         </div>
 
         {/* Save Button */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-8 flex justify-center">
           <button
             onClick={handleSaveClick}
-            className="mainColor text-white rounded px-4 py-2 hover:bg-blue-600"
+            className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-200"
           >
-            Save
+            Save Changes
           </button>
         </div>
       </div>
