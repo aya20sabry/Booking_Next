@@ -44,7 +44,7 @@ export default function List() {
           </div>
         </div>
       </header>
-      <div className="text-left text-white max-w-md">
+      <div className=" bg-blue col-6 text-left text-white max-w-md">
         <h1 className="text-4xl font-bold">
           List <span className="text-blue-500">anything</span> on Booking.com
         </h1>
@@ -53,7 +53,7 @@ export default function List() {
           today and quickly start earning more income.
         </p>
       </div>
-      <div className="bg-white text-black p-6 rounded-lg shadow-lg w-80">
+      <div className="bg-blue text-black p-6 col6 rounded-lg shadow-lg w-80">
         <h2 className="text-lg font-semibold mb-4">Register for free</h2>
         <ul className="list-disc list-inside text-sm text-gray-700 mb-4">
           <li>45% of hosts get their first booking within a week</li>
