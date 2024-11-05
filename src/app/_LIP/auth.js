@@ -6,11 +6,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Google({
       clientId: process.env.NEXT_PUBLIC_AUTH_GOOGLE_ID,
       clientSecret: process.env.NEXT_PUBLIC_AUTH_GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: "select_account",
+        },
+      },
     }),
     Facebook({
       clientId: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_ID,
       clientSecret: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_SECRET,
       redirectUri: "http://localhost:3001/api/auth/callback/facebook",
+      authorization: {
+        params: {
+          prompt: "select_account",
+        },
+      },
     }),
   ],
   pages: {},

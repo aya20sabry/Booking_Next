@@ -217,11 +217,14 @@
     "Create password": "Create password",
     "Username": "Username",
     "Enter your username": "Enter your username",
+    "Enter your password": "Enter your password",
+    "Please enter your Booking.com password for": "Please enter your Booking.com password for",
     "Confirm Password": "Confirm Password",
     "Confirm your password": "Confirm your password",
     "Forgot Password?": "Forgot Password?",
     "Log In": "Log In",
-    "Register": "Register"
+    "Register": "Register",
+    "enter_password_prompt": "Please enter your Booking.com password for"
   },
   "Reset": {
     "resetError": "An error occurred while resetting the password",

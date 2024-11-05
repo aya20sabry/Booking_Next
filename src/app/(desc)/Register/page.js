@@ -23,7 +23,7 @@ const Register = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
   const t = useTranslations("Register");
-
+  const locale = useLocale();
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
@@ -50,11 +50,9 @@ const Register = () => {
         await loginUser(email, password);
       }
     } catch (error) {
-
       setError(
         t("An error occurred while checking the email. Please try again.")
       );
-
     }
   };
 
@@ -202,9 +200,7 @@ const Register = () => {
               {emailExists ? (
                 <>
                   <p className="font-bold">{t("Enter your password")}</p>
-                  <p className="pb-3">
-                    {t("Please enter your Booking.com password for")}
-                  </p>
+                  <p className="pb-3">{t("enter_password_prompt")}</p>
                 </>
               ) : (
                 t("Create Password")
@@ -222,7 +218,9 @@ const Register = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                className={`absolute inset-y-0 ${
+                  locale === "en" ? "right-0" : "left-2"
+                } pr-3 flex items-center text-gray-500`}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
