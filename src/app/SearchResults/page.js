@@ -16,6 +16,15 @@ function SearchResults() {
   const [searchData, setSearchData] = useState({});
   const [filteredHotels, setFilteredHotels] = useState([]);
   const [sortOption, setSortOption] = useState("recommended");
+  const [filters, setFilters] = useState({
+    amenities: {
+      breakfast: false,
+      beach: false,
+      pool: false
+    },
+    priceRange: 1000,
+    starRating: []
+  });
 
   useEffect(() => {
     if (searchParams) {
@@ -31,13 +40,33 @@ function SearchResults() {
       };
       setSearchData(searchDataObj);
 
-      // Filter hotels based on destination
-      const filtered = hotels.filter(hotel => 
+      // Apply all filters
+      let filtered = hotels.filter(hotel => 
         hotel.location.toLowerCase().includes(searchDataObj.destination?.toLowerCase() || '')
       );
+
+      // Filter by amenities
+      if (filters.amenities.breakfast) {
+        filtered = filtered.filter(hotel => hotel.amenities.includes('Breakfast'));
+      }
+      if (filters.amenities.beach) {
+        filtered = filtered.filter(hotel => hotel.amenities.includes('Beach Access'));
+      }
+      if (filters.amenities.pool) {
+        filtered = filtered.filter(hotel => hotel.amenities.includes('Pool'));
+      }
+
+      // Filter by price
+      filtered = filtered.filter(hotel => hotel.price <= filters.priceRange);
+
+      // Filter by star rating
+      if (filters.starRating.length > 0) {
+        filtered = filtered.filter(hotel => filters.starRating.includes(hotel.stars));
+      }
+
       setFilteredHotels(filtered);
     }
-  }, [searchParams]);
+  }, [searchParams, filters]);
 
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
@@ -59,6 +88,35 @@ function SearchResults() {
     }
     
     setFilteredHotels(sortedHotels);
+  };
+
+  const handleAmenityChange = (amenity) => {
+    setFilters(prev => ({
+      ...prev,
+      amenities: {
+        ...prev.amenities,
+        [amenity]: !prev.amenities[amenity]
+      }
+    }));
+  };
+
+  const handlePriceRangeChange = (event) => {
+    setFilters(prev => ({
+      ...prev,
+      priceRange: parseInt(event.target.value)
+    }));
+  };
+
+  const handleStarRatingChange = (stars) => {
+    setFilters(prev => {
+      const newStarRating = prev.starRating.includes(stars)
+        ? prev.starRating.filter(s => s !== stars)
+        : [...prev.starRating, stars];
+      return {
+        ...prev,
+        starRating: newStarRating
+      };
+    });
   };
 
   return (
@@ -103,15 +161,30 @@ function SearchResults() {
                 <h3 className="font-semibold mb-2">Popular filters</h3>
                 <div className="space-y-2">
                   <label className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
+                    <input
+                      type="checkbox"
+                      className="mr-2"
+                      checked={filters.amenities.breakfast}
+                      onChange={() => handleAmenityChange('breakfast')}
+                    />
                     <span>Breakfast included</span>
                   </label>
                   <label className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
+                    <input
+                      type="checkbox"
+                      className="mr-2"
+                      checked={filters.amenities.beach}
+                      onChange={() => handleAmenityChange('beach')}
+                    />
                     <span>Beach access</span>
                   </label>
                   <label className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
+                    <input
+                      type="checkbox"
+                      className="mr-2"
+                      checked={filters.amenities.pool}
+                      onChange={() => handleAmenityChange('pool')}
+                    />
                     <span>Pool</span>
                   </label>
                 </div>
@@ -124,11 +197,13 @@ function SearchResults() {
                   type="range" 
                   min="0" 
                   max="1000" 
+                  value={filters.priceRange}
+                  onChange={handlePriceRangeChange}
                   className="w-full"
                 />
                 <div className="flex justify-between text-sm">
                   <span>$0</span>
-                  <span>$1000+</span>
+                  <span>${filters.priceRange}+</span>
                 </div>
               </div>
 
@@ -138,7 +213,12 @@ function SearchResults() {
                 <div className="space-y-2">
                   {[5, 4, 3, 2, 1].map((stars) => (
                     <label key={stars} className="flex items-center">
-                      <input type="checkbox" className="mr-2" />
+                      <input
+                        type="checkbox"
+                        className="mr-2"
+                        checked={filters.starRating.includes(stars)}
+                        onChange={() => handleStarRatingChange(stars)}
+                      />
                       <span>{stars} stars</span>
                     </label>
                   ))}
