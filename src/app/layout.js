@@ -4,13 +4,11 @@ import { getLocale, getMessages } from "next-intl/server";
 import UAParser from "ua-parser-js";
 import { SessionProvider } from "next-auth/react";
 
-import FavoritesProvider from "@/context/favoritesContext";
+import FavoritesProvider from "@/Context/favoritesContext";
 
 import { AuthProvider } from "@/context/user";
 import { Toaster } from "react-hot-toast";
 import trackVisitScript from "@/lib/trackvisit";
-
-// Move trackVisit outside of RootLayout and make it a client-side script
 
 export const metadata = {
   title:

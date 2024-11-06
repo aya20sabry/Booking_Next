@@ -32,7 +32,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import React, { useContext } from "react";
-import { FavoritesContext } from "@/context/favoritesContext";
+import { FavoritesContext } from "@/Context/favoritesContext";
 import { useRouter } from "next/navigation";
 import Loading from "./loading";
 import { GetHotelReviews } from "@/API/GET";
@@ -138,9 +138,6 @@ export default function Home() {
     return <Loading />;
   }
 
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
   const uniqueDestinations = Array.from(
     new Set(data?.map((destination) => destination.location.city.en))
   ).map((name) =>
@@ -166,10 +163,7 @@ export default function Home() {
       {/* offers section */}
       <section className="py-8 sm:py-20 hidden lg:block">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">
-          <Heading
-            title="Offers"
-            description="Promotions, deals and special offers for you"
-          />
+          <Heading title={t("offers")} description={t("offersDescription")} />
         </div>
         <div className="flex space-x-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           {/* Left card */}
@@ -183,17 +177,14 @@ export default function Home() {
           >
             <div className="p-6">
               <h2 className="text-xl text-white font-bold mb-2">
-                Seize the moment
+                {t("seizeTheMoment")}
               </h2>
-              <p className="text-white mb-4 text-sm">
-                Save 15% or more when you book and stay before 1 October <br />{" "}
-                2024
-              </p>
+              <p className="text-white mb-4 text-sm">{t("save15")}</p>
               <button
                 href="#"
                 className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-semibold"
               >
-                Find Getaway Deals
+                {t("findGetawayDeals")}
               </button>
             </div>
           </div>
@@ -201,18 +192,13 @@ export default function Home() {
           {/* Right card */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden w-1/2 flex justify-between">
             <div className="p-6 ">
-              <h2 className="text-xl font-bold mb-2">
-                Go for a good time, not a long time
-              </h2>
-              <p className="text-gray-700 mb-4 text-sm">
-                Finish your year with a mini break. Save 15% or more when you
-                book and stay by 7 January 2025.
-              </p>
+              <h2 className="text-xl font-bold mb-2">{t("goForAGoodTime")}</h2>
+              <p className="text-gray-700 mb-4 text-sm">{t("save15")}</p>
               <button
                 href="#"
                 className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-semibold"
               >
-                Find Late Escape Deals
+                {t("findLateEscapeDeals")}
               </button>
             </div>
             <div className="flex justify-center items-center pe-5">
@@ -231,8 +217,8 @@ export default function Home() {
       <section className="py-8 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
-            title="Trending destinations"
-            description="Travellers searching for Egypt also booked these"
+            title={t("trendingDestinations")}
+            description={t("travellersSearchingForEgyptAlsoBookedThese")}
           />
         </div>
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
@@ -249,7 +235,7 @@ export default function Home() {
             }}
           >
             <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
-              <h3 className="font-bold text-stroke">Luxor</h3>
+              <h3 className="font-bold text-stroke">{t("luxor")}</h3>
               <Image
                 src={EgyptFlag}
                 alt="Egypt Flag"
@@ -272,7 +258,7 @@ export default function Home() {
             }}
           >
             <div className="absolute top-0 left-0 text-white p-3 text-2xl z-10 flex items-center">
-              <h3 className="font-bold text-stroke">Cairo</h3>
+              <h3 className="font-bold text-stroke">{t("cairo")}</h3>
               <Image
                 src={EgyptFlag}
                 alt="Egypt Flag"
@@ -297,7 +283,7 @@ export default function Home() {
           >
             <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
               <h3 className="font-bold text-white text-2xl text-stroke">
-                Aswan
+                {t("aswan")}
               </h3>
               <Image
                 src={EgyptFlag}
@@ -321,7 +307,7 @@ export default function Home() {
           >
             <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
               <h3 className="font-bold text-white text-2xl text-stroke">
-                Hurghada
+                {t("hurghada")}
               </h3>
               <Image
                 src={EgyptFlag}
@@ -345,7 +331,7 @@ export default function Home() {
           >
             <div className="absolute top-0 left-0 w-full p-3 z-10 flex items-center">
               <h3 className="font-bold text-white text-2xl text-stroke">
-                Sharm El Sheikh
+                {t("sharmElSheikh")}
               </h3>
               <Image
                 src={EgyptFlag}
@@ -362,8 +348,8 @@ export default function Home() {
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
-            title="Explore Egypt"
-            description="These popular destinations have a lot to offer"
+            title={t("exploreEgypt")}
+            description={t("thesePopularDestinationsHaveALotToOffer")}
           />
         </div>
 
@@ -388,7 +374,7 @@ export default function Home() {
       {/* browse by property type section */}
       <section className="py-8 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading title="Browse by property type" />
+          <Heading title={t("browseByPropertyType")} />
         </div>
         <div className="mt-8 px-4 xl:mx-48">
           <Slider {...propertyTypeSliderSettings}>
@@ -419,8 +405,8 @@ export default function Home() {
       <section className="py-8 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
-            title="Quick and easy trip planner"
-            description="Pick a vibe and explore the top destinations in Egypt"
+            title={t("quickAndEasyTripPlanner")}
+            description={t("pickAVibeAndExploreTheTopDestinationsInEgypt")}
           />
         </div>
         <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar xl:mx-48">
@@ -447,41 +433,11 @@ export default function Home() {
           ))}
         </div>
       </section>
-      {/* deals section */}
-      {/* <section className="py-8 sm:py-4">
-        <div className="flex justify-start items-start flex-col mb-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading
-            title="Deals for the weekend"
-            description="Save on stays for November 13 - November 15"
-          />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Deals
-            imageSrc={NewCairo.src}
-            title="Comfort Giza Inn View"
-            location="Cairo, Egypt"
-            rating="9.4"
-            reviews="151"
-            oldPrice="3,923"
-            newPrice="2,354"
-            nights="2"
-          />
-          <Deals
-            imageSrc={Gouna.src}
-            title="Steigenberger Golf Resort El Gouna"
-            location="Hurghada, Egypt"
-            rating="8.9"
-            reviews="698"
-            oldPrice="20,730"
-            newPrice="12,438"
-            nights="2"
-          />
-        </div>
-      </section> */}
+
       {/* inspiration section */}
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading title="Get inspiration for your next trip" />
+          <Heading title={t("getInspirationForYourNextTrip")} />
         </div>
         <div className="flex flex-col lg:flex-row space-y-4 mt-4 lg:space-y-0 lg:space-x-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           {/* Large Card */}
@@ -497,11 +453,12 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
               <div className="absolute bottom-0 left-0 right-0 p-5 text-white z-10">
                 <h3 className="font-bold text-lg">
-                  {"New Year's Eve in New York City"}
+                  {t("newYearsEveInNewYorkCity")}
                 </h3>
                 <p className="text-sm mt-2">
-                  Ring in the new year with iconic moments and unforgettable
-                  memories in New York City.
+                  {t(
+                    "ringInTheNewYearWithIconicMomentsAndUnforgettableMemoriesInNewYorkCity"
+                  )}
                 </p>
               </div>
             </div>
@@ -521,10 +478,10 @@ export default function Home() {
                 />
                 <div className="pt-4">
                   <h3 className="font-bold text-base">
-                    6 best ryokans in Japan to rejuvenate yourself
+                    {t("6BestRyokansInJapanToRejuvenateYourself")}
                   </h3>
                   <p className="text-gray-600 text-sm mt-2">
-                    Discover unmissable ryokans to relax and unwind in style.
+                    {t("discoverUnmissableRyokansToRelaxAndUnwindInStyle")}
                   </p>
                 </div>
               </div>
@@ -542,12 +499,12 @@ export default function Home() {
                 />
                 <div className="pt-4">
                   <h3 className="font-bold text-base">
-                    7 best places in Asia to celebrate Christmas
+                    {t("7BestPlacesInAsiaToCelebrateChristmas")}
                   </h3>
                   <p className="text-gray-600 text-sm mt-2">
-                    {
-                      " Discover the shimmering lights and festive sights of Asia's holiday season."
-                    }
+                    {t(
+                      "discoverTheShimmeringLightsAndFestiveSightsOfAsiaSHolidaySeason"
+                    )}
                   </p>
                 </div>
               </div>
@@ -559,8 +516,8 @@ export default function Home() {
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading
-            title="Stay at our top unique properties"
-            description="From castles and villas to boats and igloos, we've got it all"
+            title={t("stayAtOurTopUniqueProperties")}
+            description={t("fromCastlesAndVillasToBoatsAndIgloosWeveGotItAll")}
           />
         </div>
 
@@ -570,7 +527,7 @@ export default function Home() {
               <div key={index} className="px-2">
                 <Properties
                   id={property._id}
-                  imageSrc={property.images[4]}
+                  imageSrc={property.images[3]}
                   title={property.name.en}
                   location={property.location.city.en}
                   nights={property.HouseRules.PricePerNight}
@@ -591,7 +548,7 @@ export default function Home() {
       {/* Travel section */}
       <section className="py-4 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading title="Travel more, spend less" />
+          <Heading title={t("travelMoreSpendLess")} />
         </div>
         <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar px-4 xl:mx-48">
           <Animated />
@@ -600,7 +557,7 @@ export default function Home() {
 
       <section className="py-1 sm:py-4">
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
-          <Heading title="Destinations we love" />
+          <Heading title={t("destinationsWeLove")} />
         </div>
         <div className="mt-8 flex space-x-4 overflow-x-auto custom-scrollbar xl:mx-48">
           {Object.keys(destinationData).map((type) => (

@@ -2,7 +2,7 @@
 import React, { useContext, useState } from "react";
 import Image from "next/image";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { FavoritesContext } from "@/context/favoritesContext";
+import { FavoritesContext } from "@/Context/favoritesContext";
 import Link from "next/link";
 
 function Properties({
