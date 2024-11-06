@@ -7,6 +7,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 import { useRouter } from "next/navigation";
 const SearchBar = () => {
   const router = useRouter();
+
   const [destination, setDestination] = useState("");
   const [allSuggestions] = useState([
     "Hurghada,EG",
