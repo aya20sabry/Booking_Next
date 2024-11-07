@@ -35,6 +35,7 @@ import Main from "@/Components/divs/Main";
 import SmFooter from "@/Components/Footer/smFooter";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
+import AccountTravel from "@/Components/AccountTravel/page";
 const data = {
   "Cities in Egypt": [
     { name: "Cairo", locations: 3, price: 1939.71, imge: giza8 },
@@ -211,37 +212,9 @@ function Cars() {
           </div>
         </div>
         <br />
-        <div>
-          <h4 className="my-6 m-6 Popular">Travel more, spend less</h4>
-        </div>
-        <div className=" flex justify-start m-6">
-          {/* <a href="#" className=" ">Learn more about your rewards</a> */}
-          <div>
-            <Alert className="flex ">
-              <div>
-                <AlertTitle className="Signin">Sign in, save money</AlertTitle>
-                <AlertDescription className="Save_10">
-                  Save 10% on select rental cars – just look for the blue Genius
-                  label
-                </AlertDescription>
-                <div className="flex justify-start">
-                  <Button className="bg-blue-500 w-12 h-7 mt-2">sign in</Button>
-                  <Button variant="ghost" className="w-14">
-                    Register
-                  </Button>
-                </div>
-              </div>
-              <div>
-                <Image
-                  src={GeniusGenericGiftBox}
-                  alt="My Image"
-                  width={100}
-                  height={90}
-                />
-              </div>
-            </Alert>
-          </div>
-        </div>
+      </section>
+      <section className="w-full mb-5">
+        <AccountTravel />
       </section>
 
       <section className="bg-gray-100 flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48 mb-4">

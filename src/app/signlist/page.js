@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -35,7 +35,9 @@ export default function Signlist() {
       }
     } catch (error) {
       console.error("Error checking email:", error);
-      window.alert("An error occurred while checking the email. Please try again.");
+      window.alert(
+        "An error occurred while checking the email. Please try again."
+      );
     }
   };
 
@@ -67,7 +69,7 @@ export default function Signlist() {
             </div>
 
             <button
-              type="submit" 
+              type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
             >
               {t("Continue")}
@@ -75,7 +77,9 @@ export default function Signlist() {
           </form>
 
           <div className="my-6 text-center text-gray-500">
-            {t("Do you have questions about your property or the extranet? Visit")}{" "}
+            {t(
+              "Do you have questions about your property or the extranet? Visit"
+            )}{" "}
             <a href="#" className="text-blue-600">
               {t("Partner Help")}
             </a>{" "}
@@ -107,7 +111,7 @@ export default function Signlist() {
           </p>
 
           <p className="mt-4 text-xs text-center text-gray-500">
-            {t("All rights reserved. Copyright (2006 - 2024) - Booking.com™")}
+            {t("All rights reserved")}
           </p>
         </div>
       </div>

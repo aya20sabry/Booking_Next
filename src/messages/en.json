@@ -241,16 +241,21 @@
     "Privacy Statement": "Privacy Statement"
   },
   "Signlist": {
-    "createAccount": "Create an account to list and manage your property",
+    "Create your partner account": "Create your partner account",
+    "Create an account to list and manage your property": "Create an account to list and manage your property",
+    "Email address": "Email address",
+    "Continue": "Continue",
+    "Do you have questions about your property or the extranet? Visit": "Do you have questions about your property or the extranet? Visit",
+    "Partner Help": "Partner Help",
+    "or ask another question on the": "or ask another question on the",
+    "Partner Community": "Partner Community",
+    "Sign in": "Sign in",
+    "By signing in or creating an account, you agree with our": "By signing in or creating an account, you agree with our",
+    "Terms & Conditions": "Terms & Conditions",
     "copyright": "All rights reserved Copyright (2006 - 2024) - Booking.com™",
-    "helpQuestion": "Do you have questions about your property or the extranet? Visit",
-    "partnerHelp": "Partner Help",
-    "orAskQuestion": "or ask another question on the",
-    "partnerCommunity": "Partner Community",
-    "termsAgreement": "By signing in or creating an account, you agree with our",
-    "termsAndConditions": "Terms & Conditions",
-    "privacyStatement": "Privacy Statement",
-    "signIn": "Sign in"
+    "Privacy Statement": "Privacy Statement",
+    "and": "and",
+    "All rights reserved": "All rights reserved. Copyright (2006 - 2024) - Booking.com™"
   },
   "Register": {
     "passwordRequirements": "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers",
