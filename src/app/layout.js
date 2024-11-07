@@ -1,8 +1,8 @@
 import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
-import UAParser from "ua-parser-js";
 import { SessionProvider } from "next-auth/react";
+import Script from "next/script";
 
 import FavoritesProvider from "@/Context/favoritesContext";
 
@@ -27,7 +27,9 @@ export default async function RootLayout({ children }) {
           <AuthProvider>
             <FavoritesProvider>
               <NextIntlClientProvider locale={locale} messages={messages}>
-                <script
+                <Script
+                  id="visit-tracker"
+                  strategy="afterInteractive"
                   dangerouslySetInnerHTML={{ __html: trackVisitScript }}
                 />
                 {children}

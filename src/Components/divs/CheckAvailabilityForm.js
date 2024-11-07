@@ -87,8 +87,11 @@ export default function CheckAvailabilityForm({
   console.log(value);
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex items-start  py-4">
-        <div className=" flex items-center w-80">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col sm:flex-row items-center gap-4 py-4"
+      >
+        <div className="w-full sm:w-80">
           <Datepicker
             value={value}
             onChange={(newValue) => {
@@ -99,13 +102,13 @@ export default function CheckAvailabilityForm({
             placeholder="Check-in Date — Check-out Date"
             popoverDirection="down"
             showShortcuts={false}
-            inputClassName=" h-12 w-80 px-4 py-2 border-4 rounded-lg border-yellow-400 bg-white cursor-pointer text-sm font-semibold text-gray-700 outline-none ps-10"
+            inputClassName="w-full h-12 px-4 py-2 border-4 rounded-lg border-yellow-400 bg-white cursor-pointer text-sm font-semibold text-gray-700 outline-none ps-10"
             toggleClassName="absolute left-3 top-1/2 transform -translate-y-1/2 w-8 h-8"
           />
         </div>
         <button
           type="submit"
-          className="-ml-12 z-10 text-center bg-[#006ce4] text-white px-4 py-2 rounded-lg border-4 border-yellow-400 hover:bg-blue-800 hover:text-white"
+          className="w-full sm:w-auto sm:-ml-12 z-10 text-center bg-[#006ce4] text-white px-4 py-2 rounded-lg border-4 border-yellow-400 hover:bg-blue-800 hover:text-white"
         >
           Change search
         </button>

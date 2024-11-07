@@ -17,7 +17,7 @@ import {
 } from "@/API/GET";
 import HotelSearch from "@/Components/Cards/HotelSearch";
 import Loading from "../loading";
-import OpenLayersMap from "@/Components/divs/OpenLayersMap";
+import Filteration from "@/Components/divs/filteration";
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -28,6 +28,7 @@ function SearchResults() {
   const [isLoading, setIsLoading] = useState(true);
   const [sortOption, setSortOption] = useState("recommended");
   const [hotelsWithDetails, setHotelsWithDetails] = useState([]);
+  const [activeFilters, setActiveFilters] = useState(null);
   const searchDataObj = {
     destination: searchParams.get("destination"),
     startDate: searchParams.get("startDate"),
@@ -111,6 +112,90 @@ function SearchResults() {
     setFilteredHotels(sortedHotels);
   };
 
+  const handleFilterChange = (filters) => {
+    setActiveFilters(filters);
+
+    let filtered = [...hotelsData];
+
+    // Filter by price
+    if (filters.priceRange) {
+      filtered = filtered.filter(
+        (hotel) => hotel.HouseRules.PricePerNight <= filters.priceRange.current
+      );
+    }
+
+    // Filter by amenities
+    if (filters.amenities) {
+      Object.entries(filters.amenities).forEach(([amenity, isSelected]) => {
+        if (isSelected) {
+          filtered = filtered.filter((hotel) => {
+            const hotelAmenities = hotel.amenities[0]?.facilities || {};
+            return hotelAmenities[amenity] === true;
+          });
+        }
+      });
+    }
+
+    // Filter by views
+    if (filters.views) {
+      Object.entries(filters.views).forEach(([view, isSelected]) => {
+        if (isSelected) {
+          filtered = filtered.filter((hotel) => {
+            const hotelViews = hotel.amenities[0]?.outdoorAndView || {};
+            return hotelViews[view] === true;
+          });
+        }
+      });
+    }
+
+    // Filter by meal options
+    if (filters.mealOptions) {
+      Object.entries(filters.mealOptions).forEach(([meal, isSelected]) => {
+        if (isSelected) {
+          filtered = filtered.filter((hotel) => {
+            const hotelFacilities = hotel.amenities[0]?.facilities || {};
+            return hotelFacilities[meal] === true;
+          });
+        }
+      });
+    }
+
+    // Filter by accessibility
+    if (filters.accessibility) {
+      Object.entries(filters.accessibility).forEach(([feature, isSelected]) => {
+        if (isSelected) {
+          filtered = filtered.filter((hotel) => {
+            const hotelAccessibility = hotel.amenities[0]?.accessibility || {};
+            return hotelAccessibility[feature] === true;
+          });
+        }
+      });
+    }
+
+    // Filter by rating
+    if (filters.rating) {
+      filtered = filtered.filter(
+        (hotel) => Math.round(hotel.AverageRating) >= filters.rating
+      );
+    }
+
+    // Apply destination filter if exists
+    if (searchDataObj.destination) {
+      let destination = searchDataObj.destination
+        .toLowerCase()
+        .trim(",")
+        .split(",")[0];
+      filtered = filtered.filter(
+        (hotel) =>
+          hotel.location.city.en.toLowerCase() === destination &&
+          hotel.approved === true
+      );
+    }
+
+    setFilteredHotels(filtered);
+  };
+
+  console.log(filteredHotels);
   return (
     <>
       <Navbar />
@@ -143,66 +228,12 @@ function SearchResults() {
             </ol>
           </nav>
           <div className="flex flex-col lg:flex-row gap-6">
-            {/* Filters Section */}
-            <div className="w-full lg:w-1/4">
-              <button
-                className="lg:hidden w-full bg-blue-500 text-white py-2 rounded mb-4"
-                onClick={() => setIsFilterOpen(!isFilterOpen)}
-              >
-                {isFilterOpen ? "Hide Filters" : "Show Filters"}
-              </button>
-              <div
-                className={`${
-                  isFilterOpen ? "block" : "hidden"
-                } lg:block bg-white rounded-lg shadow-md p-4`}
-              >
-                <div className=" rounded-lg border-1 border-gray-500 ">
-                  <OpenLayersMap destination={searchData.destination} />
-                </div>
-                <h2 className="text-lg font-bold my-4">Filter by:</h2>
-                {/* Popular filters */}
-                <div className="mb-6">
-                  <h3 className="font-semibold mb-2">Popular filters</h3>
-                  <div className="space-y-2">
-                    <label className="flex items-center">
-                      <input type="checkbox" className="mr-2" />
-                      <span>Breakfast included</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input type="checkbox" className="mr-2" />
-                      <span>Beach access</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input type="checkbox" className="mr-2" />
-                      <span>Pool</span>
-                    </label>
-                  </div>
-                </div>
-                {/* Price range */}
-                <div className="mb-6">
-                  <h3 className="font-semibold mb-2">
-                    Your budget (per night)
-                  </h3>
-                  <input type="range" min="0" max="1000" className="w-full" />
-                  <div className="flex justify-between text-sm">
-                    <span>$0</span>
-                    <span>$1000+</span>
-                  </div>
-                </div>
-                {/* Star rating */}
-                <div className="mb-6">
-                  <h3 className="font-semibold mb-2">Star rating</h3>
-                  <div className="space-y-2">
-                    {[5, 4, 3, 2, 1].map((stars) => (
-                      <label key={stars} className="flex items-center">
-                        <input type="checkbox" className="mr-2" />
-                        <span>{stars} stars</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Filteration
+              isFilterOpen={isFilterOpen}
+              setIsFilterOpen={setIsFilterOpen}
+              searchData={searchData}
+              onFilterChange={handleFilterChange}
+            />
             {/* Results Section */}
             <div className="w-full lg:w-3/4">
               <div className="bg-white rounded-lg shadow-md p-4">

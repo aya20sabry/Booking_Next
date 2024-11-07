@@ -136,7 +136,10 @@
     "fine_print_description": "Must-know information for guests at this property",
     "still_looking": "Still looking?",
     "ask_a_question": "Ask a question",
-    "we_have_an_instant_answer_to_most_questions": "We have an instant answer to most questions"
+    "we_have_an_instant_answer_to_most_questions": "We have an instant answer to most questions",
+    "good": "Good",
+    "excellent": "Excellent",
+    "be_the_first_to_review": "Be the first to review this property"
   },
   "Book": {
     "your_booking_details": "Your booking details",

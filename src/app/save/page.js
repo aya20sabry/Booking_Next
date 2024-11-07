@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext } from "react";
-import { FavoritesContext } from "@/context/favoritesContext";
+import { FavoritesContext } from "@/Context/favoritesContext";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
 import FavoritesCounter from "@/Components/favourite/favouites";

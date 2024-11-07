@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FavoritesContext } from "@/context/favoritesContext";
+import { FavoritesContext } from "@/Context/favoritesContext";
 import { FaRegHeart } from "react-icons/fa";
 const FavoritesCounter = () => {
   const { getFavoritesCount } = useContext(FavoritesContext);

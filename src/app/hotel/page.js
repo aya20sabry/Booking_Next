@@ -3,7 +3,7 @@ import GuestReviews from "@/Components/HotelPage/GuestReviews";
 import TravelersAsking from "@/Components/HotelPage/TravelersAsking";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
-import SearchBar from "@/Components/searchBar/AttractionSearch";
+import SearchBar from "@/Components/searchBar/searchBar";
 import { useState, useEffect } from "react";
 import OverView from "@/Components/divs/overView";
 import HotelFacilities from "@/Components/divs/hotelFacilities";
@@ -103,7 +103,10 @@ function Hotel() {
         <>
           <Navbar />
           <Header />
-          <div className="bg-gradient-to-b from-[#003B95] to-[#003B95] bg-no-repeat bg-[length:100%_50%]">
+          <div
+            className="bg-gradient-to-b from-[#003B95] to-[#003B95] bg-no-repeat bg-[length:100%_50%]"
+            id="search"
+          >
             <SearchBar />
           </div>
 

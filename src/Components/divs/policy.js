@@ -22,8 +22,8 @@ function Policy({ hotel }) {
         title={t("policies")}
         description={`${hotel?.name[locale]} ${t("takes_special_requests")}`}
       />
-      <section className="mx-auto max-w-6xl mt-6 ">
-        <div className=" border border-[#E0E0E0] rounded-md p-4  w-full">
+      <section className="mx-auto max-w-6xl mt-4 sm:mt-6 px-4 sm:px-6 lg:px-8">
+        <div className="border border-[#E0E0E0] rounded-md p-2 sm:p-4 w-full">
           <TableRow
             icon={HiArrowRightEndOnRectangle}
             title={t("check_in")}

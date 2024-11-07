@@ -55,24 +55,6 @@ const facilityIcons = {
 
 function HotelFacilities({ hotel, amenities }) {
   const t = useTranslations("Hotel");
-  const facilities = {
-    Parking: true,
-    SwimmingPool: true,
-    Gym: true,
-    Breakfast: true,
-    Dinner: true,
-    Lunch: true,
-    RoomService: true,
-    AirportShuttle: true,
-    Babysitting: true,
-    Laundry: true,
-    DryCleaning: true,
-    Ironing: true,
-    Beachfront: true,
-    FreeParking: true,
-    Spa: true,
-    Sauna: true,
-  };
 
   if (!amenities)
     return (

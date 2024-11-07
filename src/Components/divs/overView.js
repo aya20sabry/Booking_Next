@@ -107,9 +107,9 @@ function OverView({ hotel, amenities }) {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <section
-          className="flex justify-between items-start gap-4"
+          className="flex flex-col sm:flex-row justify-between items-start gap-4"
           dir={locale === "ar" ? "rtl" : "ltr"}
         >
           <div>
@@ -172,25 +172,31 @@ function OverView({ hotel, amenities }) {
           </div>
         </section>
       </div>
-      <section className="mx-auto max-w-6xl mt-4">
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2">
+      <section className="mx-auto max-w-6xl mt-4 px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-2">
             <PhotoGallery images={hotel?.images} />
           </div>
-          <div className="col-span-1 ">
+          <div className="lg:col-span-1">
             <div className="bg-white rounded-md">
               <div className="border border-gray-200 rounded-lg">
                 <div className="flex justify-end items-center mb-1 border-b p-3">
                   <div className="mr-2 flex flex-col justify-center">
                     <h2 className="text-base font-semibold">
-                      {t("very_good")}
+                      {hotel?.AverageRating > 4
+                        ? t("excellent")
+                        : hotel?.AverageRating > 3
+                        ? t("very_good")
+                        : hotel?.AverageRating == 0
+                        ? t("no_reviews_yet")
+                        : t("good")}
                     </h2>
                     <p className="text-xs text-gray-600">
                       {reviews?.length} {t("reviews")}
                     </p>
                   </div>
                   <p className="bg-[#003B95] text-white font-bold rounded px-2 py-1 text-lg mx-2">
-                    8.3
+                    {hotel?.AverageRating}
                   </p>
                 </div>
                 <div className="px-2 py-1">
@@ -253,17 +259,17 @@ function OverView({ hotel, amenities }) {
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-md w-[370px] mt-2">
-              <div className=" rounded-lg ">
+            <div className="bg-white rounded-md w-full lg:w-[370px] mt-2">
+              <div className="rounded-lg">
                 <OpenLayersMap hotel={hotel} />
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-3 gap-4 pt-6">
-          <div className="col-span-2 ">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-6">
+          <div className="lg:col-span-2">
             <p className="text-sm whitespace-pre-line">
               {hotel?.description[locale]}
             </p>
@@ -294,7 +300,7 @@ function OverView({ hotel, amenities }) {
               </div>
             </section>
           </div>
-          <div className="col-span-1 bg-[#F0F6FF] rounded-lg p-6 h-fit">
+          <div className="lg:col-span-1 bg-[#F0F6FF] rounded-lg p-4 sm:p-6 h-fit">
             <h2 className="text-base font-bold">{t("property_highlights")}</h2>
             <p className="text-sm font-bold mt-2">
               {t("perfect_for_a_1_night_stay")}

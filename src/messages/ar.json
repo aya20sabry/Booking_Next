@@ -139,7 +139,8 @@
     "parties_not_allowed": "لا يسمح بالحفلات",
     "cash": "نقدا",
     "fine_print": "شروط مفصلة",
-    "fine_print_description": "معلومات يحتاج الضيوف لمعرفتها في مكان الإقامة هذا"
+    "fine_print_description": "معلومات يحتاج الضيوف لمعرفتها في مكان الإقامة هذا",
+    "be_the_first_to_review": "كن أول من يقيم هذا العقار"
   },
   "Book": {
     "your_booking_details": "تفاصيل حجزك",
