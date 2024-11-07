@@ -1,7 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { GetHotelAmenities } from "@/API/GET";
 import HotelAmenities from "@/Components/divs/Facilities";
 import { TbParkingCircle } from "react-icons/tb";
 import {
@@ -28,6 +26,7 @@ import {
 } from "react-icons/fa";
 import SubHeading from "../Headings/SubHeading";
 import { MdOutlineIron } from "react-icons/md";
+import { useTranslations } from "next-intl";
 const facilityIcons = {
   Parking: FaCar,
   SwimmingPool: FaSwimmingPool,
@@ -55,6 +54,7 @@ const facilityIcons = {
 };
 
 function HotelFacilities({ hotel, amenities }) {
+  const t = useTranslations("Hotel");
   const facilities = {
     Parking: true,
     SwimmingPool: true,
@@ -82,12 +82,9 @@ function HotelFacilities({ hotel, amenities }) {
     );
   return (
     <>
-      <SubHeading
-        title="Most popular facilities of the hotel"
-        description="Great facilities!"
-      />
+      <SubHeading title={t("facilities")} description={t("great_facilities")} />
       <section className="mx-auto max-w-6xl my-6 ">
-        <h2 className="text-base font-bold">Most popular facilities</h2>
+        <h2 className="text-base font-bold">{t("most_popular_facilities")}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
           {Object.entries(amenities[0].facilities || {}).map(
             ([facility, value]) => {

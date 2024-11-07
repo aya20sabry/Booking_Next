@@ -9,6 +9,7 @@ import { LiaConciergeBellSolid } from "react-icons/lia";
 import { PiFlowerTulip } from "react-icons/pi";
 import { RiWheelchairLine } from "react-icons/ri";
 import { GiGolfFlag } from "react-icons/gi";
+
 const AmenityIcon = ({ name }) => {
   const icons = {
     bed: IoBedOutline,
@@ -21,12 +22,12 @@ const AmenityIcon = ({ name }) => {
     activity: GiGolfFlag,
   };
   const Icon = icons[name] || (() => null);
-  return <Icon className="w-5 h-5 mr-2" />;
+  return <Icon className="w-5 h-5 mx-2" />;
 };
 
 const AmenityItem = ({ text }) => (
   <div className="flex items-center mb-2">
-    <IoCheckmark className="w-4 h-4 mr-2" />
+    <IoCheckmark className="w-4 h-4 mx-2" />
     <span className="text-sm">{text}</span>
   </div>
 );

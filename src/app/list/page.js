@@ -1,6 +1,8 @@
+
 "use client"
 
 import Image from "next/image";
+
 
 
 
@@ -11,8 +13,9 @@ import {
   AccordionTrigger,
 } from "@/Components/ui/accordion";
 import Link from "next/link";
-
+import { useLocale } from "next-intl";
 export default function List() {
+  const locale = useLocale();
   return (
     <div>
       <header className="bg-blue-900 text-white p-4">
@@ -49,6 +52,7 @@ export default function List() {
           </div>
         </div>
       </header>
+
 
       {/* Modified hero section with flex layout */}
       <div className="flex justify-between items-center bg-blue-900 px-8 py-16">
@@ -95,6 +99,7 @@ export default function List() {
             </a>
           </p>
         </div>
+
       </div>
 
       <div className="w-full">

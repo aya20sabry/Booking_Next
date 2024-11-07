@@ -36,6 +36,12 @@ import Istanbul from "@/Public/Cities/Europe/Istanbul.jpg";
 import Hamburg from "@/Public/Cities/Europe/Hamburg.jpg";
 import Amsterdam from "@/Public/Cities/Europe/Amsterdam.jpg";
 import Lisbon from "@/Public/Cities/Europe/Lisbon.jpg";
+import PortSaid from "@/Public/Cities/PortSaid.webp";
+import SiwaOasis from "@/Public/Cities/Siwa.webp";
+import Fayoum from "@/Public/Cities/Fayoum.webp";
+import SaintCatherine from "@/Public/Cities/SaintCathrine.webp";
+import RasMohammed from "@/Public/Cities/RasMuhammed.webp";
+import ElGouna from "@/Public/Cities/Elgouna.webp";
 
 export const imageMap = {
   Aswan,
@@ -48,6 +54,12 @@ export const imageMap = {
   Dahab,
   Siwa,
   "Marsa Matruh": MarsaMatruh,
+  "Port Said": PortSaid,
+  "Siwa Oasis": SiwaOasis,
+  Fayoum,
+  "Saint Catherine": SaintCatherine,
+  "Ras Mohammed": RasMohammed,
+  "El Gouna": ElGouna,
 };
 
 export const BrowseImagesMap = {
@@ -78,6 +90,7 @@ export const destinations = [
   { name: "Alexandria", things: 172, image: Alex },
   { name: "Hurghada", things: 2461, image: imageMap.Hurghada },
   { name: "Marsa Alam", things: 475, image: Alam },
+  { name: "Port Said", things: 123, image: PortSaid },
 ];
 export const AttractionsPage = [
   { name: "London", things: 2419, image: London },

@@ -12,8 +12,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useTranslations, useLocale } from "next-intl";
+import { Drawer } from "@mui/material";
+import Reviews from "./reviews";
 
 const GuestReviews = ({ hotel }) => {
+  const locale = useLocale();
+  const t = useTranslations("Hotel");
   const [reviews, setReviews] = useState(null);
   useEffect(() => {
     const fetchReviews = async () => {
@@ -35,12 +40,17 @@ const GuestReviews = ({ hotel }) => {
   }
   const ratingCategory = calculateRatingCategory(ratings);
   function getRatingCategory(rating) {
-    if (rating >= 8) return "Excellent";
-    if (rating >= 7) return "Very good";
-    if (rating >= 6) return "Good";
-    if (rating >= 5) return "Average";
-    return "Poor";
+    if (rating >= 8) return t("excellent");
+    if (rating >= 7) return t("very_good");
+    if (rating >= 6) return t("good");
+    if (rating >= 5) return t("average");
+    return t("poor");
   }
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   function getCategoryAverages(reviews) {
     if (!reviews || reviews.length === 0) return [];
@@ -115,88 +125,103 @@ const GuestReviews = ({ hotel }) => {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <SubHeading title="Guest reviews" />
+      <SubHeading title={t("guest_reviews")} />
 
-      <div className="py-2 flex items-center gap-2 mb-4">
-        <span className="text-sm px-2 py-2 font-bold mr-2 bg-blue-900 text-white rounded">
-          {ratingCategory}
-        </span>
-        <h2 className="font-semibold text-base text-black">
-          {getRatingCategory(ratingCategory)}
-        </h2>
-        <div className="text-sm font-semibold text-[#595959]">
-          {reviews?.length} reviews{" "}
-          <a href="#" className=" text-blue-600 text-xs">
-            Read all reviews
-          </a>
+      {!reviews || reviews.length === 0 ? (
+        <div className="text-center py-8 text-gray-500">
+          <h2 className="text-2xl font-semibold">{t("no_reviews_yet")}</h2>
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="py-2 flex items-center gap-2 mb-4">
+            <span className="text-sm px-2 py-2 font-bold mr-2 bg-blue-900 text-white rounded">
+              {ratingCategory}
+            </span>
+            <h2 className="font-semibold text-base text-black">
+              {getRatingCategory(ratingCategory)}
+            </h2>
+            <div className="text-sm font-semibold text-[#595959]">
+              {reviews?.length} {t("reviews")}{" "}
+              <a href="#" className=" text-blue-600 text-xs">
+                {t("read_all_reviews")}
+              </a>
+            </div>
+          </div>
 
-      <h3 className="font-bold mb-2 text-base">Categories:</h3>
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        {categoryAverages.map(({ category, average }) => (
-          <RatingBar key={category} category={category} score={average} />
-        ))}
-      </div>
+          <h3 className="font-bold mb-2 text-base">{t("categories")}:</h3>
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            {categoryAverages.map(({ category, average }) => (
+              <RatingBar key={category} category={category} score={average} />
+            ))}
+          </div>
 
-      <h3 className="font-bold mb-2">Select topics to read reviews:</h3>
-      <div className="flex space-x-2 mb-6">
-        {["Breakfast", "Lunch", "Dinner"].map((topic, index) => (
-          <button
-            key={index}
-            className="border rounded-full px-3 py-1 flex items-center text-sm font-semibold"
-          >
-            <GoPlus size={16} className="mr-1 " /> {topic}
-          </button>
-        ))}
-      </div>
+          <h3 className="font-bold mb-2">{t("select_topics")}:</h3>
+          <div className="flex space-x-2 mb-6">
+            {["Breakfast", "Lunch", "Dinner"].map((topic, index) => (
+              <button
+                key={index}
+                className="border rounded-full px-3 py-1 flex items-center text-sm font-semibold"
+              >
+                <GoPlus size={16} className="mr-1 " /> {topic}
+              </button>
+            ))}
+          </div>
 
-      <h3 className="font-bold mb-4">Guests who stayed here loved</h3>
-      {reviews && reviews.length > 0 && (
-        <div className="mb-6 relative">
-          {reviews.length > 3 ? (
-            <Slider ref={setSliderRef} {...sliderSettings}>
-              {reviews.map((review, index) => (
-                <div key={index} className="px-2">
-                  <ReviewCard review={review} />
+          <h3 className="font-bold mb-4">
+            {t("guests_who_stayed_here_loved")}:
+          </h3>
+          {reviews && reviews.length > 0 && (
+            <div className="mb-6 relative">
+              {reviews.length > 3 ? (
+                <Slider ref={setSliderRef} {...sliderSettings}>
+                  {reviews.map((review, index) => (
+                    <div key={index} className="px-2">
+                      <ReviewCard review={review} />
+                    </div>
+                  ))}
+                </Slider>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {reviews.map((review, index) => (
+                    <ReviewCard key={index} review={review} />
+                  ))}
                 </div>
-              ))}
-            </Slider>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {reviews.map((review, index) => (
-                <ReviewCard key={index} review={review} />
-              ))}
+              )}
             </div>
           )}
-        </div>
+
+          <button
+            className="border border-blue-600 text-blue-600 px-3 py-2 rounded text-sm font-semibold"
+            onClick={toggleDrawer(true)}
+          >
+            {t("read_all_reviews")}
+          </button>
+          <Drawer open={open} onClose={toggleDrawer(false)} anchor="right">
+            <Reviews reviews={reviews} />
+          </Drawer>
+
+          <div className="mt-6 p-4 border-2 border-grey-600  rounded-lg ">
+            <div className="flex items-center justify-start">
+              <h3 className="font-bold  mb-2 text-xl">{t("quality_rating")}</h3>
+              <Rating
+                value={hotel?.AverageRating}
+                readOnly
+                precision={0.5}
+                className="ms-2"
+                size="small"
+                icon={<FaDotCircle size={16} className="text-yellow-500" />}
+                emptyIcon={<FaDotCircle size={16} className="text-grey-500" />}
+              />
+            </div>
+            <div>
+              <span className="text-sm ">
+                {t("booking_com_rated_the_quality_of_this_property_as")}{" "}
+                {hotel?.AverageRating} {t("out_of_5")} {t("based_on_factors")}
+              </span>
+            </div>
+          </div>
+        </>
       )}
-
-      <button className="border border-blue-600 text-blue-600 px-3 py-2 rounded text-sm font-semibold">
-        Read all reviews
-      </button>
-
-      <div className="mt-6 p-4 border-2 border-grey-600  rounded-lg ">
-        <div className="flex items-center justify-start">
-          <h3 className="font-bold  mb-2 text-xl">Quality rating</h3>
-          <Rating
-            value={hotel?.AverageRating}
-            readOnly
-            precision={0.5}
-            className="ms-2"
-            size="small"
-            icon={<FaDotCircle size={16} className="text-yellow-500" />}
-            emptyIcon={<FaDotCircle size={16} className="text-grey-500" />}
-          />
-        </div>
-        <div>
-          <span className="text-sm ">
-            Booking.com rated the quality of this property as{" "}
-            {hotel?.AverageRating} out of 5 based on factors like facilities,
-            size, location, and service.
-          </span>
-        </div>
-      </div>
     </div>
   );
 };

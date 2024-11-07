@@ -5,11 +5,16 @@ import SmFooter from "@/Components/Footer/smFooter";
 import Footertaxi from "@/Components/Footertaxi/page";
 import Header from "@/Components/Navbar/Header";
 import Navbar from "@/Components/Navbar/Navbar";
+
 import SearchBar from "@/Components/searchBar/AttractionSearch";
 import TaxiBook from "@/Components/Taxibook/page";
 import TaxiSelector from "@/Components/TaxiSelector/page";
 
+
+import { useLocale } from "next-intl";
+
 function Taxi() {
+  const locale = useLocale();
   return (
     <>
       <Navbar />

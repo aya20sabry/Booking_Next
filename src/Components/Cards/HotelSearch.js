@@ -13,6 +13,7 @@ const HotelSearch = ({
   image,
   reviewCount,
   score,
+  id,
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -24,12 +25,12 @@ const HotelSearch = ({
           <Image
             src={image}
             alt={name}
-            className="rounded-lg w-full md:w-60"
+            className="w-60 h-60 rounded-lg"
             width={240}
             height={240}
           />
           <button
-            className="absolute top-4 right-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-200"
+            className="absolute top-4 right-8 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-200"
             onClick={() => setIsFavorite(!isFavorite)}
           >
             {isFavorite ? (
@@ -44,9 +45,9 @@ const HotelSearch = ({
         <div className="md:w-1/2 pr-4">
           <h2 className="text-xl font-bold text-blue-600">{name}</h2>
           <div className="flex items-center text-yellow-400 mb-2 text-xl">
-            {"★".repeat(Math.floor(rating))}
-            {rating % 1 !== 0 && "½"}
-            {"☆".repeat(5 - Math.ceil(rating))}
+            {"★".repeat(Math.floor(score))}
+            {score % 1 !== 0 && "½"}
+            {"☆".repeat(5 - Math.ceil(score))}
           </div>
           <div className="flex items-center gap-2 mb-2">
             <p className="text-xs text-blue-600 underline font-semibold">
@@ -62,7 +63,7 @@ const HotelSearch = ({
           <div className=" mb-4 flex  items-center justify-between">
             <div className="flex flex-col">
               <span className="font-semibold text-sm block">
-                {score >= 9 ? "Exceptional" : "Very Good"}
+                {score === 0 ? "New" : score >= 4 ? "Exceptional" : "Good"}
               </span>
               <span className="text-xs text-gray-600 block">
                 {reviewCount} reviews
@@ -73,7 +74,7 @@ const HotelSearch = ({
             </div>
           </div>
           <div>
-            <Link href="/hotel">
+            <Link href={`/hotel?id=${id}`}>
               <button className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">
                 Show prices
               </button>

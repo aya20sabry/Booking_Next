@@ -14,14 +14,17 @@ import { Style, Icon } from "ol/style";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { renderToStaticMarkup } from "react-dom/server";
 
-const OpenLayersMap = ({ hotel }) => {
+const OpenLayersMap = ({ hotel, destination }) => {
   let location = hotel?.location;
   const mapRef = useRef(null);
   const [coordinates, setCoordinates] = useState(null);
+  console.log("destination", destination);
 
   useEffect(() => {
     const geocode = async () => {
-      const address = ` ${location.city.en}, ${location.country.en}`;
+      const address = ` ${location?.city?.en || destination}, ${
+        location?.country?.en || "Egypt"
+      } `;
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
           address
@@ -42,7 +45,6 @@ const OpenLayersMap = ({ hotel }) => {
         features: [new Feature(new Point(fromLonLat(coordinates)))],
       });
 
-      // Create a custom SVG icon
       const iconSvg = renderToStaticMarkup(
         <FaMapMarkerAlt style={{ color: "#3b82f6", fontSize: "24px" }} />
       );

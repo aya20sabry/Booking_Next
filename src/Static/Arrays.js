@@ -178,7 +178,7 @@ export const categories = [
   { name: "Value for money", score: 8.5 },
   { name: "Location", score: 8.5 },
 ];
-export const questions = [
+export const questionsen = [
   "Do they serve breakfast?",
   "Is there a restaurant?",
   "Is the swimming pool open?",
@@ -189,4 +189,16 @@ export const questions = [
   "How and when do I pay?",
   "Are there rooms with a balcony?",
   "Are there rooms with an ocean view?",
+];
+export const questionsar = [
+  "هل يوفرون إفطار؟",
+  "هل هناك مطعم؟",
+  "هل يكون المسبح مفتوح؟",
+  "ما هي المطاعم والمنشآت الترفيهية القريبة؟",
+  "هل هناك مراكز ترفيهية؟",
+  "هل يمكنني إحضار حيواني أحد؟",
+  "هل يمكنني ركن سيارتي هناك؟",
+  "كيف ومتى يمكنني الدفع؟",
+  "هل هناك غرف مع شرفة؟",
+  "هل هناك غرف تطل على البحر؟",
 ];

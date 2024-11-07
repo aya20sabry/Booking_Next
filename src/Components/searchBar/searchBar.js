@@ -5,8 +5,11 @@ import { LuUser2 } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+
 const SearchBar = () => {
-  const router = useRouter(); 
+  const router = useRouter();
+  const t = useTranslations("HomePage");
   const [destination, setDestination] = useState("");
   const [allSuggestions] = useState([
     "Hurghada,EG",
@@ -65,7 +68,6 @@ const SearchBar = () => {
   }, [openSection]);
 
   const handleSearch = () => {
-   
     const queryParams = new URLSearchParams({
       destination,
       startDate: value.startDate,
@@ -73,7 +75,7 @@ const SearchBar = () => {
       adults: guestInfo.adults,
       children: guestInfo.children,
       rooms: guestInfo.rooms,
-     
+
       isVacationHome,
       isTravelingWithPets,
     });
@@ -140,7 +142,7 @@ const SearchBar = () => {
             <IoBedOutline className="h-8 w-8 text-gray-600 mr-2" />
             <input
               type="text"
-              placeholder="Where are you going?"
+              placeholder={t("whereAreYouGoing")}
               className="w-full outline-none text-gray-700 text-sm border-none"
               value={destination}
               onChange={handleDestinationChange}
@@ -151,7 +153,7 @@ const SearchBar = () => {
             <Datepicker
               value={value}
               onChange={(newValue) => setValue(newValue)}
-              placeholder="Check-in Date — Check-out Date"
+              placeholder={`${t("checkInDate")} — ${t("checkOutDate")}`}
               popoverDirection="down"
               showShortcuts={false}
               inputClassName="w-full h-16 px-4 py-2 border-4 rounded-lg border-yellow-300 bg-white cursor-pointer text-sm font-semibold text-gray-700 outline-none ps-10"
@@ -165,15 +167,17 @@ const SearchBar = () => {
           >
             <LuUser2 className="h-6 w-6 text-gray-600 mr-2" />
             <span className="text-black font-semibold text-sm">
-              {`${guestInfo.adults} adults · ${guestInfo.children} children · ${guestInfo.rooms} room`}
+              {`${guestInfo.adults} ${t("adults")} · ${guestInfo.children} ${t(
+                "children"
+              )} · ${guestInfo.rooms} ${t("room")}`}
             </span>
           </div>
           <button
             className="border-4 rounded-lg border-yellow-300 bg-blue-600 "
-            onClick={handleSearch} 
+            onClick={handleSearch}
           >
             <span className="text-white px-8 py-3 text-xl font-semibold hover:bg-blue-700 transition-colors">
-              Search
+              {t("search")}
             </span>
           </button>
         </div>
@@ -302,4 +306,3 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
-                        
