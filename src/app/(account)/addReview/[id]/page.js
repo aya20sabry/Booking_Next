@@ -35,7 +35,9 @@ function AddReview() {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      setUserId(decoded.userId);
+      console.log(decoded.id);
+      setUserId(decoded.id);
+      console.log(decoded.id);
     }
   }, []);
 
@@ -60,7 +62,7 @@ function AddReview() {
 
       await PostReview(reviewData, id);
       toast.success("Review submitted successfully");
-      router.push(`/hotel/${id}`);
+      router.push(`/hotel?id=${id}`);
     } catch (error) {
       console.error("Error submitting review:", error);
       toast.error("Failed to submit review");
