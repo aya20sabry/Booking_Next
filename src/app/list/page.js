@@ -1,10 +1,6 @@
-
-"use client"
+"use client";
 
 import Image from "next/image";
-
-
-
 
 import {
   Accordion,
@@ -53,7 +49,6 @@ export default function List() {
         </div>
       </header>
 
-
       {/* Modified hero section with flex layout */}
       <div className="flex justify-between items-center bg-blue-900 px-8 py-16">
         {/* Left side content */}
@@ -62,8 +57,8 @@ export default function List() {
             List <span className="text-blue-500">anything</span> on Booking.com
           </h1>
           <p className="mt-4 text-lg text-gray-300">
-            Whether hosting is your side passion or full-time job, list your home
-            today and quickly start earning more income.
+            Whether hosting is your side passion or full-time job, list your
+            home today and quickly start earning more income.
           </p>
         </div>
 
@@ -99,23 +94,33 @@ export default function List() {
             </a>
           </p>
         </div>
-
       </div>
 
       <div className="w-full">
         {/* Navigation Links */}
         <div className="flex space-x-8 bg-gray-100 py-4 px-8">
-          {['peace-of-mind', 'stand-out', 'global-base', 'what-hosts-say', 'questions-answered'].map((id) => (
+          {[
+            "peace-of-mind",
+            "stand-out",
+            "global-base",
+            "what-hosts-say",
+            "questions-answered",
+          ].map((id) => (
             <a
               key={id}
               href={`#${id}`}
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                document
+                  .getElementById(id)
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
               className="text-black hover:bg-gray-200 focus:text-blue-800 border-b-2 border-transparent focus:border-blue-800 transition"
             >
-              {id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+              {id
+                .split("-")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")}
             </a>
           ))}
         </div>
@@ -129,8 +134,20 @@ export default function List() {
             <div className="space-y-6 text-gray-800">
               <div className="flex items-start space-x-4">
                 <span class="flex items-center justify-center w-6 h-6 rounded-full bg-blue-800">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 6L9 17L4 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6L9 17L4 12"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </span>
 
@@ -148,7 +165,9 @@ export default function List() {
               <div className="flex items-start space-x-4">
                 <span className="text-2xl text-green-600">✔️</span>
                 <div>
-                  <h3 className="font-semibold text-black">Your own house rules</h3>
+                  <h3 className="font-semibold text-black">
+                    Your own house rules
+                  </h3>
                   <p>
                     Communicate your house rules to potential guests who must
                     agree in order to book.
@@ -209,7 +228,8 @@ export default function List() {
                 <div>
                   <h3 className="font-semibold text-black">Verified guests</h3>
                   <p>
-                    We verify guests' email addresses and credit cards for partners on Payments by Booking.com.
+                    We verify guests&apos; email addresses and credit cards for
+                    partners on Payments by Booking.com.
                   </p>
                 </div>
               </div>
@@ -246,9 +266,9 @@ export default function List() {
                   Import your reviews
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto">
-                  We import your review score from other platforms and display it
-                  on your Booking.com property page, so you don't start at zero
-                  reviews.
+                  We import your review score from other platforms and display
+                  it on your Booking.com property page, so you don&apos;t start
+                  at zero reviews.
                 </p>
               </div>
 
@@ -282,15 +302,18 @@ export default function List() {
                   Stand out in the market
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed mt-2 text-center max-w-md mx-auto">
-                  The "New to Booking.com" label helps you stand out in our search
-                  results.
+                  The &quot;New to Booking.com&quot; label helps you stand out
+                  in our search results.
                 </p>
               </div>
             </div>
           </div>
         </section>
         {/* Global Base Section */}
-        <div id="global-base" className="relative bg-gray-100 py-12 px-4 text-center">
+        <div
+          id="global-base"
+          className="relative bg-gray-100 py-12 px-4 text-center"
+        >
           {/* Background Image */}
           <div
             className="absolute inset-0 bg-no-repeat bg-center bg-cover"
@@ -326,15 +349,16 @@ export default function List() {
                 <p className="text-5xl font-bold text-gray-900">33%</p>
                 <p className="mt-2 text-gray-700">
                   of vacation rental customers are at Genius Level 2 or 3. These
-                  travelers tend to spend more and book directly on our platform.
+                  travelers tend to spend more and book directly on our
+                  platform.
                 </p>
               </div>
 
               <div>
                 <p className="text-5xl font-bold text-gray-900">30%</p>
                 <p className="mt-2 text-gray-700">
-                  of all nights booked on our platform were at a vacation rental.
-                  More travelers flex book both hotels and alternative
+                  of all nights booked on our platform were at a vacation
+                  rental. More travelers flex book both hotels and alternative
                   accommodations.
                 </p>
               </div>
@@ -353,44 +377,55 @@ export default function List() {
               {/* Testimonial Cards */}
               {[
                 {
-                  quote: "I was able to list within 15 minutes, and no more than two hours later, I had my first booking!",
+                  quote:
+                    "I was able to list within 15 minutes, and no more than two hours later, I had my first booking!",
                   image: "/Uk.jpg",
                   name: "Parley Rose",
-                  title: "UK-based host"
+                  title: "UK-based host",
                 },
                 {
-                  quote: "Booking.com is the most straightforward platform to work with. Everything is clear, and it's easy.",
+                  quote:
+                    "Booking.com is the most straightforward platform to work with. Everything is clear, and it's easy.",
                   image: "/Ma.jpg",
                   name: "Martin Fieldman",
-                  title: "Managing Director, Abodebed"
+                  title: "Managing Director, Abodebed",
                 },
                 {
-                  quote: "Booking.com accounts for our largest share of guests and has helped get us where we are today.",
+                  quote:
+                    "Booking.com accounts for our largest share of guests and has helped get us where we are today.",
                   image: "/Zo.jpg",
                   name: "Michel and Asja",
-                  title: "Owners of La Maison de Souhey"
+                  title: "Owners of La Maison de Souhey",
                 },
                 {
-                  quote: "Travelers come to Charming Lofts from all over the world. Booking.com really helps with that.",
+                  quote:
+                    "Travelers come to Charming Lofts from all over the world. Booking.com really helps with that.",
                   image: "/Ch.jpg",
                   name: "Louis Gonzalez",
-                  title: "Charming Lofts, Los Angeles"
+                  title: "Charming Lofts, Los Angeles",
                 },
                 {
-                  quote: "After joining Booking.com, my occupancy went up significantly.",
+                  quote:
+                    "After joining Booking.com, my occupancy went up significantly.",
                   image: "/Ow.jpg",
                   name: "Zoey Berghoff",
-                  title: "US-based host"
+                  title: "US-based host",
                 },
                 {
-                  quote: "Getting started with Booking.com was super simple and took no time at all.",
+                  quote:
+                    "Getting started with Booking.com was super simple and took no time at all.",
                   image: "/Own.jpg",
                   name: "Shawn Ritzenthaler",
-                  title: "Owner of The Hollywood Hills Mansion"
-                }
+                  title: "Owner of The Hollywood Hills Mansion",
+                },
               ].map((testimonial, index) => (
-                <div key={index} className="p-6 bg-white border-2 border-yellow-500 rounded-lg hover:border-blue-500 shadow-lg transition-colors duration-300">
-                  <p className="text-lg italic mb-4 font-sans text-[#1a1a1a]">{testimonial.quote}</p>
+                <div
+                  key={index}
+                  className="p-6 bg-white border-2 border-yellow-500 rounded-lg hover:border-blue-500 shadow-lg transition-colors duration-300"
+                >
+                  <p className="text-lg italic mb-4 font-sans text-[#1a1a1a]">
+                    {testimonial.quote}
+                  </p>
                   <div className="flex items-center">
                     <div className="w-12 h-12 mr-4">
                       <Image
@@ -405,7 +440,9 @@ export default function List() {
                       <p className="text-base font-semibold text-gray-900 hover:underline cursor-pointer">
                         {testimonial.name}
                       </p>
-                      <p className="text-sm text-gray-500">{testimonial.title}</p>
+                      <p className="text-sm text-gray-500">
+                        {testimonial.title}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -415,7 +452,10 @@ export default function List() {
         </div>
 
         {/* Questions Answered Section */}
-        <section id="questions-answered" className="w-full bg-white text-black py-8">
+        <section
+          id="questions-answered"
+          className="w-full bg-white text-black py-8"
+        >
           <div className="px-4 max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Your questions answered</h2>
 
@@ -432,10 +472,11 @@ export default function List() {
                   <AccordionContent>
                     <p className="text-base text-gray-700 mt-2">
                       Property owners can request damage deposits from guests.
-                      Deposits help cover any potential damage caused by a guest,
-                      offering some reassurance that your property will be treated
-                      respectfully. If anything goes wrong, it can be reported to
-                      our team through our misconduct reporting feature.
+                      Deposits help cover any potential damage caused by a
+                      guest, offering some reassurance that your property will
+                      be treated respectfully. If anything goes wrong, it can be
+                      reported to our team through our misconduct reporting
+                      feature.
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -453,7 +494,7 @@ export default function List() {
                   <AccordionContent>
                     <p className="text-base text-gray-700 mt-2">
                       Your property will go online once the listing has been
-                      reviewed and approved by our team. You'll receive a
+                      reviewed and approved by our team. You&apos;ll receive a
                       notification when it is live.
                     </p>
                   </AccordionContent>
@@ -474,4 +515,3 @@ export default function List() {
     </div>
   );
 }
-
