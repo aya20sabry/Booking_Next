@@ -141,7 +141,7 @@ function Bookings() {
                     <div className="flex-grow p-4 sm:p-6 flex flex-col justify-between">
                       <div>
                         <h2 className="text-xl font-semibold mb-2">
-                          {booking.hotelName}
+                          {hotels[booking.host_id]?.name?.en}
                         </h2>
                         <div className="flex items-center text-muted-foreground mb-2">
                           <MapPin className="w-4 h-4 mr-1" />
