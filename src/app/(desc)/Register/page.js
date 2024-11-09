@@ -43,7 +43,7 @@ const Register = () => {
         if (password) {
           await registerUser(email, password, username);
         } else {
-          setError(t("Password is required for registration."));
+          setError("Password is required for registration.");
         }
       } else {
         setEmailExists(true);
@@ -123,7 +123,7 @@ const Register = () => {
         t(
           "Password must be at least 10 characters long and include uppercase, lowercase letters, and numbers."
         )
-      ); // Translated error message
+      );
     } else if (!emailExists && password !== confirmPassword) {
       setError(t("Passwords do not match."));
     } else {
@@ -149,7 +149,7 @@ const Register = () => {
         { email: storedEmail }
       );
       if (response.data.message === "Email sent successfully") {
-        setSuccessMessage(t("Check your email for the password reset link.")); // Translated success message
+        setSuccessMessage(t("Check your email for the password reset link."));
       }
     } catch (error) {
       setError(
@@ -168,11 +168,7 @@ const Register = () => {
               <h4 className="font-bold py-2 text-2xl">
                 {t("Create password")}
               </h4>
-              <h4 className="py-2">
-                {t(
-                  "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers."
-                )}
-              </h4>
+              <h4 className="py-2">{t("confirm_password_prompt")}</h4>
               <div>
                 <label
                   htmlFor="username"

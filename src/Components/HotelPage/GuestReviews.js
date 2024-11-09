@@ -135,7 +135,7 @@ const GuestReviews = ({ hotel }) => {
         <>
           <div className="py-2 flex items-center gap-2 mb-4">
             <span className="text-sm px-2 py-2 font-bold mr-2 bg-blue-900 text-white rounded">
-              {ratingCategory}
+              {Math.round(ratingCategory)}
             </span>
             <h2 className="font-semibold text-base text-black">
               {getRatingCategory(ratingCategory)}

@@ -439,7 +439,7 @@ export default function Home() {
         <div className="flex justify-start items-start flex-col px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           <Heading title={t("getInspirationForYourNextTrip")} />
         </div>
-        <div className="flex flex-col lg:flex-row space-y-4 mt-4 lg:space-y-0 lg:space-x-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
+        <div className="flex flex-col lg:flex-row space-y-4 mt-4 lg:space-y-0 lg:space-x-4 rtl:lg:space-x-reverse px-4 sm:px-8 md:px-16 lg:px-24 xl:px-48">
           {/* Large Card */}
           <div className="w-full lg:w-1/2 overflow-hidden rounded-lg">
             <div
@@ -448,6 +448,7 @@ export default function Home() {
                 backgroundImage: `url(${People.src})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
+                minHeight: "400px",
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
@@ -465,10 +466,10 @@ export default function Home() {
           </div>
 
           {/* Small Cards */}
-          <div className="flex flex-col sm:flex-row lg:w-1/2 space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row lg:w-1/2 space-y-4 sm:space-y-0 sm:space-x-4 rtl:sm:space-x-reverse">
             {/* First Card */}
             <div className="w-full sm:w-1/2">
-              <div className=" rounded-lg  overflow-hidden">
+              <div className="rounded-lg overflow-hidden">
                 <Image
                   className="object-cover rounded-lg w-full h-48 sm:h-40 lg:h-60"
                   src={Japan.src}
@@ -489,7 +490,7 @@ export default function Home() {
 
             {/* Second Card */}
             <div className="w-full sm:w-1/2">
-              <div className=" rounded-lg  overflow-hidden">
+              <div className="rounded-lg overflow-hidden">
                 <Image
                   className="object-cover rounded-lg w-full h-48 sm:h-40 lg:h-60"
                   src={Asia.src}
@@ -528,8 +529,8 @@ export default function Home() {
                 <Properties
                   id={property._id}
                   imageSrc={property.images[3]}
-                  title={property.name.en}
-                  location={property.location.city.en}
+                  title={property.name[locale]}
+                  location={property.location.city[locale]}
                   nights={property.HouseRules.PricePerNight}
                   toggleFavorite={() => toggleFavorite(property)}
                   reviews={property.AverageRating}

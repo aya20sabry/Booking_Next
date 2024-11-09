@@ -104,7 +104,25 @@ function OverView({ hotel, amenities }) {
         console.error("Failed to copy link:", err);
       });
   };
+  function collectRatings(reviews) {
+    return reviews?.map((review) => review.rating) || [];
+  }
 
+  const ratings = collectRatings(reviews);
+  function calculateRatingCategory(ratings) {
+    if (!ratings || ratings.length === 0) return 0;
+    const totalScore = ratings.reduce((sum, rating) => sum + rating, 0);
+    const averageRating = totalScore / ratings.length;
+    return averageRating;
+  }
+  const ratingCategory = calculateRatingCategory(ratings);
+  function getRatingCategory(rating) {
+    if (rating >= 8) return t("excellent");
+    if (rating >= 7) return t("very_good");
+    if (rating >= 6) return t("good");
+    if (rating >= 5) return t("average");
+    return t("poor");
+  }
   return (
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -183,11 +201,11 @@ function OverView({ hotel, amenities }) {
                 <div className="flex justify-end items-center mb-1 border-b p-3">
                   <div className="mr-2 flex flex-col justify-center">
                     <h2 className="text-base font-semibold">
-                      {hotel?.AverageRating > 4
+                      {ratingCategory > 4
                         ? t("excellent")
-                        : hotel?.AverageRating > 3
+                        : ratingCategory > 3
                         ? t("very_good")
-                        : hotel?.AverageRating == 0
+                        : ratingCategory == 0
                         ? t("no_reviews_yet")
                         : t("good")}
                     </h2>
@@ -196,7 +214,7 @@ function OverView({ hotel, amenities }) {
                     </p>
                   </div>
                   <p className="bg-[#003B95] text-white font-bold rounded px-2 py-1 text-lg mx-2">
-                    {hotel?.AverageRating}
+                    {ratingCategory}
                   </p>
                 </div>
                 <div className="px-2 py-1">

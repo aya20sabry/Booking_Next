@@ -18,9 +18,6 @@ const ReviewCard = ({ review }) => {
         </div>
       </div>
       <p className="text-sm mb-2">&quot;{review?.comment?.en}&quot;</p>
-      <a href="#" className="text-blue-500 text-sm hover:underline">
-        {t("read_more")}
-      </a>
     </div>
   );
 };

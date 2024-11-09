@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { FavoritesContext } from "@/Context/favoritesContext";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 function Properties({
   id,
@@ -17,6 +18,7 @@ function Properties({
   newPrice,
   reviewsCount,
 }) {
+  const t = useTranslations("Hotel");
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
   const isFavorite = favorites.some((fav) => fav.title === title);
 
@@ -57,19 +59,21 @@ function Properties({
         </div>
         <div className="flex flex-col flex-grow p-4">
           <h5 className="text-lg font-bold mb-2">{title}</h5>
-          <p className="text-gray-600 mb-2 text-sm">{location} , Egypt</p>
+          <p className="text-gray-600 mb-2 text-sm">
+            {location} , {t("Egypt")}
+          </p>
           <div className="flex items-center mb-2">
             <span className="mainColor text-white text-xs font-bold rounded px-2 py-1">
-              {reviews ? reviews : "New"}
+              {reviews ? reviews : `${t("New")}`}
             </span>
             <span className="ml-2 text-gray-500 text-sm">
-              {reviewsCount} reviews
+              {reviewsCount} {t("reviews")}
             </span>
           </div>
         </div>
         <div className="text-gray-900 p-4 flex flex-wrap items-end justify-end mt-auto">
           <div className="flex items-center space-x-1 ">
-            <span className=" text-gray-500 text-xs">Starting from</span>
+            <span className=" text-gray-500 text-xs">{t("Starting from")}</span>
             <span className="font-bold text-base"> EGP {nights}</span>
           </div>
         </div>

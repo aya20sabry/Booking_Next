@@ -140,7 +140,10 @@
     "cash": "نقدا",
     "fine_print": "شروط مفصلة",
     "fine_print_description": "معلومات يحتاج الضيوف لمعرفتها في مكان الإقامة هذا",
-    "be_the_first_to_review": "كن أول من يقيم هذا العقار"
+    "be_the_first_to_review": "كن أول من يقيم هذا العقار",
+    "Egypt": "مصر",
+    "Starting from": "متوسط الأسعار",
+    "New": "جديد"
   },
   "Book": {
     "your_booking_details": "تفاصيل حجزك",
@@ -275,7 +278,8 @@
     "Email is required for password reset.": "البريد الإلكتروني مطلوب لإعادة تعيين كلمة المرور.",
     "Check your email for the password reset link.": "تحقق من بريدك الإلكتروني للحصول على رابط إعادة تعيين كلمة المرور.",
     "An error occurred while sending the password reset request.": "حدث خطأ أثناء إرسال طلب إعادة تعيين كلمة المرور.",
-    "enter_password_prompt": "يرجى إدخال كلمة مرور Booking.com الخاصة بك لـ"
+    "enter_password_prompt": "يرجى إدخال كلمة مرور Booking.com الخاصة بك لـ",
+    "confirm_password_prompt": "استخدم 10 أحرف على الأقل، بما في ذلك الأحرف الكبيرة والصغيرة والأرقام."
   },
   "Reset": {
     "Reset Password": "إعادة تعيين كلمة المرور",

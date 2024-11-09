@@ -139,7 +139,10 @@
     "we_have_an_instant_answer_to_most_questions": "We have an instant answer to most questions",
     "good": "Good",
     "excellent": "Excellent",
-    "be_the_first_to_review": "Be the first to review this property"
+    "be_the_first_to_review": "Be the first to review this property",
+    "Egypt": "Egypt",
+    "Starting from": "Starting from",
+    "New": "New"
   },
   "Book": {
     "your_booking_details": "Your booking details",
@@ -278,7 +281,11 @@
     "Forgot Password?": "Forgot Password?",
     "Log In": "Log In",
     "Register": "Register",
-    "enter_password_prompt": "Please enter your Booking.com password for"
+    "enter_password_prompt": "Please enter your Booking.com password for",
+    "Create Password": "Create Password",
+    "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.": "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.",
+    "Password required": "Password is required for registration.",
+    "confirm_password_prompt": "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers."
   },
   "Reset": {
     "resetError": "An error occurred while resetting the password",

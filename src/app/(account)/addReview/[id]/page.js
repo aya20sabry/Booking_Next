@@ -54,8 +54,20 @@ function AddReview() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const reviewData = {
+      const doubledRatings = {
         ...formData,
+        rating: formData.rating * 2,
+        categories: Object.entries(formData.categories).reduce(
+          (acc, [key, value]) => ({
+            ...acc,
+            [key]: value * 2,
+          }),
+          {}
+        ),
+      };
+
+      const reviewData = {
+        ...doubledRatings,
         hotelId: id,
         userId: userId,
       };
