@@ -214,7 +214,7 @@ function OverView({ hotel, amenities }) {
                     </p>
                   </div>
                   <p className="bg-[#003B95] text-white font-bold rounded px-2 py-1 text-lg mx-2">
-                    {ratingCategory}
+                    {Math.round(ratingCategory)}
                   </p>
                 </div>
                 <div className="px-2 py-1">
