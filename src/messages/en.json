@@ -285,7 +285,8 @@
     "Create Password": "Create Password",
     "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.": "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.",
     "Password required": "Password is required for registration.",
-    "confirm_password_prompt": "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers."
+    "confirm_password_prompt": "Use a minimum of 10 characters, including uppercase letters, lowercase letters, and numbers.",
+    "Check your email for the password reset link.": "Check your email for the password reset link."
   },
   "Reset": {
     "resetError": "An error occurred while resetting the password",
@@ -296,6 +297,11 @@
     "enterNewPassword": "Enter your new password",
     "confirmPassword": "Confirm Password",
     "confirmNewPassword": "Confirm your new password",
-    "resetSuccess": "Your password has been reset successfully"
+    "resetSuccess": "Your password has been reset successfully",
+    "Reset Password": "Reset Password",
+    "New Password": "New Password",
+    "Enter your new password": "Enter your new password",
+    "Confirm Password": "Confirm Password",
+    "Confirm your new password": "Confirm your new password"
   }
 }
